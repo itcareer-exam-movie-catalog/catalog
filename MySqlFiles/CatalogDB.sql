@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `publishers`
     `name` VARCHAR(128) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS `genres`
+CREATE TABLE IF NOT EXISTS `category`
 (
 	`id` INT(3) AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(128) NOT NULL
@@ -43,12 +43,11 @@ CREATE TABLE IF NOT EXISTS `books`
     `publisherId` int(3) NOT NULL,
     `pages` int(3) NOT NULL,
     `publicationYear` DATE NOT NULL,
-    `genreId` int(3) NOT NULL,
+    `categoryId` varchar(128) NOT NULL,
     `price` decimal(5, 2) NOT NULL,
     `photo` LONGBLOB,
     FOREIGN KEY (`publisherId`) REFERENCES `publishers`(`id`),
-    FOREIGN KEY (`authorId`) REFERENCES `authors`(`id`),
-    FOREIGN KEY (`genreId`) REFERENCES `genres`(`id`)
+    FOREIGN KEY (`authorId`) REFERENCES `authors`(`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `movies`
@@ -56,13 +55,10 @@ CREATE TABLE IF NOT EXISTS `movies`
 	`id` int(3) AUTO_INCREMENT PRIMARY KEY,
     `title` varchar(128) NOT NULL,
     `directorId` int(3) NOT NULL,
-    `actorId` int(3) NOT NULL,
-    `pages` int NOT NULL,
+    `actorId` varchar(128) NOT NULL,
     `publicationYear` DATE NOT NULL,
-    `genreId` int(3) NOT NULL,
+    `categoryId` varchar(128) NOT NULL,
     `price` decimal(5, 2) NOT NULL,
     `photo` LONGBLOB,
-    FOREIGN KEY (`actorId`) REFERENCES `actors`(`id`),
-    FOREIGN KEY (`directorId`) REFERENCES `directors`(`id`),
-    FOREIGN KEY (`genreId`) REFERENCES `genres`(`id`)
+    FOREIGN KEY (`directorId`) REFERENCES `directors`(`id`)
 );
