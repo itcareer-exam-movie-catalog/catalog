@@ -10,10 +10,12 @@ What category **** are you looking for?
 4.Romance
 5.Drama
 6.Horror
-7.Write the name
-8.Write the author
-9.Exit
-10.Go back
+7.Write the category's name
+8.Write the author/producer's name
+//9th option "Write the actor's name" exists only if the selected first option was "Movie"
+9.Write the actor's name
+10.Exit
+11.Go back
 
 //If 1-6th option was selected:
 Here are the some of the names;
@@ -28,6 +30,17 @@ Press their number for more information on the movie/book.
 
 //If 8th option was selected:
 Here are some of the author's movies/books;
+Press their number for more information about them.
+1. ....
+2. ....
+3. ....
+....
+....
+**.Exit
+**+1.Go Back
+
+//If 9th option was selected:
+Here are some of the movies where the actor has starred;
 Press their number for more information about them.
 1. ....
 2. ....
