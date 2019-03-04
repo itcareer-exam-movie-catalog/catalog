@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS `books`
     `price` decimal(5, 2) NOT NULL,
     `photo` LONGBLOB,
     FOREIGN KEY (`publisherId`) REFERENCES `publishers`(`id`),
-    FOREIGN KEY (`authorIds`) REFERENCES `authors`(`id`),
-    FOREIGN KEY (`genreIds`) REFERENCES `genres`(`id`)
+    FOREIGN KEY (`authorId`) REFERENCES `authors`(`id`),
+    FOREIGN KEY (`genreId`) REFERENCES `genres`(`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `movies`
@@ -64,5 +64,5 @@ CREATE TABLE IF NOT EXISTS `movies`
     `photo` LONGBLOB,
     FOREIGN KEY (`actorId`) REFERENCES `actors`(`id`),
     FOREIGN KEY (`directorId`) REFERENCES `directors`(`id`),
-    FOREIGN KEY (`genreIds`) REFERENCES `genres`(`id`)
+    FOREIGN KEY (`genreId`) REFERENCES `genres`(`id`)
 );
