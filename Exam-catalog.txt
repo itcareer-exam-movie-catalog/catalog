@@ -1,0 +1,48 @@
+What're you looking for?
+1.Movie
+2.Book
+3.Nothing
+
+What category **** are you looking for?
+1.Action
+2.Adventure
+3.Mystery
+4.Romance
+5.Drama
+6.Horror
+7.Write the name
+8.Write the author
+9.Exit
+10.Go back
+
+//If 1-6th option was selected:
+Here are the some of the names;
+Press their number for more information on the movie/book.
+1. ....
+2. ....
+3. ....
+...
+...
+**.Exit
+**+1.Go Back
+
+//If 8th option was selected:
+Here are some of the author's movies/books;
+Press their number for more information about them.
+1. ....
+2. ....
+3. ....
+....
+....
+**.Exit
+**+1.Go Back
+
+Information about ****
+....
+....
+....
+1.Go back to titles
+2.Go back to categories
+3.Go back to movie/book selection
+4.Exit
+

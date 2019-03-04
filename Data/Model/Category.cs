@@ -2,7 +2,7 @@
 
 namespace Data.Model
 {
-    public class Genre
+    public class Category
     {
         [Key, Required]
         public int id { get; set; }

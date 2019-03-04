@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `books`
     `publisherId` int NOT NULL,
     `pages` int NOT NULL,
     `publicationYear` int NOT NULL,
-    `genreIds` varchar(128) NOT NULL,
+    `categoryIds` varchar(128) NOT NULL,
     `price` decimal(5, 2) NOT NULL,
     `photo` LONGBLOB
 );
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `publishers`
     `name` VARCHAR(128) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS `genres`
+CREATE TABLE IF NOT EXISTS `categories`
 (
 	`id` INT AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(128) NOT NULL

@@ -67,7 +67,7 @@
   <ItemGroup>
     <Compile Include="Businesses\BusinessAuthor.cs" />
     <Compile Include="Businesses\BusinessBook.cs" />
-    <Compile Include="Businesses\BusinessGenre.cs" />
+    <Compile Include="Businesses\BusinessCategory.cs" />
     <Compile Include="Businesses\BusinessPublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

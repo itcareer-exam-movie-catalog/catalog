@@ -68,7 +68,7 @@
     <Compile Include="cDbContext.cs" />
     <Compile Include="Model\Author.cs" />
     <Compile Include="Model\Book.cs" />
-    <Compile Include="Model\Genre.cs" />
+    <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Publisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

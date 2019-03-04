@@ -6,40 +6,40 @@ using System.Linq;
 
 namespace Business.Bussiness
 {
-    public class BusinessGenre
+    public class BusinessCategory
     {
         private cDbContext cDbContext;
         
-        public void addNewGenre(Genre genre)
+        public void addNewGenre(Category category)
         {
             using (cDbContext = new cDbContext())
             {
-                cDbContext.genres.Add(genre);
+                cDbContext.categories.Add(category);
                 cDbContext.SaveChanges();
             }
         }
         
-        public Genre getGenre(int id)
+        public Category getCategory(int id)
         {
             using (cDbContext = new cDbContext())
             {
-                foreach (Genre genre in cDbContext.genres)
+                foreach (Category category in cDbContext.categories)
                 {
-                    if (id == genre.id)
+                    if (id == category.id)
                     {
-                        return genre;
+                        return category;
                     }
                 }
             }
 
-            throw new InvalidOperationException("Genre with this id does not exist!");
+            throw new InvalidOperationException("Category with this id does not exist!");
         }
         
-        public List<Genre> getAllGenres()
+        public List<Category> getAllGenres()
         {
             using (cDbContext = new cDbContext())
             {
-                return cDbContext.genres.ToList();
+                return cDbContext.categories.ToList();
             }
         }
     }

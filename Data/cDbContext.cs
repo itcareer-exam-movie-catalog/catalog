@@ -10,7 +10,7 @@ namespace Data
 
         public DbSet<Book> books { get; set; }
         public DbSet<Author> authors { get; set; }
-        public DbSet<Genre> genres { get; set; }
+        public DbSet<Category> categories { get; set; }
         public DbSet<Publisher> publishers { get; set; }
     }
 }
