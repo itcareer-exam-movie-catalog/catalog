@@ -3,9 +3,10 @@ using System.Data.Entity;
 
 namespace Data
 {
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class cDbContext : DbContext
     {
-        public cDbContext() : base("server=localhost;port=3306;database=catalog;user=root;password=12357895") { }
+        public cDbContext() : base("name=cDbContext") { }
 
         public DbSet<Book> books { get; set; }
         public DbSet<Author> authors { get; set; }
