@@ -8,11 +8,11 @@ namespace Business.Businesses
 {
     public class BusinessDirectors
     {
-        private cDbContext database;
+        private CatalogDbContext database;
 
         public void add(Director director)
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 database.directors.Add(director);
             }
@@ -20,7 +20,7 @@ namespace Business.Businesses
 
         public Director getDirector(int id)
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 foreach (Director director in database.directors)
                 {
@@ -33,7 +33,7 @@ namespace Business.Businesses
 
         public List<Director> getAllDirectors()
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 return database.directors.ToList();
             }

@@ -65,7 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cDbContext.cs" />
+    <Compile Include="CatalogDbContext.cs" />
     <Compile Include="Model\Actor.cs" />
     <Compile Include="Model\Author.cs" />
     <Compile Include="Model\Book.cs" />

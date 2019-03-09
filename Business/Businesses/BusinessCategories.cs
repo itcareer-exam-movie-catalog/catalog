@@ -8,11 +8,11 @@ namespace Business.Businesses
 {
     public class BusinessCategories
     {
-        private cDbContext database;
+        private CatalogDbContext database;
 
         public void add(Category category)
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 database.categories.Add(category);
             }
@@ -20,7 +20,7 @@ namespace Business.Businesses
 
         public Category getCategory(int id)
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 foreach (Category category in database.categories)
                 {
@@ -33,7 +33,7 @@ namespace Business.Businesses
 
         public List<Category> getAllCategories()
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 return database.categories.ToList();
             }

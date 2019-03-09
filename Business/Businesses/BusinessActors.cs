@@ -8,11 +8,11 @@ namespace Business.Businesses
 {
     public class BusinessActors
     {
-        private cDbContext database;
+        private CatalogDbContext database;
 
         public void add(Actor actor)
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 database.actors.Add(actor);
             }
@@ -20,7 +20,7 @@ namespace Business.Businesses
 
         public Actor getActor(int id)
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 foreach (Actor actor in database.actors)
                 {
@@ -36,7 +36,7 @@ namespace Business.Businesses
 
         public List<Actor> getAllActors()
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 return database.actors.ToList();
             }

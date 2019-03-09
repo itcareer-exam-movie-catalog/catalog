@@ -10,11 +10,11 @@ namespace Business.Businesses
 {
     public class BusinessPublishers
     {
-        private cDbContext database;
+        private CatalogDbContext database;
 
         public void add(Publisher publisher)
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 database.publishers.Add(publisher);
             }
@@ -22,7 +22,7 @@ namespace Business.Businesses
 
         public Publisher getPublisher(int id)
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 foreach (Publisher publisher in database.publishers)
                 {
@@ -35,7 +35,7 @@ namespace Business.Businesses
 
         public List<Publisher> getAllPublishers()
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 return database.publishers.ToList();
             }

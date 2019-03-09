@@ -8,11 +8,11 @@ namespace Business.Businesses
 {
     public class BusinessMovies
     {
-        private cDbContext database;
+        private CatalogDbContext database;
 
         public void add(Movie movie)
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 database.movies.Add(movie);
             }
@@ -20,7 +20,7 @@ namespace Business.Businesses
 
         public Movie getMovie(int id)
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 foreach (Movie movie in database.movies)
                 {
@@ -33,7 +33,7 @@ namespace Business.Businesses
 
         public List<Movie> getAllMovies()
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 return database.movies.ToList();
             }

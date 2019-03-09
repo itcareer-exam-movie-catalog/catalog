@@ -8,11 +8,11 @@ namespace Business.Businesses
 {
     public class BusinessAuthors
     {
-        private cDbContext database;
+        private CatalogDbContext database;
 
         public void add(Author author)
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 database.authors.Add(author);
             }
@@ -20,7 +20,7 @@ namespace Business.Businesses
 
         public Author getAuthor(int id)
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 foreach (Author author in database.authors)
                 {
@@ -33,7 +33,7 @@ namespace Business.Businesses
 
         public List<Author> getAllAuthors()
         {
-            using (database = new cDbContext())
+            using (database = new CatalogDbContext())
             {
                 return database.authors.ToList();
             }
