@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class cDbContext : DbContext
     {
         public cDbContext() : base("name=cDbContext") { }

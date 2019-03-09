@@ -24,7 +24,10 @@ namespace Business.Businesses
             {
                 foreach (Actor actor in database.actors)
                 {
-                    return actor;
+                    if(id == actor.id)
+                    {
+                        return actor;
+                    }
                 }
             }
 
