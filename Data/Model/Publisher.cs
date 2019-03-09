@@ -7,7 +7,7 @@ namespace Data.Model
         [Key, Required]
         public int id { get; set; }
 
-        [Required]
+        [Required, StringLength(128)]
         public string name { get; set; }
     }
 }

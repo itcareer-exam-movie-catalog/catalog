@@ -1,8 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Data.Model
 {
-    public class Book
+    public class Movie
     {
         [Key, Required]
         public int id { get; set; }
@@ -11,16 +16,13 @@ namespace Data.Model
         public string title { get; set; }
 
         [Required]
-        public int authorId { get; set; }
-
-        [Required]
-        public int publisherId { get; set; }
-
-        [Required]
-        public int pages { get; set; }
+        public int directorId { get; set; }
 
         [Required]
         public int publicationYear { get; set; }
+
+        [Required, StringLength(128)]
+        public string actorIds { get; set; }
 
         [Required, StringLength(128)]
         public string categoryIds { get; set; }
