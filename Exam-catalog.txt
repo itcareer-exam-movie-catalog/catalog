@@ -59,3 +59,7 @@ Information about ****
 3.Go back to movie/book selection
 4.Exit
 
+
+//When exiting:
+Are you sure you want to leave?
+[Yes/No]
