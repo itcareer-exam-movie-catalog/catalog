@@ -17,7 +17,7 @@ What category **** are you looking for?
 10.Exit
 11.Go back
 
-//If 1-6th option was selected:
+//If 1-7th option was selected:
 Here are the some of the names;
 Press their number for more information on the movie/book.
 1. ....
