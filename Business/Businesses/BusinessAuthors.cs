@@ -10,27 +10,64 @@ namespace Business.Businesses
     {
         private CatalogDbContext database;
 
-        public void add(Author author)
+        /// <summary>
+        ///     Add new author to database
+        /// </summary>
+        /// <param name="author"></param>
+        public void AddAuthor(Author author)
         {
             using (database = new CatalogDbContext())
             {
                 database.authors.Add(author);
+                database.SaveChanges();
             }
         }
 
-        public Author getAuthor(int id)
+        /// <summary>
+        ///     Get author from database by id
+        /// </summary>
+        /// <param name="id"></param>
+        public Author GetAuthor(int id)
         {
             using (database = new CatalogDbContext())
             {
                 foreach (Author author in database.authors)
                 {
-                    return author;
+                    if (author.id == id)
+                    {
+                        return author;
+                    }
                 }
             }
 
             throw new Exception("Author with this id does not exist!");
         }
 
+        /// <summary>
+        ///     Delete author from database by id
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteActor(int id)
+        {
+            using (database = new CatalogDbContext())
+            {
+                foreach (Author author in database.authors)
+                {
+                    if(id == author.id)
+                    {
+                        database.authors.Remove(author);
+                        database.SaveChanges();
+                        return;
+                    }
+                }
+            }
+
+            throw new Exception("Author with this id does not exist!");
+        }
+
+        /// <summary>
+        ///     Get list of all authors from database by id
+        /// </summary>
         public List<Author> getAllAuthors()
         {
             using (database = new CatalogDbContext())
