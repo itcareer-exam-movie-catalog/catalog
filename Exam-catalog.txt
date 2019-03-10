@@ -7,15 +7,16 @@ What category **** are you looking for?
 1.Action
 2.Adventure
 3.Mystery
-4.Romance
+4.Comedy
 5.Drama
 6.Horror
-7.Write the category's name
-8.Write the author/producer's name
-//9th option "Write the actor's name" exists only if the selected first option was "Movie"
-9.Write the actor's name
-10.Exit
-11.Go back
+7.Romance
+8.Write the category's name
+9.Write the author/producer's name
+//10th option "Write the actor's name" exists only if the selected first option was "Movie"
+10.Write the actor's name
+11.Exit
+12.Go back
 
 //If 1-6th option was selected:
 Here are the some of the names;
