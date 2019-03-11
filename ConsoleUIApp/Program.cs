@@ -9,7 +9,7 @@ namespace ConsoleUIApp
 
         static void Main(string[] args)
         {
-            Console.WriteLine(businessActors.getActor(1).firstName);
+            Console.WriteLine(businessActors.GetAllActors());
         }
     }
 }
