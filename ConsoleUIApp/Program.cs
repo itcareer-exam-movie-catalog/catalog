@@ -1,15 +1,18 @@
 ﻿using System;
-using Business.Businesses;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CatalogApp.ConsolePresentation;
 
 namespace ConsoleUIApp
 {
-    class Program
+    class StartUp
     {
-        public static BusinessActors businessActors = new BusinessActors();
-
         static void Main(string[] args)
         {
-            Console.WriteLine(businessActors.GetAllActors());
+            ConsoleDisplay d = new ConsoleDisplay();
+            d.Main();
         }
     }
 }

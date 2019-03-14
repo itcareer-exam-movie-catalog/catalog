@@ -30,6 +30,6 @@ namespace Data.Model
         [Required]
         public decimal price { get; set; }
 
-        public byte[] photo { get; set; }
+        //public byte[] photo { get; set; }
     }
 }
