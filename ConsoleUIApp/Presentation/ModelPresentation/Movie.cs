@@ -9,9 +9,9 @@ using Data;
 
 namespace CatalogApp.ConsolePresentation.ModelPresentation
 {
-    public class ConsoleMovie
+    public class Movie
     {
-        private ConsoleDisplay cDisplay = new ConsoleDisplay();
+        private Display cDisplay = new Display();
 
         /// <summary>
         /// Shows you the Movie menu and its categories.

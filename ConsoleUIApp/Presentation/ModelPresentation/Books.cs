@@ -7,16 +7,15 @@ using Data.Model;
 
 namespace CatalogApp.ConsolePresentation.ModelPresentation
 {
-    public class ConsoleBook
+    public class Book
     {
-        ConsoleDisplay cDisplay = new ConsoleDisplay();
+        Display cDisplay = new Display();
 
         public void ShowBookCategories()
         {
             /// <summary>
             /// Shows you the Book menu and its categories.
             /// </summary>
-
             int categoryNumSelect = 1;
             BusinessCategories businessCategory = new BusinessCategories();
 

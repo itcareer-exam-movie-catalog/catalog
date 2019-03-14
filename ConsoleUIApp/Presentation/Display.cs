@@ -3,15 +3,12 @@ using CatalogApp.ConsolePresentation.ModelPresentation;
 
 namespace CatalogApp.ConsolePresentation
 {
-    public class ConsoleDisplay
+    public class Display
     {
-        private static ConsoleBook cBook = new ConsoleBook();
-        private static ConsoleMovie cMovie = new ConsoleMovie();
+        private static Book cBook = new Book();
+        private static Movie cMovie = new Movie();
 
-        public ConsoleDisplay()
-        {
-
-        }
+        public Display() {}
 
         /// <summary>
         /// Main method of the program.
