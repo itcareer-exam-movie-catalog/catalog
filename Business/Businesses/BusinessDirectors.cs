@@ -11,9 +11,9 @@ namespace Business.Businesses
         private CatalogDbContext database;
 
         /// <summary>
-        ///     Add new director to database
+        /// Adds a new director to the database.
         /// </summary>
-        /// <param name="director"></param>
+        /// <param name="director">The director</param>
         public void Add(Director director)
         {
             using (database = new CatalogDbContext())
@@ -24,9 +24,9 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Get director from database by id
+        /// Gets the director from the database by his id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The director's id</param>
         public Director GetDirector(int id)
         {
             using (database = new CatalogDbContext())
@@ -44,7 +44,7 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Delete director from database by id
+        /// Deletes the director from the database by his id.
         /// </summary>
         /// <param name="id"></param>
         public void DeleteDirector(int id)
@@ -66,7 +66,7 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Get list of directors from database by id
+        /// Gets a list of all directors from the database.
         /// </summary>
         public List<Director> GetAllDirectors()
         {
