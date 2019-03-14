@@ -11,9 +11,9 @@ namespace Business.Businesses
         private CatalogDbContext database;
 
         /// <summary>
-        ///     Add new categoty to database
+        /// Adds a new categoty to the database.
         /// </summary>
-        /// <param name="category"></param>
+        /// <param name="category">The category</param>
         public void AddCategoty(Category category)
         {
             using (database = new CatalogDbContext())
@@ -24,9 +24,9 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Get category from database by id
+        /// Gets the category from the database by its id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The category's id</param>
         public Category GetCategory(int id)
         {
             using (database = new CatalogDbContext())
@@ -44,9 +44,9 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Delete category from database by id
+        /// Deletes a category from the database by its id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The category's id</param>
         public void DeleteCateory(int id)
         {
             using (database = new CatalogDbContext())
@@ -66,7 +66,7 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Get list of categories from database by id
+        /// Gets a list of all categories from the database.
         /// </summary>
         public List<Category> GetAllCategories()
         {
