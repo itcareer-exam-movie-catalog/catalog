@@ -11,9 +11,9 @@ namespace Business.Businesses
         private CatalogDbContext database;
 
         /// <summary>
-        ///     Add new movie to database
+        /// Adds a new movie to the database.
         /// </summary>
-        /// <param name="movie"></param>
+        /// <param name="movie">The movie</param>
         public void AddMovie(Movie movie)
         {
             using (database = new CatalogDbContext())
@@ -24,9 +24,9 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Get movie from database by id
+        /// Gets the movie from the database by its id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The movie's id</param>
         public Movie GetMovie(int id)
         {
             using (database = new CatalogDbContext())
@@ -44,9 +44,9 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Delete movie from database by id
+        /// Deletes the movie from the database by its id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The movie's id</param>
         public void DeleteMovie(int id)
         {
             using (database = new CatalogDbContext())
@@ -66,7 +66,7 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Get list of movies from database by id
+        /// Gets a list of all movies from the database.
         /// </summary>
         public List<Movie> GetAllMovies()
         {
@@ -77,7 +77,7 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        /// Gets all the movie based on the chosen category id.
+        /// Gets all the movies based on the chosen category id.
         /// </summary>
         /// <param name="categoryId">The category's id</param>
         public List<Movie> GetMoviesByCategory(int categoryId)
