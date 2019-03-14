@@ -11,9 +11,9 @@ namespace Business.Businesses
         private CatalogDbContext database;
 
         /// <summary>
-        ///     Add new book to database
+        /// Adds a new book to the database.
         /// </summary>
-        /// <param name="book"></param>
+        /// <param name="book">The book</param>
         public void AddBook(Book book)
         {
             using (database = new CatalogDbContext())
@@ -24,9 +24,9 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Get book from database by id
+        /// Gets the book from the database by its id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The book's id</param>
         public Book GetBook(int id)
         {
             using (database = new CatalogDbContext())
@@ -44,9 +44,9 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Delete book from database by id
+        /// Deletes the book from the database by its id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The book's id</param>
         public void DeleteBook(int id)
         {
             using (database = new CatalogDbContext())
@@ -66,7 +66,7 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Get list of books from database by id
+        /// Gets a list of all the books from the database.
         /// </summary>
         public List<Book> GetAllBooks()
         {
