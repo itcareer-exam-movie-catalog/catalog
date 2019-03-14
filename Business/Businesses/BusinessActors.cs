@@ -11,7 +11,7 @@ namespace Business.Businesses
         private CatalogDbContext database;
 
         /// <summary>
-        ///     Add new actor to database
+        /// Adds a new actor to the database.
         /// </summary>
         /// <param name="actor"></param>
         public void AddActor(Actor actor)
@@ -24,9 +24,9 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Get actor from database by id
+        /// Gets the actor from the database by his id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The actor's id</param>
         public Actor GetActor(int id)
         {
             using (database = new CatalogDbContext())
@@ -44,9 +44,9 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Delete actor from database by id
+        /// Deletes the actor from the database by id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The actor's id</param>
         public void DeleteActor(int id)
         {
             using (database = new CatalogDbContext())
@@ -66,7 +66,7 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Get list of all authors from database by id
+        /// Gets a list of all the actors from the database.
         /// </summary>
         public List<Actor> GetAllActors()
         {
