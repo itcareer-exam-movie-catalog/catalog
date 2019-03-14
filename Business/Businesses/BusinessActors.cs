@@ -75,5 +75,26 @@ namespace Business.Businesses
                 return database.actors.ToList();
             }
         }
+
+        /// <summary>
+        /// Finds the actor's id based on his first and last name.
+        /// </summary>
+        /// <param name="actorFirstName">The actor's first name</param>
+        /// <param name="actorLastName">The actor's last name</param>
+        public int FindActorId(string actorFirstName, string actorLastName)
+        {
+            using (database = new CatalogDbContext())
+            {
+                foreach (Actor actor in database.actors)
+                {
+                    if (actor.firstName.ToLower() == actorFirstName.ToLower() && actor.lastName.ToLower() == actorLastName.ToLower())
+                    {
+                        return actor.id;
+                    }
+                }
+            }
+
+            throw new Exception("Actor with this names does not exist!");
+        }
     }
 }

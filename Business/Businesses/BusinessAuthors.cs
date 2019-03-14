@@ -68,12 +68,33 @@ namespace Business.Businesses
         /// <summary>
         ///     Get list of all authors from database by id
         /// </summary>
-        public List<Author> getAllAuthors()
+        public List<Author> GetAllAuthors()
         {
             using (database = new CatalogDbContext())
             {
                 return database.authors.ToList();
             }
+        }
+
+        /// <summary>
+        /// Finds the author's id based on his first and last name.
+        /// </summary>
+        /// <param name="authorFirstName">The author's first name</param>
+        /// <param name="authorLastName">The author's last name</param>
+        public int FindAuthorId(string authorFirstName, string authorLastName)
+        {
+            using (database = new CatalogDbContext())
+            {
+                foreach (Author author in database.authors)
+                {
+                    if (author.firstName.ToLower() == authorFirstName.ToLower() && author.lastName.ToLower() == authorLastName.ToLower())
+                    {
+                        return author.id;
+                    }
+                }
+            }
+
+            throw new Exception("Author with this name does not exist!");
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Business.Businesses
         ///     Add new director to database
         /// </summary>
         /// <param name="director"></param>
-        public void add(Director director)
+        public void Add(Director director)
         {
             using (database = new CatalogDbContext())
             {
@@ -27,7 +27,7 @@ namespace Business.Businesses
         ///     Get director from database by id
         /// </summary>
         /// <param name="id"></param>
-        public Director getDirector(int id)
+        public Director GetDirector(int id)
         {
             using (database = new CatalogDbContext())
             {

@@ -68,7 +68,7 @@ namespace Business.Businesses
         /// <summary>
         ///     Get list of categories from database by id
         /// </summary>
-        public List<Category> getAllCategories()
+        public List<Category> GetAllCategories()
         {
             using (database = new CatalogDbContext())
             {

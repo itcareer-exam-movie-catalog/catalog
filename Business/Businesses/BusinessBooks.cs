@@ -75,5 +75,125 @@ namespace Business.Businesses
                 return database.books.ToList();
             }
         }
+
+        /// <summary>
+        /// Gets all the books based on the chosen category id.
+        /// </summary>
+        /// <param name="categoryId">The category's id</param>
+        public List<Book> GetBooksByCategory(int categoryId)
+        {
+            List<Book> books = new List<Book>();
+            using (database = new CatalogDbContext())
+            {
+                foreach (Book book in database.books)
+                {
+                    List<int> booksCategory = book.categoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+                    if (booksCategory.Contains(categoryId))
+                    {
+                        books.Add(book);
+                    }
+                }
+            }
+
+            return books;
+        }
+
+        /// <summary>
+        /// Gets all the books that contain the same key name/title.
+        /// </summary>
+        /// <param name="bookTitle">The book's entered name</param>
+        public List<Book> GetBooksByTitle(string bookTitle)
+        {
+            List<Book> booksWithSameName = new List<Book>();
+            using (database = new CatalogDbContext())
+            {
+                foreach (Book book in database.books)
+                {
+                    if (book.title.ToLower().Contains(bookTitle.ToLower()))
+                    {
+                        booksWithSameName.Add(book);
+                    }
+                }
+
+                if (booksWithSameName.Count != 0)
+                {
+                    return booksWithSameName;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets all the books that have been published by the entered publisher.
+        /// </summary>
+        /// <param name="publisherName">The publisher's name</param>
+        public List<Book> GetBooksByPublisher(string publisherName)
+        {
+            List<Book> publisherBooks = new List<Book>();
+            int publisherId = FindPublisherId(publisherName);
+
+            using (database = new CatalogDbContext())
+            {
+                foreach (Book book in database.books)
+                {
+                    if (book.publisherId == publisherId)
+                    {
+                        publisherBooks.Add(book);
+                    }
+                }
+            }
+
+            return publisherBooks;
+        }
+
+        /// <summary>
+        /// Finds the publisher's id based on his name.
+        /// </summary>
+        /// <param name="publisherName">The publisher's name</param>
+        private int FindPublisherId(string publisherName)
+        {
+            using (database = new CatalogDbContext())
+            {
+                foreach (Publisher publisher in database.publishers)
+                {
+                    if (publisher.name.ToLower() == publisherName.ToLower())
+                    {
+                        return publisher.id;
+                    }
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// Gets all the books based on their author's id
+        /// </summary>
+        /// <param name="authorId">The author's id</param>
+        public List<Book> GetBooksByAuthorId(int authorId)
+        {
+            if (authorId <= 0)
+            {
+                return new List<Book>();
+            }
+
+            List<Book> books = new List<Book>();
+
+            using (database = new CatalogDbContext())
+            {
+                foreach (Book book in database.books)
+                {
+                    if (book.authorId == authorId)
+                    {
+                        books.Add(book);
+                    }
+                }
+            }
+
+            return books;
+        }
     }
 }
