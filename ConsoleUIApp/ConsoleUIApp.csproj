@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Presentation\Display.cs" />
     <Compile Include="Presentation\ModelPresentation\Books.cs" />
-    <Compile Include="Presentation\ModelPresentation\Movie.cs" />
+    <Compile Include="Presentation\ModelPresentation\Movies.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -5,8 +5,8 @@ namespace CatalogApp.ConsolePresentation
 {
     public class Display
     {
-        private static Book cBook = new Book();
-        private static Movie cMovie = new Movie();
+        private static Books cBook = new Books();
+        private static Movies cMovie = new Movies();
 
         public Display() {}
 

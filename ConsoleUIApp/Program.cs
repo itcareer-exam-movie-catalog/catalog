@@ -11,7 +11,7 @@ namespace ConsoleUIApp
     {
         static void Main(string[] args)
         {
-            ConsoleDisplay d = new ConsoleDisplay();
+            Display d = new Display();
             d.Main();
         }
     }
