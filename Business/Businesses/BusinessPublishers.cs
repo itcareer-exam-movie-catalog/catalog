@@ -13,9 +13,9 @@ namespace Business.Businesses
         private CatalogDbContext database;
 
         /// <summary>
-        ///     Add new publisher to database
+        /// Adds a new publisher to the database.
         /// </summary>
-        /// <param name="publisher"></param>
+        /// <param name="publisher">The publisher</param>
         public void AddPublisher(Publisher publisher)
         {
             using (database = new CatalogDbContext())
@@ -26,9 +26,9 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Get publisher from database by id
+        /// Gets the publisher from the database by their id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The publisher's id</param>
         public Publisher GetPublisher(int id)
         {
             using (database = new CatalogDbContext())
@@ -46,9 +46,9 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Delete publisher from database by id
+        /// Deletes the publisher from the database by their id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The publisher's id</param>
         public void DeletePublisher(int id)
         {
             using (database = new CatalogDbContext())
@@ -68,7 +68,7 @@ namespace Business.Businesses
         }
 
         /// <summary>
-        ///     Get list of publishers from database by id
+        /// Gets a list of all publishers from the database.
         /// </summary>
         public List<Publisher> GetAllPublishers()
         {
