@@ -5,12 +5,12 @@ namespace Data.Model
     public class Author
     {
         [Key, Required]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required, StringLength(128)]
-        public string firstName { get; set; }
+        public string FirstName { get; set; }
 
         [Required, StringLength(128)]
-        public string lastName { get; set; }
+        public string LastName { get; set; }
     }
 }
