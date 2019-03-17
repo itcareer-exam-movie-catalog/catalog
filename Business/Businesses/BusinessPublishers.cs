@@ -20,7 +20,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                database.publishers.Add(publisher);
+                database.Publishers.Add(publisher);
                 database.SaveChanges();
             }
         }
@@ -33,9 +33,9 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Publisher publisher in database.publishers)
+                foreach (Publisher publisher in database.Publishers)
                 {
-                    if (id == publisher.id)
+                    if (id == publisher.Id)
                     {
                         return publisher;
                     }
@@ -53,11 +53,11 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Publisher publisher in database.publishers)
+                foreach (Publisher publisher in database.Publishers)
                 {
-                    if (id == publisher.id)
+                    if (id == publisher.Id)
                     {
-                        database.publishers.Remove(publisher);
+                        database.Publishers.Remove(publisher);
                         database.SaveChanges();
                         return;
                     }
@@ -74,7 +74,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                return database.publishers.ToList();
+                return database.Publishers.ToList();
             }
         }
     }

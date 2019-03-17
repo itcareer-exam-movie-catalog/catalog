@@ -15,11 +15,11 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         public void ShowBookCategories()
         {
             int categoryNumSelect = 1;
-            BusinessCategory businessCategory = new BusinessCategory();
+            BusinessCategories BusinessCategories = new BusinessCategories();
 
             Console.Clear();
             Console.WriteLine("Choose a category!");
-            foreach (Category category in businessCategory.GetAllCategories())
+            foreach (Category category in BusinessCategories.GetAllCategories())
             {
                 string currCategoryName = category.Name.ToLower();
                 currCategoryName = currCategoryName.First().ToString().ToUpper() + "" + currCategoryName.Substring(1);
@@ -102,8 +102,8 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             Console.Write("Enter the title of the book you want to search: ");
             string bookTitle = Console.ReadLine();
             int numSelection = 0;
-            BusinessBook businessBook = new BusinessBook();
-            List<Book> booksWithSimilarName = businessBook.GetBooksByTitle(bookTitle);
+            BusinessBooks businessBooks = new BusinessBooks();
+            List<Book> booksWithSimilarName = businessBooks.GetBooksByTitle(bookTitle);
 
             try
             {
@@ -159,14 +159,14 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             Console.Clear();
             Console.WriteLine(new string('-', 80));
 
-            BusinessCategory businessCategory = new BusinessCategory();
-            string category = businessCategory.GetCategory(selection).Name;
+            BusinessCategories BusinessCategories = new BusinessCategories();
+            string category = BusinessCategories.GetCategory(selection).Name;
 
             Console.WriteLine("Here are some of the names: ");
 
-            BusinessBook businessBook = new BusinessBook();
+            BusinessBooks businessBooks = new BusinessBooks();
 
-            List<Book> books = businessBook.GetBooksByCategory(selection);
+            List<Book> books = businessBooks.GetBooksByCategory(selection);
             foreach (Book book in books)
             {
                 Console.WriteLine(book.Title);
@@ -188,8 +188,8 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             Console.Write("Otherwise - Enter the title of the book you want to search: ");
             string bookTitle = Console.ReadLine();
             int numSelection = 0;
-            BusinessBook businessBook = new BusinessBook();
-            List<Book> booksWithSimilarName = businessBook.GetBooksByTitle(bookTitle);
+            BusinessBooks BusinessBooks = new BusinessBooks();
+            List<Book> booksWithSimilarName = BusinessBooks.GetBooksByTitle(bookTitle);
 
             try
             {
@@ -242,9 +242,9 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         private void ShowBookInformation(Book book)
         {
             Console.Clear();
-            BusinessCategory businessCategory = new BusinessCategory();
+            BusinessCategories BusinessCategories = new BusinessCategories();
 
-            BusinessPublisher publisherBusiness = new BusinessPublisher();
+            BusinessPublishers publisherBusiness = new BusinessPublishers();
             string publisher = publisherBusiness.GetPublisher(book.PublisherId).Name;
 
             List<string> categories = new List<string>();
@@ -253,11 +253,11 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 .Select(int.Parse).ToList();
             foreach (int categoryId in categoryIds)
             {
-                categories.Add(businessCategory.GetCategory(categoryId).Name);
+                categories.Add(BusinessCategories.GetCategory(categoryId).Name);
             }
 
-            BusinessAuthor businessAuthor = new BusinessAuthor();
-            Author author = businessAuthor.GetAuthor(book.AuthorId);
+            BusinessAuthors BusinessAuthors = new BusinessAuthors();
+            Author author = BusinessAuthors.GetAuthor(book.AuthorId);
             string authorName = author.FirstName + " " + author.LastName;
 
             Console.WriteLine("Here is some information about the movie of your choice:");
@@ -342,8 +342,8 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         {
             Console.Clear();
 
-            BusinessBook businessBook = new BusinessBook();
-            List<Book> publisherBooks = businessBook.GetBooksByPublisher(publisherName);
+            BusinessBooks BusinessBooks = new BusinessBooks();
+            List<Book> publisherBooks = BusinessBooks.GetBooksByPublisher(publisherName);
             if (publisherBooks.Count == 0)
             {
                 Console.WriteLine("The name that you entered is either invalid or the company hasn't published any books\n");
@@ -397,9 +397,9 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             if (authorFullName.Length == 1)
             {
                 List<Author> authorsWithSameName = new List<Author>();
-                BusinessAuthor businessAuthor = new BusinessAuthor();
+                BusinessAuthors BusinessAuthors = new BusinessAuthors();
 
-                foreach (Author author in businessAuthor.GetAllAuthors())
+                foreach (Author author in BusinessAuthors.GetAllAuthors())
                 {
                     if (author.FirstName.ToLower() == authorName.ToLower() || author.LastName.ToLower() == authorName.ToLower())
                     {
@@ -418,8 +418,8 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 string authorFirstName = authorFullName[0];
                 string authorLastName = authorFullName[1];
 
-                BusinessAuthor businessAuthor = new BusinessAuthor();
-                int authorId = businessAuthor.FindAuthorId(authorFirstName, authorLastName);
+                BusinessAuthors BusinessAuthors = new BusinessAuthors();
+                int authorId = BusinessAuthors.FindAuthorId(authorFirstName, authorLastName);
 
                 ShowAuthorBooks(authorId);
             }
@@ -470,8 +470,8 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 string authorFirstName = authorName[0];
                 string authorLastName = authorName[1];
 
-                BusinessAuthor businessAuthor = new BusinessAuthor();
-                int authorId = businessAuthor.FindAuthorId(authorFirstName, authorLastName);
+                BusinessAuthors BusinessAuthors = new BusinessAuthors();
+                int authorId = BusinessAuthors.FindAuthorId(authorFirstName, authorLastName);
 
                 ShowAuthorBooks(authorId);
             }
@@ -492,9 +492,9 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             Console.Clear();
             Console.WriteLine("Here are some of the books, that are written by the selected author");
 
-            BusinessBook businessBook = new BusinessBook();
+            BusinessBooks BusinessBooks = new BusinessBooks();
 
-            foreach (Book book in businessBook.GetBooksByAuthorId(authorId))
+            foreach (Book book in BusinessBooks.GetBooksByAuthorId(authorId))
             {
                 Console.WriteLine(book.Title);
             }

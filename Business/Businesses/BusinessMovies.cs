@@ -18,7 +18,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                database.movies.Add(movie);
+                database.Movies.Add(movie);
                 database.SaveChanges();
             }
         }
@@ -31,9 +31,9 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Movie movie in database.movies)
+                foreach (Movie movie in database.Movies)
                 {
-                    if (movie.id == id)
+                    if (movie.Id == id)
                     {
                         return movie;
                     }
@@ -51,11 +51,11 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Movie movie in database.movies)
+                foreach (Movie movie in database.Movies)
                 {
-                    if (movie.id == id)
+                    if (movie.Id == id)
                     {
-                        database.movies.Remove(movie);
+                        database.Movies.Remove(movie);
                         database.SaveChanges();
                         return; 
                     }
@@ -72,7 +72,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                return database.movies.ToList();
+                return database.Movies.ToList();
             }
         }
 
@@ -85,9 +85,9 @@ namespace Business.Businesses
             List<Movie> movies = new List<Movie>();
             using (database = new CatalogDbContext())
             {
-                foreach (Movie movie in database.movies)
+                foreach (Movie movie in database.Movies)
                 {
-                    List<int> moviesCategory = movie.categoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+                    List<int> moviesCategory = movie.CategoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
                     if (moviesCategory.Contains(categoryId))
                     {
                         movies.Add(movie);
@@ -107,9 +107,9 @@ namespace Business.Businesses
             List<Movie> moviesWithSameName = new List<Movie>();
             using (database = new CatalogDbContext())
             {
-                foreach (Movie movie in database.movies)
+                foreach (Movie movie in database.Movies)
                 {
-                    if (movie.title.ToLower().Contains(movieTitle.ToLower()))
+                    if (movie.Title.ToLower().Contains(movieTitle.ToLower()))
                     {
                         moviesWithSameName.Add(movie);
                     }
@@ -143,9 +143,9 @@ namespace Business.Businesses
                 {
                     int directorId = directorIds[0];
 
-                    foreach (Movie movie in database.movies)
+                    foreach (Movie movie in database.Movies)
                     {
-                        if (movie.directorId == directorId)
+                        if (movie.DirectorId == directorId)
                         {
                             directorMovies.Add(movie);
                         }
@@ -157,9 +157,9 @@ namespace Business.Businesses
                     {
                         int directorId = directorIds[i];
 
-                        foreach (Movie movie in database.movies)
+                        foreach (Movie movie in database.Movies)
                         {
-                            if (movie.directorId == directorId)
+                            if (movie.DirectorId == directorId)
                             {
                                 directorMovies.Add(movie);
                             }
@@ -193,11 +193,11 @@ namespace Business.Businesses
                     string directorFirstName = directorFullName[0];
                     string directorLastName = directorFullName[1];
 
-                    foreach (Director director in database.directors)
+                    foreach (Director director in database.Directors)
                     {
-                        if (director.firstName.ToLower() == directorFirstName.ToLower() && director.lastName.ToLower() == directorLastName.ToLower())
+                        if (director.FirstName.ToLower().Equals(directorFirstName.ToLower()) && director.LastName.ToLower().Equals(directorLastName.ToLower()))
                         {
-                            directorIds.Add(director.id);
+                            directorIds.Add(director.Id);
                         }
                     }
                 }
@@ -206,11 +206,11 @@ namespace Business.Businesses
                     string directorKnownName = directorFullName[0];
 
 
-                    foreach (Director director in database.directors)
+                    foreach (Director director in database.Directors)
                     {
-                        if (director.firstName.ToLower() == directorKnownName.ToLower() || director.lastName.ToLower() == directorKnownName.ToLower())
+                        if (director.FirstName.ToLower().Equals(directorKnownName.ToLower()) || director.LastName.ToLower().Equals(directorKnownName.ToLower()))
                         {
-                            directorIds.Add(director.id);
+                            directorIds.Add(director.Id);
                         }
                     }
                 }
@@ -238,9 +238,9 @@ namespace Business.Businesses
 
             using (database = new CatalogDbContext())
             {
-                foreach (Movie movie in database.movies)
+                foreach (Movie movie in database.Movies)
                 {
-                    List<int> actorIds = movie.actorIds
+                    List<int> actorIds = movie.ActorIds
                         .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                         .Select(int.Parse).ToList();
 

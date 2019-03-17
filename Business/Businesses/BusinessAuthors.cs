@@ -18,7 +18,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                database.authors.Add(author);
+                database.Authors.Add(author);
                 database.SaveChanges();
             }
         }
@@ -31,9 +31,9 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Author author in database.authors)
+                foreach (Author author in database.Authors)
                 {
-                    if (author.id == id)
+                    if (author.Id == id)
                     {
                         return author;
                     }
@@ -51,11 +51,11 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Author author in database.authors)
+                foreach (Author author in database.Authors)
                 {
-                    if(id == author.id)
+                    if(id == author.Id)
                     {
-                        database.authors.Remove(author);
+                        database.Authors.Remove(author);
                         database.SaveChanges();
                         return;
                     }
@@ -72,7 +72,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                return database.authors.ToList();
+                return database.Authors.ToList();
             }
         }
 
@@ -85,11 +85,11 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Author author in database.authors)
+                foreach (Author author in database.Authors)
                 {
-                    if (author.firstName.ToLower() == authorFirstName.ToLower() && author.lastName.ToLower() == authorLastName.ToLower())
+                    if (author.FirstName.ToLower().Equals(authorFirstName.ToLower()) && author.LastName.ToLower().Equals(authorLastName.ToLower()))
                     {
-                        return author.id;
+                        return author.Id;
                     }
                 }
             }

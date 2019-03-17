@@ -18,7 +18,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                database.directors.Add(director);
+                database.Directors.Add(director);
                 database.SaveChanges();
             }
         }
@@ -31,9 +31,9 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Director director in database.directors)
+                foreach (Director director in database.Directors)
                 {
-                    if (director.id == id)
+                    if (director.Id == id)
                     {
                         return director;
                     }
@@ -51,11 +51,11 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Director director in database.directors)
+                foreach (Director director in database.Directors)
                 {
-                    if (director.id == id)
+                    if (director.Id == id)
                     {
-                        database.directors.Remove(director);
+                        database.Directors.Remove(director);
                         database.SaveChanges();
                         return; ;
                     }
@@ -72,7 +72,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                return database.directors.ToList();
+                return database.Directors.ToList();
             }
         }
     }

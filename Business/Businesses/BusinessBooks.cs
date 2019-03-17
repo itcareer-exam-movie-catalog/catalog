@@ -18,7 +18,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                database.books.Add(book);
+                database.Books.Add(book);
                 database.SaveChanges();
             }
         }
@@ -31,9 +31,9 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Book book in database.books)
+                foreach (Book book in database.Books)
                 {
-                    if (id == book.id)
+                    if (id == book.Id)
                     {
                         return book;
                     }
@@ -51,11 +51,11 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Book book in database.books)
+                foreach (Book book in database.Books)
                 {
-                    if (id == book.id)
+                    if (id == book.Id)
                     {
-                        database.books.Remove(book);
+                        database.Books.Remove(book);
                         database.SaveChanges();
                         return;
                     }
@@ -72,7 +72,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                return database.books.ToList();
+                return database.Books.ToList();
             }
         }
 
@@ -85,9 +85,9 @@ namespace Business.Businesses
             List<Book> books = new List<Book>();
             using (database = new CatalogDbContext())
             {
-                foreach (Book book in database.books)
+                foreach (Book book in database.Books)
                 {
-                    List<int> booksCategory = book.categoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+                    List<int> booksCategory = book.CategoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
                     if (booksCategory.Contains(categoryId))
                     {
                         books.Add(book);
@@ -107,9 +107,9 @@ namespace Business.Businesses
             List<Book> booksWithSameName = new List<Book>();
             using (database = new CatalogDbContext())
             {
-                foreach (Book book in database.books)
+                foreach (Book book in database.Books)
                 {
-                    if (book.title.ToLower().Contains(bookTitle.ToLower()))
+                    if (book.Title.ToLower().Contains(bookTitle.ToLower()))
                     {
                         booksWithSameName.Add(book);
                     }
@@ -137,9 +137,9 @@ namespace Business.Businesses
 
             using (database = new CatalogDbContext())
             {
-                foreach (Book book in database.books)
+                foreach (Book book in database.Books)
                 {
-                    if (book.publisherId == publisherId)
+                    if (book.PublisherId == publisherId)
                     {
                         publisherBooks.Add(book);
                     }
@@ -157,11 +157,11 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Publisher publisher in database.publishers)
+                foreach (Publisher publisher in database.Publishers)
                 {
-                    if (publisher.name.ToLower() == publisherName.ToLower())
+                    if (publisher.Name.ToLower() == publisherName.ToLower())
                     {
-                        return publisher.id;
+                        return publisher.Id;
                     }
                 }
             }
@@ -184,9 +184,9 @@ namespace Business.Businesses
 
             using (database = new CatalogDbContext())
             {
-                foreach (Book book in database.books)
+                foreach (Book book in database.Books)
                 {
-                    if (book.authorId == authorId)
+                    if (book.AuthorId == authorId)
                     {
                         books.Add(book);
                     }

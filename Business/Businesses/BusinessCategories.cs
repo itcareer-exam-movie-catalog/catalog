@@ -18,7 +18,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                database.categories.Add(category);
+                database.Categories.Add(category);
                 database.SaveChanges();
             }
         }
@@ -31,9 +31,9 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Category category in database.categories)
+                foreach (Category category in database.Categories)
                 {
-                    if (id == category.id)
+                    if (id == category.Id)
                     {
                         return category;
                     }
@@ -51,11 +51,11 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Category category in database.categories)
+                foreach (Category category in database.Categories)
                 {
-                    if (id == category.id)
+                    if (id == category.Id)
                     {
-                        database.categories.Remove(category);
+                        database.Categories.Remove(category);
                         database.SaveChanges();
                         return;
                     }
@@ -72,7 +72,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                return database.categories.ToList();
+                return database.Categories.ToList();
             }
         }
     }

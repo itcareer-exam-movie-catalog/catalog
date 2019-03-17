@@ -18,7 +18,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                database.actors.Add(actor);
+                database.Actors.Add(actor);
                 database.SaveChanges();
             }
         }
@@ -31,9 +31,9 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Actor actor in database.actors)
+                foreach (Actor actor in database.Actors)
                 {
-                    if(id == actor.id)
+                    if(id == actor.Id)
                     {
                         return actor;
                     }
@@ -51,11 +51,11 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Actor actor in database.actors)
+                foreach (Actor actor in database.Actors)
                 {
-                    if (id == actor.id)
+                    if (id == actor.Id)
                     {
-                        database.actors.Remove(actor);
+                        database.Actors.Remove(actor);
                         database.SaveChanges();
                         return;
                     }
@@ -72,7 +72,7 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                return database.actors.ToList();
+                return database.Actors.ToList();
             }
         }
 
@@ -85,11 +85,11 @@ namespace Business.Businesses
         {
             using (database = new CatalogDbContext())
             {
-                foreach (Actor actor in database.actors)
+                foreach (Actor actor in database.Actors)
                 {
-                    if (actor.firstName.ToLower() == actorFirstName.ToLower() && actor.lastName.ToLower() == actorLastName.ToLower())
+                    if (actor.FirstName.ToLower().Equals(actorFirstName.ToLower()) && actor.LastName.ToLower().Equals(actorLastName.ToLower()))
                     {
-                        return actor.id;
+                        return actor.Id;
                     }
                 }
             }
