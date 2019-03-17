@@ -9,20 +9,19 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
     public class Books
     {
         Display cDisplay = new Display();
-
+        /// <summary>
+        /// Shows you the Book menu and its categories.
+        /// </summary>
         public void ShowBookCategories()
         {
-            /// <summary>
-            /// Shows you the Book menu and its categories.
-            /// </summary>
             int categoryNumSelect = 1;
-            BusinessCategories businessCategory = new BusinessCategories();
+            BusinessCategory businessCategory = new BusinessCategory();
 
             Console.Clear();
             Console.WriteLine("Choose a category!");
             foreach (Category category in businessCategory.GetAllCategories())
             {
-                string currCategoryName = category.name.ToLower();
+                string currCategoryName = category.Name.ToLower();
                 currCategoryName = currCategoryName.First().ToString().ToUpper() + "" + currCategoryName.Substring(1);
 
                 Console.WriteLine($"{categoryNumSelect}.{currCategoryName}");
@@ -89,7 +88,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
 
                 ShowBookCategories();
             }
-
+            
         }
 
         /// <summary>
@@ -103,7 +102,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             Console.Write("Enter the title of the book you want to search: ");
             string bookTitle = Console.ReadLine();
             int numSelection = 0;
-            BusinessBooks businessBook = new BusinessBooks();
+            BusinessBook businessBook = new BusinessBook();
             List<Book> booksWithSimilarName = businessBook.GetBooksByTitle(bookTitle);
 
             try
@@ -143,7 +142,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                     GoBackBookMenu();
                 }
             }
-            catch
+            catch 
             {
                 Console.WriteLine("There doesn't exist such book in our catalog.\n");
                 GoBackBookMenu();
@@ -160,17 +159,17 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             Console.Clear();
             Console.WriteLine(new string('-', 80));
 
-            BusinessCategories businessCategory = new BusinessCategories();
-            string category = businessCategory.GetCategory(selection).name;
+            BusinessCategory businessCategory = new BusinessCategory();
+            string category = businessCategory.GetCategory(selection).Name;
 
             Console.WriteLine("Here are some of the names: ");
 
-            BusinessBooks businessBook = new BusinessBooks();
+            BusinessBook businessBook = new BusinessBook();
 
             List<Book> books = businessBook.GetBooksByCategory(selection);
             foreach (Book book in books)
             {
-                Console.WriteLine(book.title);
+                Console.WriteLine(book.Title);
             }
             Console.WriteLine("1.Go back to categories");
             Console.WriteLine("2.Go back to movie/book menu");
@@ -189,7 +188,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             Console.Write("Otherwise - Enter the title of the book you want to search: ");
             string bookTitle = Console.ReadLine();
             int numSelection = 0;
-            BusinessBooks businessBook = new BusinessBooks();
+            BusinessBook businessBook = new BusinessBook();
             List<Book> booksWithSimilarName = businessBook.GetBooksByTitle(bookTitle);
 
             try
@@ -243,27 +242,27 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         private void ShowBookInformation(Book book)
         {
             Console.Clear();
-            BusinessCategories businessCategory = new BusinessCategories();
+            BusinessCategory businessCategory = new BusinessCategory();
 
-            BusinessPublishers publisherBusiness = new BusinessPublishers();
-            string publisher = publisherBusiness.GetPublisher(book.publisherId).name;
+            BusinessPublisher publisherBusiness = new BusinessPublisher();
+            string publisher = publisherBusiness.GetPublisher(book.PublisherId).Name;
 
             List<string> categories = new List<string>();
-            List<int> categoryIds = book.categoryIds
+            List<int> categoryIds = book.CategoryIds
                 .Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse).ToList();
             foreach (int categoryId in categoryIds)
             {
-                categories.Add(businessCategory.GetCategory(categoryId).name);
+                categories.Add(businessCategory.GetCategory(categoryId).Name);
             }
 
-            BusinessAuthors businessAuthor = new BusinessAuthors();
-            Author author = businessAuthor.GetAuthor(book.authorId);
-            string authorName = author.firstName + " " + author.lastName;
+            BusinessAuthor businessAuthor = new BusinessAuthor();
+            Author author = businessAuthor.GetAuthor(book.AuthorId);
+            string authorName = author.FirstName + " " + author.LastName;
 
             Console.WriteLine("Here is some information about the movie of your choice:");
-            Console.WriteLine($"Title: {book.title}");
-            Console.WriteLine($"Year released: {book.publicationYear}");
+            Console.WriteLine($"Title: {book.Title}");
+            Console.WriteLine($"Year released: {book.PublicationYear}");
             Console.WriteLine($"Publisher: {publisher}");
             Console.WriteLine($"Categories: {String.Join(", ", categories)}");
             Console.WriteLine($"Author: {String.Join(", ", authorName)}");
@@ -282,7 +281,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             int currentBookNumber = 1;
             foreach (Book book in booksWithSimilarName)
             {
-                Console.WriteLine($"{currentBookNumber}. {book.title}");
+                Console.WriteLine($"{currentBookNumber}. {book.Title}");
                 currentBookNumber++;
             }
             Console.WriteLine($"{currentBookNumber}. Go Back");
@@ -318,7 +317,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             {
                 Console.WriteLine("Invalid input. Please enter a number");
                 ShowBooksWithSimilarNames(booksWithSimilarName);
-            }
+            }           
         }
 
         /// <summary>
@@ -343,7 +342,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         {
             Console.Clear();
 
-            BusinessBooks businessBook = new BusinessBooks();
+            BusinessBook businessBook = new BusinessBook();
             List<Book> publisherBooks = businessBook.GetBooksByPublisher(publisherName);
             if (publisherBooks.Count == 0)
             {
@@ -356,7 +355,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
 
                 foreach (Book publisherBook in publisherBooks)
                 {
-                    Console.WriteLine(publisherBook.title);
+                    Console.WriteLine(publisherBook.Title);
                 }
                 Console.WriteLine("1.Go back to categories");
                 Console.WriteLine("2.Go back to movie/book menu");
@@ -398,14 +397,14 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             if (authorFullName.Length == 1)
             {
                 List<Author> authorsWithSameName = new List<Author>();
-                BusinessAuthors businessAuthor = new BusinessAuthors();
+                BusinessAuthor businessAuthor = new BusinessAuthor();
 
                 foreach (Author author in businessAuthor.GetAllAuthors())
                 {
-                    if (author.firstName.ToLower() == authorName.ToLower() || author.lastName.ToLower() == authorName.ToLower())
+                    if (author.FirstName.ToLower() == authorName.ToLower() || author.LastName.ToLower() == authorName.ToLower())
                     {
                         authorsWithSameName.Add(author);
-                        Console.WriteLine(author.firstName + " " + author.lastName);
+                        Console.WriteLine(author.FirstName + " " + author.LastName);
                     }
                 }
                 Console.WriteLine("1.Go back to categories");
@@ -419,7 +418,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 string authorFirstName = authorFullName[0];
                 string authorLastName = authorFullName[1];
 
-                BusinessAuthors businessAuthor = new BusinessAuthors();
+                BusinessAuthor businessAuthor = new BusinessAuthor();
                 int authorId = businessAuthor.FindAuthorId(authorFirstName, authorLastName);
 
                 ShowAuthorBooks(authorId);
@@ -471,7 +470,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 string authorFirstName = authorName[0];
                 string authorLastName = authorName[1];
 
-                BusinessAuthors businessAuthor = new BusinessAuthors();
+                BusinessAuthor businessAuthor = new BusinessAuthor();
                 int authorId = businessAuthor.FindAuthorId(authorFirstName, authorLastName);
 
                 ShowAuthorBooks(authorId);
@@ -493,11 +492,11 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             Console.Clear();
             Console.WriteLine("Here are some of the books, that are written by the selected author");
 
-            BusinessBooks businessBook = new BusinessBooks();
+            BusinessBook businessBook = new BusinessBook();
 
             foreach (Book book in businessBook.GetBooksByAuthorId(authorId))
             {
-                Console.WriteLine(book.title);
+                Console.WriteLine(book.Title);
             }
 
             Console.WriteLine("1.Go back to categories");
@@ -548,7 +547,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             catch
             {
                 GoBackErrorBookMenu();
-            }
+            }            
         }
 
         /// <summary>
