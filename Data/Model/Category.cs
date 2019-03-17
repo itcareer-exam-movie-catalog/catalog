@@ -5,9 +5,9 @@ namespace Data.Model
     public class Category
     {
         [Key, Required]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required, StringLength(128)]
-        public string name { get; set; }
+        public string Name { get; set; }
     }
 }
