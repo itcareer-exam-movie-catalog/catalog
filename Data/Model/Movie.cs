@@ -10,26 +10,26 @@ namespace Data.Model
     public class Movie
     {
         [Key, Required]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required, StringLength(128)]
-        public string title { get; set; }
+        public string Title { get; set; }
 
         [Required]
-        public int directorId { get; set; }
+        public int DirectorId { get; set; }
 
         [Required]
-        public int publicationYear { get; set; }
+        public int PublicationYear { get; set; }
 
         [Required, StringLength(128)]
-        public string actorIds { get; set; }
+        public string ActorIds { get; set; }
 
         [Required, StringLength(128)]
-        public string categoryIds { get; set; }
+        public string CategoryIds { get; set; }
 
         [Required]
-        public decimal price { get; set; }
+        public decimal Price { get; set; }
 
-        //public byte[] photo { get; set; }
+        //public byte[] Photo { get; set; }
     }
 }
