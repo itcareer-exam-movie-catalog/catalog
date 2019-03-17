@@ -17,6 +17,7 @@ namespace CatalogApp.ConsolePresentation
         {
             InitializeWindow();
             ShowMenuMovieBook();
+            
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace CatalogApp.ConsolePresentation
                     break;
                 default:
                     Console.WriteLine(new string('-', 80));
-                    ShowMenuMovieBook();
+                    ShowMenuMovieBook();                                      
                     break;
             }
         }
