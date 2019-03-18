@@ -10,6 +10,10 @@ namespace Business.Businesses
     {
         private CatalogDbContext database;
 
+        public BusinessDirectors()
+        {
+        }
+        
         /// <summary>
         /// Constructor that reupdates the database context.
         /// </summary>
