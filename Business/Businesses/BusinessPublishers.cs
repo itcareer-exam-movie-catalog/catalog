@@ -13,6 +13,22 @@ namespace Business.Businesses
         private CatalogDbContext database;
 
         /// <summary>
+        /// Constructor that reupdates the database context.
+        /// </summary>
+        public BusinessPublishers(CatalogDbContext cDbContext)
+        {
+         database = cDbContext;   
+        }
+        
+        /// <summary>
+        /// Returns the database context.
+        /// </summary>
+        public CatalogDbContext GetCatalogDbContext()
+        {
+         return database;   
+        }
+        
+        /// <summary>
         /// Adds a new publisher to the database.
         /// </summary>
         /// <param name="publisher">The publisher</param>
