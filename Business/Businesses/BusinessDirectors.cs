@@ -11,6 +11,22 @@ namespace Business.Businesses
         private CatalogDbContext database;
 
         /// <summary>
+        /// Constructor that reupdates the database context.
+        /// </summary>
+        public BusinessDirectors(CatalogDbContext cDbContext)
+        {
+         database = cDbContext;   
+        }
+        
+        /// <summary>
+        /// Returns the database context.
+        /// </summary>
+        public CatalogDbContext GetCatalogDbContext()
+        {
+         return database;   
+        }
+        
+        /// <summary>
         /// Adds a new director to the database.
         /// </summary>
         /// <param name="director">The director</param>
