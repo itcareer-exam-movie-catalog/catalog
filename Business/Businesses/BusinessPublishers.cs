@@ -12,6 +12,10 @@ namespace Business.Businesses
     {
         private CatalogDbContext database;
 
+        public BusinessPublishers()
+        {
+        }
+        
         /// <summary>
         /// Constructor that reupdates the database context.
         /// </summary>
