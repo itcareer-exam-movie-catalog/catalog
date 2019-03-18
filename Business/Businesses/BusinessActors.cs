@@ -9,6 +9,22 @@ namespace Business.Businesses
     public class BusinessActors
     {
         private CatalogDbContext database;
+        
+        /// <summary>
+        /// Constructor that reupdates the database context.
+        /// </summary>
+        public BusinessActors(CatalogDbContext cDbContext)
+        {
+         database = cDbContext;   
+        }
+        
+        /// <summary>
+        /// Returns the database context.
+        /// </summary>
+        public CatalogDbContext GetCatalogDbContext()
+        {
+         return database;   
+        }
 
         /// <summary>
         /// Adds a new actor to the database.
