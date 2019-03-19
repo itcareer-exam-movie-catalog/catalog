@@ -1,19 +1,38 @@
-﻿using Data.Model;
+using Data.Model;
 using System.Data.Entity;
+using System.Data.Common;
 
 namespace Data
 {
     [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class CatalogDbContext : DbContext
     {
-        public CatalogDbContext() : base("name=CatalogDbContext") {}
+        public CatalogDbContext(string strConnection)
+            : base(strConnection)
+        {
+        
+        }
 
-        public DbSet<Author> Authors { get; set; }
-        public DbSet<Publisher> Publishers { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Director> Directors { get; set; }
-        public DbSet<Actor> Actors { get; set; }
-        public DbSet<Book> Books { get; set; }
-        public DbSet<Movie> Movies { get; set; }
+        public CatalogDbContext(DbConnection dbConnection)
+            : base(dbConnection, true)
+        {
+        
+        }
+        
+        
+        public CatalogDbContext() 
+            : base("name=CatalogDbContext") 
+        {
+        
+        }
+         
+
+        public virtual DbSet<Author> Authors { get; set; }
+        public virtual DbSet<Publisher> Publishers { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Director> Directors { get; set; }
+        public virtual DbSet<Actor> Actors { get; set; }
+        public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<Movie> Movies { get; set; }
     }
 }
