@@ -1,6 +1,6 @@
-﻿namespace WindowsFromApp.Controls
+﻿namespace WindowsFormsApp.Controls
 {
-    partial class GridItemBook
+    partial class DisplayItemBook
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,25 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelDisplayTitle = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // labelDisplayTitle
+            // label1
             // 
-            this.labelDisplayTitle.AutoSize = true;
-            this.labelDisplayTitle.Location = new System.Drawing.Point(30, 55);
-            this.labelDisplayTitle.Name = "labelDisplayTitle";
-            this.labelDisplayTitle.Size = new System.Drawing.Size(35, 13);
-            this.labelDisplayTitle.TabIndex = 0;
-            this.labelDisplayTitle.Text = "label1";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(184, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "label1";
             // 
-            // GridItemBook
+            // DisplayItemBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.labelDisplayTitle);
-            this.Name = "GridItemBook";
-            this.Size = new System.Drawing.Size(300, 400);
+            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Controls.Add(this.label1);
+            this.Name = "DisplayItemBook";
+            this.Size = new System.Drawing.Size(662, 60);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -54,6 +55,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label labelDisplayTitle;
+        private System.Windows.Forms.Label label1;
     }
 }

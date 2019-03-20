@@ -9,17 +9,15 @@ namespace Business.Businesses
     public class BusinessActors
     {
         private CatalogDbContext database;
-        
-        public BusinessActors()
-        {
-        }
+
+        public BusinessActors(){}
         
         /// <summary>
         /// Constructor that reupdates the database context.
         /// </summary>
         public BusinessActors(CatalogDbContext cDbContext)
         {
-         database = cDbContext;   
+            database = cDbContext; 
         }
         
         /// <summary>
@@ -27,7 +25,7 @@ namespace Business.Businesses
         /// </summary>
         public CatalogDbContext GetCatalogDbContext()
         {
-         return database;   
+            return database;   
         }
 
         /// <summary>

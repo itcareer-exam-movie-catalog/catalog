@@ -9,21 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Data.Model;
 
-namespace WindowsFromApp.Controls
+namespace WindowsFormsApp.Controls
 {
-    public partial class GridItemBook : UserControl
+    public partial class DisplayItemBook : UserControl
     {
         private Book book;
         private Author author;
         private Publisher publisher;
-        private List<Category> categories;
-        /*
-        public GridItemBook()
-        {
-            InitializeComponent();
-        }*/
+        private Category[] categories;
 
-        public GridItemBook(Book book, Author author, Publisher publisher, List<Category> categories) : base()
+        public DisplayItemBook(Book book, Author author, Publisher publisher, Category[] categories)
         {
             InitializeComponent();
 
@@ -32,7 +27,22 @@ namespace WindowsFromApp.Controls
             this.publisher = publisher;
             this.categories = categories;
 
-            this.labelDisplayTitle.Text = book.title;
+            RefreshDisplayInfo();
+        }
+
+        public void RefreshDisplayInfo()
+        {
+            this.label1.Text = book.Title;
+        }
+
+        public string GetTitle()
+        {
+            return book.Title;
+        }
+
+        public int GetIndex()
+        {
+            return book.Id;
         }
     }
 }

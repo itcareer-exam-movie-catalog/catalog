@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0C1668B1-A9B9-4103-96F2-83F43BA35721}</ProjectGuid>
+    <ProjectGuid>{9AA338EE-E384-4ACD-B4E3-C5A6E6F874F6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WindowsFromApp</RootNamespace>
-    <AssemblyName>WindowsFromApp</AssemblyName>
+    <RootNamespace>WindowsFormsApp</RootNamespace>
+    <AssemblyName>WindowsFormsApp</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -39,9 +39,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.10.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.6.10.7\lib\net452\MySql.Data.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -62,14 +59,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\DisplayItemGrid.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\GridItemBook.cs">
+    <Compile Include="Controls\DisplayItemBook.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\GridItemBook.Designer.cs">
-      <DependentUpon>GridItemBook.cs</DependentUpon>
+    <Compile Include="Controls\DisplayItemBook.Designer.cs">
+      <DependentUpon>DisplayItemBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DisplayItemMovie.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DisplayItemMovie.Designer.cs">
+      <DependentUpon>DisplayItemMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListItems.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ListItems.Designer.cs">
+      <DependentUpon>ListItems.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -79,8 +85,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Controls\GridItemBook.resx">
-      <DependentUpon>GridItemBook.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\DisplayItemBook.resx">
+      <DependentUpon>DisplayItemBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\DisplayItemMovie.resx">
+      <DependentUpon>DisplayItemMovie.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
