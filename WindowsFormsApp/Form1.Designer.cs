@@ -58,17 +58,19 @@
             // 
             // showPanel
             // 
+            this.showPanel.BackColor = System.Drawing.SystemColors.Control;
             this.showPanel.Controls.Add(this.applyFilters);
             this.showPanel.Controls.Add(this.filters);
             this.showPanel.Controls.Add(this.showItems);
             this.showPanel.Location = new System.Drawing.Point(13, 13);
             this.showPanel.Name = "showPanel";
-            this.showPanel.Size = new System.Drawing.Size(859, 536);
+            this.showPanel.Size = new System.Drawing.Size(859, 534);
             this.showPanel.TabIndex = 0;
+            this.showPanel.Resize += new System.EventHandler(this.showPanel_Resize);
             // 
             // applyFilters
             // 
-            this.applyFilters.Location = new System.Drawing.Point(4, 492);
+            this.applyFilters.Location = new System.Drawing.Point(4, 490);
             this.applyFilters.Name = "applyFilters";
             this.applyFilters.Size = new System.Drawing.Size(184, 40);
             this.applyFilters.TabIndex = 3;
@@ -79,6 +81,7 @@
             // filters
             // 
             this.filters.AutoScroll = true;
+            this.filters.BackColor = System.Drawing.SystemColors.Control;
             this.filters.Controls.Add(this.groupBox4);
             this.filters.Controls.Add(this.groupBox3);
             this.filters.Controls.Add(this.groupBox2);
@@ -264,17 +267,19 @@
             this.showItems.BackColor = System.Drawing.Color.DarkGray;
             this.showItems.Location = new System.Drawing.Point(194, 4);
             this.showItems.Name = "showItems";
-            this.showItems.Size = new System.Drawing.Size(662, 529);
+            this.showItems.Size = new System.Drawing.Size(662, 526);
             this.showItems.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 561);
+            this.ClientSize = new System.Drawing.Size(884, 559);
             this.Controls.Add(this.showPanel);
+            this.MinimumSize = new System.Drawing.Size(900, 598);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Catalog";
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             this.showPanel.ResumeLayout(false);
             this.filters.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);

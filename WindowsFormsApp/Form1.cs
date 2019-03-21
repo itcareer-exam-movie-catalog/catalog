@@ -2,9 +2,9 @@
 using Data.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using WindowsFormsApp.Controls;
 
 namespace WindowsFormsApp
 {
@@ -41,6 +41,8 @@ namespace WindowsFormsApp
             SearchAutoComplete();
 
             UpdateItems();
+            
+            applyFilters.Top = filters.Location.Y + filters.Height + 4;
         }
 
         private void UpdateItems()
@@ -115,7 +117,7 @@ namespace WindowsFormsApp
             {
                 return false;
             }
-            
+
             bool contain = false;
             foreach (object checkedId in selectCategories.CheckedIndices)
             {
@@ -130,18 +132,18 @@ namespace WindowsFormsApp
                 return false;
             }
 
-            if(texts != null)
+            if (texts != null)
             {
                 bool containText = false;
-                foreach(string text in texts)
+                foreach (string text in texts)
                 {
-                    if(text.ToLower().Contains(searchBox.Text.ToLower()))
+                    if (text.ToLower().Contains(searchBox.Text.ToLower()))
                     {
                         containText = true;
                         //break;
                     }
                 }
-                if(!containText)
+                if (!containText)
                 {
                     return false;
                 }
@@ -154,7 +156,7 @@ namespace WindowsFormsApp
         {
             float price = 0.0f;
 
-            foreach(Book book in businessBooks.GetAllBooks())
+            foreach (Book book in businessBooks.GetAllBooks())
             {
                 price = Math.Max(price, (float)book.Price);
             }
@@ -184,14 +186,14 @@ namespace WindowsFormsApp
         }
         private void enterMinPrice_TextChanged(object sender, EventArgs e)
         {
-            if (!float.TryParse(enterMinPrice.Text, out minPrice) || minPrice < GetMinPrice())
+            if ((!float.TryParse(enterMinPrice.Text, out minPrice) || minPrice < GetMinPrice()) && enterMinPrice.Text.Length > 0)
             {
                 enterMinPrice.Text = GetMinPrice().ToString();
             }
         } //Need update
         private void enterMaxPrice_TextChanged(object sender, EventArgs e)
         {
-            if (!float.TryParse(enterMaxPrice.Text, out maxPrice) || maxPrice > GetMaxPrice())
+            if ((!float.TryParse(enterMaxPrice.Text, out maxPrice) || maxPrice > GetMaxPrice()) && enterMaxPrice.Text.Length > 0)
             {
                 enterMaxPrice.Text = GetMaxPrice().ToString();
             }
@@ -206,6 +208,13 @@ namespace WindowsFormsApp
         private void applyFilters_Click(object sender, EventArgs e) => UpdateItems();
         private void searchInEverything_CheckedChanged(object sender, EventArgs e) => SearchAutoComplete();
         private void searchInTitles_CheckedChanged(object sender, EventArgs e) => SearchAutoComplete();
+        private void Form1_Resize(object sender, EventArgs e) => showPanel.Size = new Size(this.Width - showPanel.Location.X * 2 - 16, this.Height - showPanel.Location.Y * 2 - 38);
+        private void showPanel_Resize(object sender, EventArgs e)
+        {
+            filters.Height = showPanel.Height - filters.Location.Y * 2 - 46;
+            applyFilters.Top = filters.Location.Y + filters.Height + 4;
+            showItems.Height = filters.Height + 44;
+        } //Update height resize - showItems
         private void SearchAutoComplete()
         {
             searchBox.AutoCompleteCustomSource.Clear();
@@ -244,6 +253,7 @@ namespace WindowsFormsApp
             }
         }
 
+        //Add
         private void OrderBy()
         {
 

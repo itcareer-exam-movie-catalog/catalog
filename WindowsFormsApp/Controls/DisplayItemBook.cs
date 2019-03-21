@@ -34,15 +34,5 @@ namespace WindowsFormsApp.Controls
         {
             this.label1.Text = book.Title;
         }
-
-        public string GetTitle()
-        {
-            return book.Title;
-        }
-
-        public int GetIndex()
-        {
-            return book.Id;
-        }
     }
 }

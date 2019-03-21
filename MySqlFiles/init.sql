@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `books`
     `pages` INT NOT NULL,
     `publicationYear` INT NOT NULL,
     `categoryIds` varchar(128) NOT NULL,
-    `price` decimal(5, 2) NOT NULL,
+    `price` decimal(6, 2) UNSIGNED NOT NULL,
     `photo` LONGBLOB,
     FOREIGN KEY (`publisherId`) REFERENCES `publishers`(`id`),
     FOREIGN KEY (`authorId`) REFERENCES `authors`(`id`),
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `movies`
     `actorIds` varchar(128) NOT NULL,
     `publicationYear` INT NOT NULL,
     `categoryIds` varchar(128) NOT NULL,
-    `price` decimal(5, 2) NOT NULL,
+    `price` decimal(6, 2) UNSIGNED NOT NULL,
     `photo` LONGBLOB,
     FOREIGN KEY (`directorId`) REFERENCES `directors`(`id`),
     PRIMARY KEY (`id`)

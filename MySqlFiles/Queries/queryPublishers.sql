@@ -1,13 +1,21 @@
 USE catalog;
 INSERT INTO publishers (name) VALUES
-("Zaffre Publishing"),
 ("Pan Macmillan"),
 ("HarperCollins Publishers"),
 ("Oxford University Press"),
+("Penguin Books Ltd"),
+("Wordsworth Editions Ltd"),
+("Transworld Publishers Ltd"),
+("Hodder & Stoughton General Division"),
+("Orion Publishing Co"),
 ("Head of Zeus"),
+("Little, Brown Book Group"),
 ("Simon & Schuster Ltd"),
 ("Quercus Publishing"),
-("Little, Brown Book Group"),
-("Orion Publishing Co"),
-("Hodder & Stoughton General Division"),
-("Penguin Books Ltd");
+("Bonnier Books Ltd"),
+("Egmont UK Ltd"),
+("Ebury Publishing"),
+("Pavilion Books"),
+("Bloomsbury Publishing PLC"),
+("Andrews McMeel Publishing"),
+("John Murray General Publishing Division");
