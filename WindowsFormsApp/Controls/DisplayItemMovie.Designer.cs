@@ -48,6 +48,9 @@
             this.Controls.Add(this.label1);
             this.Name = "DisplayItemMovie";
             this.Size = new System.Drawing.Size(662, 60);
+            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DisplayItemMovie_MouseDoubleClick);
+            this.MouseEnter += new System.EventHandler(this.DisplayItemMovie_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.DisplayItemMovie_MouseLeave);
             this.ResumeLayout(false);
             this.PerformLayout();
 

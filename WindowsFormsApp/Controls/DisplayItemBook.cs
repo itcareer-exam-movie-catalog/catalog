@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using Data.Model;
 
@@ -18,6 +11,11 @@ namespace WindowsFormsApp.Controls
         private Publisher publisher;
         private Category[] categories;
 
+        private Color defaultBackColor;
+        private Color overItemBackColor;
+
+        private bool clicked;
+
         public DisplayItemBook(Book book, Author author, Publisher publisher, Category[] categories)
         {
             InitializeComponent();
@@ -27,6 +25,12 @@ namespace WindowsFormsApp.Controls
             this.publisher = publisher;
             this.categories = categories;
 
+            defaultBackColor = Color.LightGray;
+            overItemBackColor = Color.DarkGray;
+            this.BackColor = defaultBackColor;
+
+            this.clicked = false;
+
             RefreshDisplayInfo();
         }
 
@@ -34,5 +38,12 @@ namespace WindowsFormsApp.Controls
         {
             this.label1.Text = book.Title;
         }
+        
+        private void OnMouseOver(bool isOver) => this.BackColor = isOver ? overItemBackColor : defaultBackColor;
+        private void DisplayItemBook_MouseEnter(object sender, System.EventArgs e) => OnMouseOver(true);
+        private void DisplayItemBook_MouseLeave(object sender, System.EventArgs e) => OnMouseOver(false);
+        private void DisplayItemBook_MouseDoubleClick(object sender, MouseEventArgs e) => clicked = true;
+
+        
     }
 }

@@ -18,4 +18,9 @@ INSERT INTO publishers (name) VALUES
 ("Pavilion Books"),
 ("Bloomsbury Publishing PLC"),
 ("Andrews McMeel Publishing"),
-("John Murray General Publishing Division");
+("John Murray General Publishing Division"),
+("Headline Publishing Group"),
+("Hodder & Stoughton General "),
+("Canongate Books Ltd"),
+("Faber & Faber"),
+("Vintage");
