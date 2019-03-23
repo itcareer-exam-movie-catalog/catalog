@@ -264,6 +264,8 @@ namespace WindowsFormsApp.Controls.Pages
         private void OnResize()
         {
             displayItems.Height = this.Height - displayItems.Location.Y * 2;
+            displayItems.Width = this.Width - displayItems.Location.X;
+
             applyFilters.Top = displayItems.Height - applyFilters.Height;
             clearFilters.Top = displayItems.Height - clearFilters.Height;
             filters.Height = applyFilters.Top - filters.Location.Y * 2;
@@ -296,5 +298,7 @@ namespace WindowsFormsApp.Controls.Pages
             UpdateItems();
             OnResize();
         }
+        
+        public int DisplayItemsX { get => displayItems.Location.X; }
     }
 }

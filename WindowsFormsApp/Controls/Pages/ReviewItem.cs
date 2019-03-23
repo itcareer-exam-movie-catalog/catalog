@@ -10,8 +10,11 @@ namespace WindowsFormsApp.Controls.Pages
         public ReviewItem()
         {
             InitializeComponent();
+
+            displayItem = null;
         }
 
         public void SetDisplayItem(DisplayItem displayItem) => this.displayItem = displayItem;
+        public bool HasItem { get => displayItem != null; }
     }
 }

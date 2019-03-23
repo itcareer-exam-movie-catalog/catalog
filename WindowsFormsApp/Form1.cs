@@ -1,5 +1,6 @@
 ﻿using Business.Businesses;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp
@@ -14,6 +15,8 @@ namespace WindowsFormsApp
         public static BusinessMovies businessMovies = new BusinessMovies();
         public static BusinessPublishers businessPublishers = new BusinessPublishers();
 
+        public static int controlsPadding = 12;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,22 +24,60 @@ namespace WindowsFormsApp
             searchItem1.SetBusinesses(businessActors, businessAuthors, businessBooks, businessCategories, businessDirectors, businessMovies, businessPublishers);
             searchItem1.Init();
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+        
+        private void OnResize()
         {
-            reviewItem1.Hide();
+            Point controlsPoint = new Point(controlsPadding, controlsPadding);
+            Size searchItemSize = new Size(mainPanel.Width - controlsPadding * 2, mainPanel.Height - controlsPadding * 2);
+            Size reviewItemSize = searchItemSize;
 
-            searchItem1.Show();
-            searchItem1.BringToFront();
+            searchItem1.Location = controlsPoint;
+            
+            if(this.WindowState == FormWindowState.Maximized)
+            {
+                int freeSpace = mainPanel.Width - searchItem1.DisplayItemsX - controlsPadding * 2;
+                searchItemSize.Width = freeSpace / 2 + searchItem1.DisplayItemsX;
+
+                reviewItemSize.Width = freeSpace / 2 - controlsPadding;
+                controlsPoint.X = searchItemSize.Width + controlsPadding * 2;
+
+                System.Diagnostics.Debug.WriteLine(reviewItem1.Size);
+            }
+
+            searchItem1.Size = searchItemSize;
+            reviewItem1.Size = reviewItemSize;
+            reviewItem1.Location = controlsPoint;
+
+            ShowLogic();
         }
 
-        private void mainPanel_Resize(object sender, EventArgs e)
+        private void ShowLogic()
         {
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                searchItem1.Show();
+                reviewItem1.Show();
+            }
+            else
+            {
+                if (reviewItem1.HasItem)
+                {
+                    searchItem1.Hide();
 
+                    reviewItem1.Show();
+                    reviewItem1.BringToFront();
+                }
+                else
+                {
+                    reviewItem1.Hide();
+
+                    searchItem1.Show();
+                    searchItem1.BringToFront();
+                }
+            }
         }
 
-        //Remake
-        //private void Form1_Resize(object sender, EventArgs e) => showPanel.Size = new Size(this.Width - showPanel.Location.X * 2 - 16, this.Height - showPanel.Location.Y * 2 - 38);
-
+        private void mainPanel_Resize(object sender, EventArgs e) => OnResize();
+        private void Form1_Load(object sender, EventArgs e) => ShowLogic();
     }
 }
