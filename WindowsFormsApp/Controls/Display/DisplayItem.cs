@@ -19,6 +19,10 @@ namespace WindowsFormsApp.Controls.Display
             this.mouseOverBackColor = Color.DarkGray;
         }
 
+        public virtual string GetTitle() => throw new System.NotImplementedException();
+        public virtual float GetPrice() => throw new System.NotImplementedException();
+        public virtual int GetPublicationYear() => throw new System.NotImplementedException();
+
         /// <summary>
         /// Refresh display information for current book or movie
         /// </summary>

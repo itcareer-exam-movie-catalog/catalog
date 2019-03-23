@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Business.Businesses;
 using Data.Model;
+using WindowsFormsApp.Controls.Display;
 
 namespace WindowsFormsApp.Controls.Pages
 {
@@ -80,7 +81,15 @@ namespace WindowsFormsApp.Controls.Pages
             if (showBooks.Checked)
             {
                 List<Book> books = businessBooks.GetAllBooks();
-                books.Sort((i, j) => string.Compare(i.Title, j.Title));
+
+                if (orderByAsc.Checked)
+                {
+                    books.Sort((i, j) => string.Compare(i.Title, j.Title));
+                }
+                else if(orderByDesc.Checked)
+                {
+                    books.Sort((i, j) => string.Compare(j.Title, i.Title));
+                }
 
                 foreach (Book book in books)
                 {
@@ -109,7 +118,15 @@ namespace WindowsFormsApp.Controls.Pages
             if (showMovies.Checked)
             {
                 List<Movie> movies = businessMovies.GetAllMovies();
-                movies.Sort((i, j) => string.Compare(i.Title, j.Title));
+
+                if (orderByAsc.Checked)
+                {
+                    movies.Sort((i, j) => string.Compare(i.Title, j.Title));
+                }
+                else if (orderByDesc.Checked)
+                {
+                    movies.Sort((i, j) => string.Compare(j.Title, i.Title));
+                }
 
                 foreach (Movie movie in movies)
                 {
@@ -256,6 +273,9 @@ namespace WindowsFormsApp.Controls.Pages
             enterMinPrice.Text = GetMinPrice().ToString();
             enterMaxPrice.Text = GetMaxPrice().ToString();
 
+            orderByAsc.Checked = true;
+            orderByDesc.Checked = false;
+
             SearchAutoComplete();
 
             clearFilters.Enabled = true;
@@ -298,7 +318,7 @@ namespace WindowsFormsApp.Controls.Pages
             UpdateItems();
             OnResize();
         }
-        
+
         public int DisplayItemsX { get => displayItems.Location.X; }
     }
 }

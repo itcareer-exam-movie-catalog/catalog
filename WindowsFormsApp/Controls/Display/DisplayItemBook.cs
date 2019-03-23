@@ -32,5 +32,9 @@ namespace WindowsFormsApp.Controls
         {
             this.label1.Text = book.Title;
         }
+
+        public override string GetTitle() => book.Title;
+        public override float GetPrice() => (float)book.Price;
+        public override int GetPublicationYear() => book.PublicationYear;
     }
 }
