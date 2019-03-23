@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp.Controls
 {
-    partial class ListItems
+    partial class DisplayItemMovie
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,21 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // ListItems
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(130, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "label1";
+            // 
+            // DisplayItemMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Silver;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Name = "ListItems";
-            this.Size = new System.Drawing.Size(660, 524);
-            this.Resize += new System.EventHandler(this.ListItems_Resize);
+            this.BackColor = System.Drawing.Color.LightGray;
+            this.Controls.Add(this.label1);
+            this.Name = "DisplayItemMovie";
+            this.Size = new System.Drawing.Size(662, 60);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Label label1;
     }
 }

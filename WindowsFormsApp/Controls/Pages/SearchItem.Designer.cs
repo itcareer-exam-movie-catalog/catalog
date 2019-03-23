@@ -48,7 +48,7 @@
             this.enterMinPrice = new System.Windows.Forms.TextBox();
             this.applyFilters = new System.Windows.Forms.Button();
             this.clearFilters = new System.Windows.Forms.Button();
-            this.showItems = new WindowsFormsApp.Controls.ListItems();
+            this.displayItems = new WindowsFormsApp.Controls.ListItems();
             this.filters.SuspendLayout();
             this.searchGroup.SuspendLayout();
             this.typeGroup.SuspendLayout();
@@ -273,20 +273,20 @@
             this.clearFilters.UseVisualStyleBackColor = true;
             this.clearFilters.Click += new System.EventHandler(this.clearFilters_Click);
             // 
-            // showItems
+            // displayItems
             // 
-            this.showItems.AutoScroll = true;
-            this.showItems.BackColor = System.Drawing.Color.DarkGray;
-            this.showItems.Location = new System.Drawing.Point(190, 3);
-            this.showItems.Name = "showItems";
-            this.showItems.Size = new System.Drawing.Size(662, 526);
-            this.showItems.TabIndex = 15;
+            this.displayItems.AutoScroll = true;
+            this.displayItems.BackColor = System.Drawing.Color.DarkGray;
+            this.displayItems.Location = new System.Drawing.Point(193, 3);
+            this.displayItems.Name = "displayItems";
+            this.displayItems.Size = new System.Drawing.Size(659, 526);
+            this.displayItems.TabIndex = 15;
             // 
             // SearchItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.showItems);
+            this.Controls.Add(this.displayItems);
             this.Controls.Add(this.clearFilters);
             this.Controls.Add(this.applyFilters);
             this.Controls.Add(this.filters);
@@ -328,6 +328,6 @@
         private System.Windows.Forms.TextBox enterMinPrice;
         private System.Windows.Forms.Button applyFilters;
         private System.Windows.Forms.Button clearFilters;
-        private ListItems showItems;
+        private ListItems displayItems;
     }
 }

@@ -44,13 +44,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.BackColor = System.Drawing.Color.LightGray;
             this.Controls.Add(this.label1);
             this.Name = "DisplayItemBook";
             this.Size = new System.Drawing.Size(662, 60);
-            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DisplayItemBook_MouseDoubleClick);
-            this.MouseEnter += new System.EventHandler(this.DisplayItemBook_MouseEnter);
-            this.MouseLeave += new System.EventHandler(this.DisplayItemBook_MouseLeave);
             this.ResumeLayout(false);
             this.PerformLayout();
 

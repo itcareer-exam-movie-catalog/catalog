@@ -29,14 +29,23 @@
         private void InitializeComponent()
         {
             this.searchItem1 = new WindowsFormsApp.Controls.Pages.SearchItem();
+            this.reviewItem1 = new WindowsFormsApp.Controls.Pages.ReviewItem();
             this.SuspendLayout();
             // 
             // searchItem1
             // 
-            this.searchItem1.Location = new System.Drawing.Point(12, 12);
+            this.searchItem1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.searchItem1.Location = new System.Drawing.Point(0, 0);
             this.searchItem1.Name = "searchItem1";
-            this.searchItem1.Size = new System.Drawing.Size(859, 534);
-            this.searchItem1.TabIndex = 0;
+            this.searchItem1.Size = new System.Drawing.Size(884, 559);
+            this.searchItem1.TabIndex = 1;
+            // 
+            // reviewItem1
+            // 
+            this.reviewItem1.Location = new System.Drawing.Point(13, 13);
+            this.reviewItem1.Name = "reviewItem1";
+            this.reviewItem1.Size = new System.Drawing.Size(859, 534);
+            this.reviewItem1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -44,6 +53,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 559);
             this.Controls.Add(this.searchItem1);
+            this.Controls.Add(this.reviewItem1);
             this.MinimumSize = new System.Drawing.Size(900, 598);
             this.Name = "Form1";
             this.Text = "Catalog";
@@ -54,6 +64,7 @@
 
         #endregion
 
+        private Controls.Pages.ReviewItem reviewItem1;
         private Controls.Pages.SearchItem searchItem1;
     }
 }

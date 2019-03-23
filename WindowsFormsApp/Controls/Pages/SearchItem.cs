@@ -75,7 +75,7 @@ namespace WindowsFormsApp.Controls.Pages
 
         private void UpdateItems()
         {
-            showItems.Clear();
+            displayItems.Clear();
 
             if (showBooks.Checked)
             {
@@ -101,7 +101,7 @@ namespace WindowsFormsApp.Controls.Pages
 
                     if (CheckFilters((float)book.Price, categories.Select(i => i.Id).ToArray(), texts.ToArray()))
                     {
-                        showItems.AddItem(book, author, publisher, categories);
+                        displayItems.AddItem(book, author, publisher, categories);
                     }
                 }
             }
@@ -129,7 +129,7 @@ namespace WindowsFormsApp.Controls.Pages
 
                     if (CheckFilters((float)movie.Price, categories.Select(i => i.Id).ToArray(), texts.ToArray()))
                     {
-                        showItems.AddItem(movie, director, actors, categories);
+                        displayItems.AddItem(movie, director, actors, categories);
                     }
                 }
             }
@@ -142,6 +142,7 @@ namespace WindowsFormsApp.Controls.Pages
                 enterMinPrice.Text = GetMinPrice().ToString();
             }
         } //Need update
+
         private void enterMaxPrice_TextChanged(object sender, EventArgs e)
         {
             if ((!float.TryParse(enterMaxPrice.Text, out maxPrice) || maxPrice > GetMaxPrice()) && enterMaxPrice.Text.Length > 0)
@@ -220,6 +221,15 @@ namespace WindowsFormsApp.Controls.Pages
                 }
             }
         }
+        
+        private void clearFilters_Click(object sender, EventArgs e) => resetFilters();
+        private void applyFilters_Click(object sender, EventArgs e) => UpdateItems();
+
+        private void searchInEverything_CheckedChanged(object sender, EventArgs e) => SearchAutoComplete();
+        private void searchInTitles_CheckedChanged(object sender, EventArgs e) => SearchAutoComplete();
+
+        private void SearchItem_Resize(object sender, EventArgs e) => OnResize();
+
         private void selectAllCategories_CheckedChanged(object sender, EventArgs e)
         {
             for (int a = 0; a < selectCategories.Items.Count; a++)
@@ -228,18 +238,13 @@ namespace WindowsFormsApp.Controls.Pages
             }
         }
 
-        private void clearFilters_Click(object sender, EventArgs e) => resetFilters();
-        private void applyFilters_Click(object sender, EventArgs e) => UpdateItems();
-
-        private void searchInEverything_CheckedChanged(object sender, EventArgs e) => SearchAutoComplete();
-        private void searchInTitles_CheckedChanged(object sender, EventArgs e) => SearchAutoComplete();
-
         private void useOtherFillters_CheckedChanged(object sender, EventArgs e)
         {
             priceGroup.Enabled = useOtherFillters.Checked;
             typeGroup.Enabled = useOtherFillters.Checked;
             categoryGroup.Enabled = useOtherFillters.Checked;
         }
+
         private void resetFilters()
         {
             clearFilters.Enabled = false;
@@ -255,15 +260,14 @@ namespace WindowsFormsApp.Controls.Pages
 
             clearFilters.Enabled = true;
         }
-
-        private void SearchItem_Resize(object sender, EventArgs e) => OnResize();
+        
         private void OnResize()
         {
-            filters.Height = this.Height - 4;
-            applyFilters.Top = this.Height - applyFilters.Height - 4;
-            clearFilters.Top = applyFilters.Top;
-            showItems.Height = filters.Height + 30;
-        } //Update height resize - showItems
+            displayItems.Height = this.Height - displayItems.Location.Y * 2;
+            applyFilters.Top = displayItems.Height - applyFilters.Height;
+            clearFilters.Top = displayItems.Height - clearFilters.Height;
+            filters.Height = applyFilters.Top - filters.Location.Y * 2;
+        }
 
         public void SetBusinesses(BusinessActors actors, BusinessAuthors authors, BusinessBooks books, BusinessCategories categories, BusinessDirectors directors, BusinessMovies movies, BusinessPublishers publishers)
         {
@@ -275,6 +279,7 @@ namespace WindowsFormsApp.Controls.Pages
             this.businessMovies = movies;
             this.businessPublishers = publishers;
         }
+
         public void Init()
         {
             foreach (string name in businessCategories.GetAllCategories().Select(i => i.Name).ToArray())

@@ -1,6 +1,6 @@
-﻿namespace WindowsFormsApp.Controls
+﻿namespace WindowsFormsApp.Controls.Display
 {
-    partial class ListItems
+    partial class DisplayItem
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,15 +30,16 @@
         {
             this.SuspendLayout();
             // 
-            // ListItems
+            // DisplayItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Silver;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Name = "ListItems";
-            this.Size = new System.Drawing.Size(660, 524);
-            this.Resize += new System.EventHandler(this.ListItems_Resize);
+            this.BackColor = System.Drawing.Color.LightGray;
+            this.Name = "DisplayItem";
+            this.Size = new System.Drawing.Size(662, 60);
+            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DisplayItem_MouseDoubleClick);
+            this.MouseEnter += new System.EventHandler(this.DisplayItem_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.DisplayItem_MouseLeave);
             this.ResumeLayout(false);
 
         }

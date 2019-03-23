@@ -59,16 +59,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\DisplayItemBook.cs">
+    <Compile Include="Controls\Display\DisplayItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\DisplayItemBook.Designer.cs">
+    <Compile Include="Controls\Display\DisplayItem.Designer.cs">
+      <DependentUpon>DisplayItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Display\DisplayItemBook.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Display\DisplayItemBook.Designer.cs">
       <DependentUpon>DisplayItemBook.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\DisplayItemMovie.cs">
+    <Compile Include="Controls\Display\DisplayItemMovie.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\DisplayItemMovie.Designer.cs">
+    <Compile Include="Controls\Display\DisplayItemMovie.Designer.cs">
       <DependentUpon>DisplayItemMovie.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ListItems.cs">
@@ -83,6 +89,18 @@
     <Compile Include="Controls\Pages\SearchItem.Designer.cs">
       <DependentUpon>SearchItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Pages\ReviewItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Pages\ReviewItem.Designer.cs">
+      <DependentUpon>ReviewItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Show\ShowItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Show\ShowItem.Designer.cs">
+      <DependentUpon>ShowItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,10 +109,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Controls\DisplayItemBook.resx">
+    <EmbeddedResource Include="Controls\Display\DisplayItem.resx">
+      <DependentUpon>DisplayItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Display\DisplayItemBook.resx">
       <DependentUpon>DisplayItemBook.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\DisplayItemMovie.resx">
+    <EmbeddedResource Include="Controls\Display\DisplayItemMovie.resx">
       <DependentUpon>DisplayItemMovie.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ListItems.resx">
@@ -102,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Pages\SearchItem.resx">
       <DependentUpon>SearchItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Pages\ReviewItem.resx">
+      <DependentUpon>ReviewItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

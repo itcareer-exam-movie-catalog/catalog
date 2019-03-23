@@ -1,6 +1,6 @@
-﻿namespace WindowsFormsApp.Controls
+﻿namespace WindowsFormsApp.Controls.Pages
 {
-    partial class DisplayItemMovie
+    partial class ReviewItem
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,36 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(130, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
-            // 
-            // DisplayItemMovie
+            // ShowItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.Controls.Add(this.label1);
-            this.Name = "DisplayItemMovie";
-            this.Size = new System.Drawing.Size(662, 60);
-            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DisplayItemMovie_MouseDoubleClick);
-            this.MouseEnter += new System.EventHandler(this.DisplayItemMovie_MouseEnter);
-            this.MouseLeave += new System.EventHandler(this.DisplayItemMovie_MouseLeave);
+            this.Name = "ShowItem";
+            this.Size = new System.Drawing.Size(859, 534);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
     }
 }
