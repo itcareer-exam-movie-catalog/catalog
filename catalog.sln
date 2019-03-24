@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUIApp", "ConsoleUIAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp", "WindowsFormsApp\WindowsFormsApp.csproj", "{9AA338EE-E384-4ACD-B4E3-C5A6E6F874F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTests", "NUnitTestProject1\NUnitTests.csproj", "{759BD99B-BB95-4DAD-B1D3-483566AB3249}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitTests", "NUnitTests\NUnitTests.csproj", "{4CA46116-9B01-4087-A18A-555DAFCEDC0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{9AA338EE-E384-4ACD-B4E3-C5A6E6F874F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AA338EE-E384-4ACD-B4E3-C5A6E6F874F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AA338EE-E384-4ACD-B4E3-C5A6E6F874F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{759BD99B-BB95-4DAD-B1D3-483566AB3249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{759BD99B-BB95-4DAD-B1D3-483566AB3249}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{759BD99B-BB95-4DAD-B1D3-483566AB3249}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{759BD99B-BB95-4DAD-B1D3-483566AB3249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CA46116-9B01-4087-A18A-555DAFCEDC0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CA46116-9B01-4087-A18A-555DAFCEDC0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CA46116-9B01-4087-A18A-555DAFCEDC0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CA46116-9B01-4087-A18A-555DAFCEDC0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
