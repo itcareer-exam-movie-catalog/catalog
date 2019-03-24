@@ -52,7 +52,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// show you the Exit menu.
         /// </summary>
         /// <param name="categoryNumSelect">The total amount of options on the Movie menu</param>
-        private void InputMovieCategories(int categoryNumSelect)
+        public void InputMovieCategories(int categoryNumSelect)
         {
             YourChoice();
 
@@ -96,7 +96,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// If there are more than 1 movie, then the program shows every movie, that contains the chosen name.
         /// If the input is an integer, between 1-3, the program gets back to a chosen previous menu.
         /// </summary>
-        private void OriginalMovieSearch()
+        public void OriginalMovieSearch()
         {
             Console.Clear();
             Console.Write("Enter the title of the movie you want to search: ");
@@ -163,7 +163,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// User has the option to go back to a selected previous menu.
         /// </summary>
         /// <param name="selection">The chosen category's number/id</param>
-        private void ShowMovieTitles(int selection)
+        public void ShowMovieTitles(int selection)
         {
             Console.Clear();
             Console.WriteLine(new string('-', 80));
@@ -190,7 +190,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// Searches for a movie.
         /// Works exactly like the <see cref="OriginalMovieSearch"/> method, but prints out extra text.
         /// </summary>
-        private void MovieSearch()
+        public void MovieSearch()
         {
             Console.WriteLine(new string('-', 80));
             Console.WriteLine("If you want to select any of the other options, select a number from [1-3]");
@@ -256,7 +256,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// Shows information about the chosen movie.
         /// </summary>
         /// <param name="movie">The selected movie</param>
-        private void ShowMovieInformation(Movie movie)
+        public void ShowMovieInformation(Movie movie)
         {
             Console.Clear();
             BusinessCategories BusinessCategories = new BusinessCategories();
@@ -297,7 +297,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// Shows every movie that contains the same key name.
         /// </summary>
         /// <param name="moviesWithSimilarName">All of the movies with the same key name</param>
-        private void ShowMoviesWithSimilarNames(List<Movie> moviesWithSimilarName)
+        public void ShowMoviesWithSimilarNames(List<Movie> moviesWithSimilarName)
         {
             Console.Clear();
             Console.WriteLine("Here are some of the movies, that have similar names.");
@@ -344,7 +344,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// <summary>
         /// Inputs the director's name.
         /// </summary>
-        private void InputDirectorName()
+        public void InputDirectorName()
         {
             Console.Clear();
             Console.WriteLine("Enter the director's name");
@@ -391,7 +391,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// <summary>
         /// Inputs the actor's name
         /// </summary>
-        private void InputActorName()
+        public void InputActorName()
         {
             Console.Clear();
             Console.WriteLine("Enter the actor's name");
@@ -411,7 +411,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// or to show the chosen actor's movies, if you entered his first and last name.
         /// </summary>
         /// <param name="actorName">The selected actor's name</param>
-        private void ShowActorNames(string actorName)
+        public void ShowActorNames(string actorName)
         {
             Console.Clear();
 
@@ -451,7 +451,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// Inputs the chosen actor's first and last name from a list with every actor,
         /// that has the same key name.
         /// </summary>
-        private void InputActorWithSimilarNames()
+        public void InputActorWithSimilarNames()
         {
             Console.WriteLine("If you want to select any of the other options, select a number from [1-3]");
             Console.WriteLine("Otherwise - Enter the actor's name, ");
@@ -509,7 +509,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// the movie's name through the <see cref="MovieSearch"/> method.
         /// </summary>
         /// <param name="actorId">The chosen actor's id</param>
-        private void ShowActorMovies(int actorId)
+        public void ShowActorMovies(int actorId)
         {
             Console.Clear();
             Console.WriteLine("Here are some of the movies, where the selected actor has played");

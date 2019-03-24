@@ -14,35 +14,38 @@ namespace Business.Businesses
 
         public BusinessPublishers()
         {
+            database = new CatalogDbContext();
         }
-        
+
         /// <summary>
         /// Constructor that reupdates the database context.
         /// </summary>
         public BusinessPublishers(CatalogDbContext cDbContext)
         {
-         database = cDbContext;   
+            database = cDbContext;
         }
-        
+
         /// <summary>
         /// Returns the database context.
         /// </summary>
         public CatalogDbContext GetCatalogDbContext()
         {
-         return database;   
+            return database;
         }
-        
+
         /// <summary>
         /// Adds a new publisher to the database.
         /// </summary>
         /// <param name="publisher">The publisher</param>
         public void AddPublisher(Publisher publisher)
         {
-            using (database = new CatalogDbContext())
+            if (publisher != null)
             {
                 database.Publishers.Add(publisher);
                 database.SaveChanges();
             }
+
+            throw new ArgumentNullException("Publisher mustn't be empty/null.");
         }
 
         /// <summary>
@@ -51,18 +54,15 @@ namespace Business.Businesses
         /// <param name="id">The publisher's id</param>
         public Publisher GetPublisher(int id)
         {
-            using (database = new CatalogDbContext())
+            foreach (Publisher publisher in database.Publishers)
             {
-                foreach (Publisher publisher in database.Publishers)
+                if (id == publisher.Id)
                 {
-                    if (id == publisher.Id)
-                    {
-                        return publisher;
-                    }
+                    return publisher;
                 }
             }
 
-            throw new Exception("Publisher with this id does not exist!");
+            throw new IndexOutOfRangeException("Publisher with this id does not exist!");
         }
 
         /// <summary>
@@ -71,20 +71,17 @@ namespace Business.Businesses
         /// <param name="id">The publisher's id</param>
         public void DeletePublisher(int id)
         {
-            using (database = new CatalogDbContext())
+            foreach (Publisher publisher in database.Publishers)
             {
-                foreach (Publisher publisher in database.Publishers)
+                if (id == publisher.Id)
                 {
-                    if (id == publisher.Id)
-                    {
-                        database.Publishers.Remove(publisher);
-                        database.SaveChanges();
-                        return;
-                    }
+                    database.Publishers.Remove(publisher);
+                    database.SaveChanges();
+                    return;
                 }
             }
 
-            throw new Exception("Publisher with this id does not exist!");
+            throw new IndexOutOfRangeException("Publisher with this id does not exist!");
         }
 
         /// <summary>
@@ -92,10 +89,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Publisher> GetAllPublishers()
         {
-            using (database = new CatalogDbContext())
-            {
-                return database.Publishers.ToList();
-            }
+            return database.Publishers.ToList();
         }
     }
 }

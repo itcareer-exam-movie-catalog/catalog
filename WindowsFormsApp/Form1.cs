@@ -1,83 +1,252 @@
 ﻿using Business.Businesses;
+using Data.Model;
 using System;
-using System.Drawing;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using WindowsFormsApp.Controls;
 
 namespace WindowsFormsApp
 {
     public partial class Form1 : Form
     {
-        public static BusinessActors businessActors = new BusinessActors();
-        public static BusinessAuthors businessAuthors = new BusinessAuthors();
         public static BusinessBooks businessBooks = new BusinessBooks();
+        public static BusinessAuthors businessAuthors = new BusinessAuthors();
         public static BusinessCategories businessCategories = new BusinessCategories();
+        public static BusinessPublishers businessPublishers = new BusinessPublishers();
         public static BusinessDirectors businessDirectors = new BusinessDirectors();
         public static BusinessMovies businessMovies = new BusinessMovies();
-        public static BusinessPublishers businessPublishers = new BusinessPublishers();
+        public static BusinessActors businessActors = new BusinessActors();
 
-        public static int controlsPadding = 12;
+        private float minPrice;
+        private float maxPrice;
 
         public Form1()
         {
             InitializeComponent();
 
-            searchItem1.SetBusinesses(businessActors, businessAuthors, businessBooks, businessCategories, businessDirectors, businessMovies, businessPublishers);
-            searchItem1.Init();
-        }
-        
-        private void OnResize()
-        {
-            Point controlsPoint = new Point(controlsPadding, controlsPadding);
-            Size searchItemSize = new Size(mainPanel.Width - controlsPadding * 2, mainPanel.Height - controlsPadding * 2);
-            Size reviewItemSize = searchItemSize;
+            enterMinPrice.Text = GetMinPrice().ToString();
+            enterMaxPrice.Text = GetMaxPrice().ToString();
 
-            searchItem1.Location = controlsPoint;
+            foreach (string name in businessCategories.GetAllCategories().Select(i => i.Name).ToArray())
+            {
+                selectCategories.Items.Add(name);
+            }
+
+            for (int a = 0; a < selectCategories.Items.Count; a++)
+            {
+                selectCategories.SetItemChecked(a, true);
+            }
+
+            SearchAutoComplete();
+
+            UpdateItems();
+        }
+
+        private void UpdateItems()
+        {
+            showItems.Clear();
+
+            if (showBooks.Checked)
+            {
+                List<Book> books = businessBooks.GetAllBooks();
+                books.Sort((i, j) => string.Compare(i.Title, j.Title));
+
+                foreach (Book book in books)
+                {
+                    Author author = businessAuthors.GetAuthor(book.AuthorId);
+                    Publisher publisher = businessPublishers.GetPublisher(book.PublisherId);
+                    Category[] categories = book.CategoryIds.Split(',').Select(i => businessCategories.GetCategory(int.Parse(i))).ToArray();
+
+                    List<string> texts = new List<string>();
+
+                    if (searchInEverything.Checked)
+                    {
+                        texts.AddRange(categories.Select(i => i.Name).ToList());
+                        texts.Add(author.FirstName + " " + author.LastName);
+                        texts.Add(publisher.Name);
+                    }
+
+                    texts.Add(book.Title);
+
+                    if (!CheckFilters((float)book.Price, categories.Select(i => i.Id).ToArray(), texts.ToArray()))
+                    {
+                        continue;
+                    }
+
+                    showItems.AddItem(book, author, publisher, categories);
+                }
+            }
+
+            if (showMovies.Checked)
+            {
+                List<Movie> movies = businessMovies.GetAllMovies();
+                movies.Sort((i, j) => string.Compare(i.Title, j.Title));
+
+                foreach (Movie movie in movies)
+                {
+                    Director director = businessDirectors.GetDirector(movie.DirectorId);
+                    Actor[] actors = movie.ActorIds.Split(',').Select(i => businessActors.GetActor(int.Parse(i))).ToArray();
+                    Category[] categories = movie.CategoryIds.Split(',').Select(i => businessCategories.GetCategory(int.Parse(i))).ToArray();
+
+                    List<string> texts = new List<string>();
+
+                    if (searchInEverything.Checked)
+                    {
+                        texts.AddRange(categories.Select(i => i.Name).ToList());
+                        texts.AddRange(actors.Select(i => i.FirstName + " " + i.LastName).ToArray());
+                        texts.Add(director.FirstName + " " + director.LastName);
+                    }
+                    texts.Add(movie.Title);
+
+                    if (!CheckFilters((float)movie.Price, categories.Select(i => i.Id).ToArray(), texts.ToArray()))
+                    {
+                        continue;
+                    }
+
+                    showItems.AddItem(movie, director, actors, categories);
+                }
+            }
+        }
+
+        private bool CheckFilters(float price, int[] categories, string[] texts)
+        {
+            if (price < minPrice || price > maxPrice)
+            {
+                return false;
+            }
             
-            if(this.WindowState == FormWindowState.Maximized)
+            bool contain = false;
+            foreach (object checkedId in selectCategories.CheckedIndices)
             {
-                int freeSpace = mainPanel.Width - searchItem1.DisplayItemsX - controlsPadding * 2;
-                searchItemSize.Width = freeSpace / 2 + searchItem1.DisplayItemsX;
-
-                reviewItemSize.Width = freeSpace / 2 - controlsPadding;
-                controlsPoint.X = searchItemSize.Width + controlsPadding * 2;
-
-                System.Diagnostics.Debug.WriteLine(reviewItem1.Size);
+                if (categories.Contains(int.Parse(checkedId.ToString()) + 1))
+                {
+                    contain = true;
+                    break;
+                }
+            }
+            if (!contain)
+            {
+                return false;
             }
 
-            searchItem1.Size = searchItemSize;
-            reviewItem1.Size = reviewItemSize;
-            reviewItem1.Location = controlsPoint;
+            if(texts != null)
+            {
+                bool containText = false;
+                foreach(string text in texts)
+                {
+                    if(text.ToLower().Contains(searchBox.Text.ToLower()))
+                    {
+                        containText = true;
+                        //break;
+                    }
+                }
+                if(!containText)
+                {
+                    return false;
+                }
+            }
 
-            ShowLogic();
+            return true;
         }
 
-        private void ShowLogic()
+        private float GetMaxPrice()
         {
-            if (this.WindowState == FormWindowState.Maximized)
+            float price = 0.0f;
+
+            foreach(Book book in businessBooks.GetAllBooks())
             {
-                searchItem1.Show();
-                reviewItem1.Show();
+                price = Math.Max(price, (float)book.Price);
             }
-            else
+
+            foreach (Movie movie in businessMovies.GetAllMovies())
             {
-                if (reviewItem1.HasItem)
-                {
-                    searchItem1.Hide();
+                price = Math.Max(price, (float)movie.Price);
+            }
 
-                    reviewItem1.Show();
-                    reviewItem1.BringToFront();
+            return price;
+        }
+        private float GetMinPrice()
+        {
+            float price = GetMaxPrice();
+
+            foreach (Book book in businessBooks.GetAllBooks())
+            {
+                price = Math.Min(price, (float)book.Price);
+            }
+
+            foreach (Movie movie in businessMovies.GetAllMovies())
+            {
+                price = Math.Min(price, (float)movie.Price);
+            }
+
+            return price;
+        }
+        private void enterMinPrice_TextChanged(object sender, EventArgs e)
+        {
+            if (!float.TryParse(enterMinPrice.Text, out minPrice) || minPrice < GetMinPrice())
+            {
+                enterMinPrice.Text = GetMinPrice().ToString();
+            }
+        } //Need update
+        private void enterMaxPrice_TextChanged(object sender, EventArgs e)
+        {
+            if (!float.TryParse(enterMaxPrice.Text, out maxPrice) || maxPrice > GetMaxPrice())
+            {
+                enterMaxPrice.Text = GetMaxPrice().ToString();
+            }
+        } //Need update
+        private void selectAllCategories_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int a = 0; a < selectCategories.Items.Count; a++)
+            {
+                selectCategories.SetItemChecked(a, selectAllCategories.Checked);
+            }
+        }
+        private void applyFilters_Click(object sender, EventArgs e) => UpdateItems();
+        private void searchInEverything_CheckedChanged(object sender, EventArgs e) => SearchAutoComplete();
+        private void searchInTitles_CheckedChanged(object sender, EventArgs e) => SearchAutoComplete();
+        private void SearchAutoComplete()
+        {
+            searchBox.AutoCompleteCustomSource.Clear();
+
+            foreach (string title in businessBooks.GetAllBooks().Select(i => i.Title).ToArray())
+            {
+                searchBox.AutoCompleteCustomSource.Add(title);
+            }
+
+            foreach (string title in businessMovies.GetAllMovies().Select(i => i.Title).ToArray())
+            {
+                searchBox.AutoCompleteCustomSource.Add(title);
+            }
+
+            if (searchInEverything.Checked)
+            {
+                foreach (string name in businessDirectors.GetAllDirectors().Select(i => (i.FirstName + " " + i.LastName)).ToArray())
+                {
+                    searchBox.AutoCompleteCustomSource.Add(name);
                 }
-                else
-                {
-                    reviewItem1.Hide();
 
-                    searchItem1.Show();
-                    searchItem1.BringToFront();
+                foreach (string name in businessAuthors.GetAllAuthors().Select(i => (i.FirstName + " " + i.LastName)).ToArray())
+                {
+                    searchBox.AutoCompleteCustomSource.Add(name);
+                }
+
+                foreach (string name in businessActors.GetAllActors().Select(i => (i.FirstName + " " + i.LastName)).ToArray())
+                {
+                    searchBox.AutoCompleteCustomSource.Add(name);
+                }
+
+                foreach (string name in businessPublishers.GetAllPublishers().Select(i => i.Name).ToArray())
+                {
+                    searchBox.AutoCompleteCustomSource.Add(name);
                 }
             }
         }
 
-        private void mainPanel_Resize(object sender, EventArgs e) => OnResize();
-        private void Form1_Load(object sender, EventArgs e) => ShowLogic();
+        private void OrderBy()
+        {
+
+        }
     }
 }

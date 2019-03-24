@@ -21,7 +21,7 @@ namespace Data
         
         
         public CatalogDbContext() 
-            : base("name=CatalogDbContext") 
+            : base("name = CatalogDbContext") 
         {
         
         }

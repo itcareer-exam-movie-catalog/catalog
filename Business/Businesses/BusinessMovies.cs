@@ -19,7 +19,7 @@ namespace Business.Businesses
         /// </summary>
         public BusinessMovies(CatalogDbContext cDbContext)
         {
-         database = cDbContext;   
+            database = cDbContext;   
         }
         
         /// <summary>
@@ -27,7 +27,7 @@ namespace Business.Businesses
         /// </summary>
         public CatalogDbContext GetCatalogDbContext()
         {
-         return database;   
+            return database;   
         }
         
         /// <summary>

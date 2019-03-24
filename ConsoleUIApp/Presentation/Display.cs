@@ -50,7 +50,7 @@ namespace CatalogApp.ConsolePresentation
         /// <summary>
         /// Chooses whether to show you the Movie or the Book menu.
         /// </summary>
-        private void InputMenuMovieBook()
+        public void InputMenuMovieBook()
         {
             YourChoice();
             string selectionFromMenuMovieBook = Console.ReadLine();
