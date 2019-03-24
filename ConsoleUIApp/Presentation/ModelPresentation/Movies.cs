@@ -1,21 +1,92 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Business.Businesses;
 using Data.Model;
 
-namespace CatalogApp.ConsolePresentation.ModelPresentation
+namespace ConsolePresentation.ModelPresentation
 {
     public class Movies
     {
         private Display cDisplay = new Display();
 
         /// <summary>
-        /// Shows you the Movie menu and its categories.
+        /// Shows you the Movie menu and its options.
+        /// </summary>
+        public void ShowMovieOptions()
+        {
+            int optionNumSelect = 1;
+            BusinessCategories BusinessCategories = new BusinessCategories();
+
+            Console.Clear();
+            Console.WriteLine("Choose an option:");
+
+            Console.WriteLine($"{optionNumSelect++}.Search by category");
+            Console.WriteLine($"{optionNumSelect++}.Search for a movie");
+            Console.WriteLine($"{optionNumSelect++}.Write the producer's name");
+            Console.WriteLine($"{optionNumSelect++}.Write the actor's name");
+            Console.WriteLine($"{optionNumSelect++}.Go Back");
+            Console.WriteLine($"{optionNumSelect}.Exit");
+            Console.WriteLine(new string('-', 80));
+
+            InputMovieOptions(optionNumSelect);
+        }
+
+        /// <summary>
+        /// Gets the input from the user and chooses whether to:
+        /// show you all the movie categories,
+        /// let you search for a movie,
+        /// let you search by a director's name,
+        /// let you search by an actor's name,
+        /// show you the Exit menu.
+        /// </summary>
+        /// <param name="optionNumSelect">The total amount of options on the Movie menu</param>
+        public void InputMovieOptions(int optionNumSelect)
+        {
+            YourChoice();
+
+            try
+            {
+                int selection = int.Parse(Console.ReadLine());
+                switch (selection)
+                {
+                    case int n when (n >= 1 && n <= optionNumSelect - 5):
+                        ShowMovieCategories();
+                        break;
+                    case int n when (n == optionNumSelect - 4):
+                        OriginalMovieSearch();
+                        break;
+                    case int n when (n == optionNumSelect - 3):
+                        InputDirectorName();
+                        break;
+                    case int n when (n == optionNumSelect - 2):
+                        InputActorName();
+                        break;
+                    case int n when (n == optionNumSelect - 1):
+                        cDisplay.ShowMenuMovieBook();
+                        break;
+                    case int n when (n == optionNumSelect):
+                        cDisplay.ExitMenu();
+                        break;
+                    default:
+                        ShowMovieOptions();
+                        break;
+                }
+            }
+            catch
+            {
+                ShowMovieOptions();
+            }
+            
+        }
+
+        /// <summary>
+        /// Shows all the movie categories.
+        /// There are options to go back/exit.
         /// </summary>
         public void ShowMovieCategories()
         {
-            int categoryNumSelect = 1;
+            int optionNumSelect = 1;
             BusinessCategories BusinessCategories = new BusinessCategories();
 
             Console.Clear();
@@ -25,34 +96,22 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 string currCategoryName = category.Name.ToLower();
                 currCategoryName = currCategoryName.First().ToString().ToUpper() + "" + currCategoryName.Substring(1);
 
-                Console.WriteLine($"{categoryNumSelect}.{currCategoryName}");
-                categoryNumSelect++;
+                Console.WriteLine($"{optionNumSelect++}.{currCategoryName}");
             }
 
-            Console.WriteLine($"{categoryNumSelect}.Search for a movie");
-            categoryNumSelect++;
-            Console.WriteLine($"{categoryNumSelect}.Write the producer's name");
-            categoryNumSelect++;
-            Console.WriteLine($"{categoryNumSelect}.Write the actor's name");
-            categoryNumSelect++;
-            Console.WriteLine($"{categoryNumSelect}.Go Back");
-            categoryNumSelect++;
-            Console.WriteLine($"{categoryNumSelect}.Exit");
+            Console.WriteLine($"{optionNumSelect++}.Go Back");
+            Console.WriteLine($"{optionNumSelect}.Exit");
             Console.WriteLine(new string('-', 80));
 
-            InputMovieCategories(categoryNumSelect);
+            InputMovieCategories(optionNumSelect);
         }
 
         /// <summary>
-        /// Gets the input from the user and chooses whether to:
-        /// show you the Movie titles, based on the selected category,
-        /// let you search for a movie,
-        /// let you search by a director's name,
-        /// let you search by an actor's name,
-        /// show you the Exit menu.
+        /// Takes the user's input to decide which option to do.
         /// </summary>
-        /// <param name="categoryNumSelect">The total amount of options on the Movie menu</param>
-        public void InputMovieCategories(int categoryNumSelect)
+        /// <param name="optionNumSelect">The total amount of categories and options
+        /// from <see cref="ShowMovieCategories"/> method.</param>
+        public void InputMovieCategories(int optionNumSelect)
         {
             YourChoice();
 
@@ -61,22 +120,13 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 int selection = int.Parse(Console.ReadLine());
                 switch (selection)
                 {
-                    case int n when (n >= 1 && n <= categoryNumSelect - 5):
+                    case int n when (n >= 1 && n <= optionNumSelect - 2):
                         ShowMovieTitles(selection);
                         break;
-                    case int n when (n == categoryNumSelect - 4):
-                        OriginalMovieSearch();
+                    case int n when (n == optionNumSelect - 1):
+                        ShowMovieOptions();
                         break;
-                    case int n when (n == categoryNumSelect - 3):
-                        InputDirectorName();
-                        break;
-                    case int n when (n == categoryNumSelect - 2):
-                        InputActorName();
-                        break;
-                    case int n when (n == categoryNumSelect - 1):
-                        cDisplay.ShowMenuMovieBook();
-                        break;
-                    case int n when (n == categoryNumSelect):
+                    case int n when (n == optionNumSelect):
                         cDisplay.ExitMenu();
                         break;
                     default:
@@ -88,7 +138,6 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             {
                 ShowMovieCategories();
             }
-            
         }
 
         /// <summary>
@@ -112,7 +161,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 {
                     if (int.Parse(movieTitle) == 1)
                     {
-                        ShowMovieCategories();
+                        ShowMovieOptions();
                     }
                     else if (int.Parse(movieTitle) == 2)
                     {
@@ -180,7 +229,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             {
                 Console.WriteLine(movie.Title);
             }
-            Console.WriteLine("1.Go back to categories");
+            Console.WriteLine("1.Go back to options");
             Console.WriteLine("2.Go back to movie/book menu");
             Console.WriteLine("3.Exit");
             MovieSearch();
@@ -207,7 +256,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 {
                     if (int.Parse(movieTitle) == 1)
                     {
-                        ShowMovieCategories();
+                        ShowMovieOptions();
                     }
                     else if (int.Parse(movieTitle) == 2)
                     {
@@ -380,7 +429,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 {
                     Console.WriteLine(directorMovie.Title);
                 }
-                Console.WriteLine("1.Go back to categories");
+                Console.WriteLine("1.Go back to options");
                 Console.WriteLine("2.Go back to movie/book menu");
                 Console.WriteLine("3.Exit");
 
@@ -429,7 +478,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                         Console.WriteLine(actor.FirstName + " " + actor.LastName);
                     }
                 }
-                Console.WriteLine("1.Go back to categories");
+                Console.WriteLine("1.Go back to options");
                 Console.WriteLine("2.Go back to movie/book menu");
                 Console.WriteLine("3.Exit\n");
 
@@ -467,7 +516,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             {
                 if (int.Parse(numCheckActor) == 1)
                 {
-                    ShowMovieCategories();
+                    ShowMovieOptions();
                 }
                 else if (int.Parse(numCheckActor) == 2)
                 {
@@ -521,7 +570,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 Console.WriteLine(movie.Title);
             }
 
-            Console.WriteLine("1.Go back to categories");
+            Console.WriteLine("1.Go back to options");
             Console.WriteLine("2.Go back to movie/book menu");
             Console.WriteLine("3.Exit");
             MovieSearch();
@@ -532,7 +581,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// </summary>
         public void GoBackMovieMenu()
         {
-            Console.WriteLine("1.Go back to categories");
+            Console.WriteLine("1.Go back to options");
             Console.WriteLine("2.Go back to movie/book selection");
             Console.WriteLine("3.Exit");
             Console.WriteLine(new string('-', 80));
@@ -545,7 +594,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 switch (choice)
                 {
                     case 1:
-                        ShowMovieCategories();
+                        ShowMovieOptions();
                         break;
                     case 2:
                         cDisplay.ShowMenuMovieBook();
@@ -574,7 +623,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         {
             Console.Clear();
             Console.WriteLine("You must choose a number between [1-3]");
-            Console.WriteLine("1.Go back to categories");
+            Console.WriteLine("1.Go back to options");
             Console.WriteLine("2.Go back to movie/book selection");
             Console.WriteLine("3.Exit");
             Console.WriteLine(new string('-', 80));
@@ -587,7 +636,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 switch (choice)
                 {
                     case 1:
-                        ShowMovieCategories();
+                        ShowMovieOptions();
                         break;
                     case 2:
                         cDisplay.ShowMenuMovieBook();
