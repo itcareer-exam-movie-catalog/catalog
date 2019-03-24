@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using ConsolePresentation.ModelPresentation;
 
 namespace ConsolePresentation
@@ -21,7 +21,7 @@ namespace ConsolePresentation
         }
 
         /// <summary>
-        /// Initialises the window.
+        /// Initializes the window.
         /// </summary>
         private static void InitializeWindow()
         {
@@ -59,19 +59,19 @@ namespace ConsolePresentation
             switch (selectionFromMenuMovieBook.ToLower())
             {
                 case ("1"):
-                    cMovie.ShowMovieCategories();
+                    cMovie.ShowMovieOptions();
                     break;
                 case ("2"):
-                    cBook.ShowBookCategories();
+                    cBook.ShowBookOptions();
                     break;
                 case ("3"):
                     ExitMenu();
                     break;
                 case ("movie"):
-                    cMovie.ShowMovieCategories();
+                    cMovie.ShowMovieOptions();
                     break;
                 case ("book"):
-                    cBook.ShowBookCategories();
+                    cBook.ShowBookOptions();
                     break;
                 default:
                     Console.WriteLine(new string('-', 80));
