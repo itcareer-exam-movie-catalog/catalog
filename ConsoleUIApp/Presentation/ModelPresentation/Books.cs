@@ -1,20 +1,92 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Business.Businesses;
 using Data.Model;
 
-namespace CatalogApp.ConsolePresentation.ModelPresentation
+namespace ConsolePresentation.ModelPresentation
 {
     public class Books
     {
         Display cDisplay = new Display();
+
         /// <summary>
-        /// Shows you the Book menu and its categories.
+        /// Shows you the Book menu and its options.
+        /// </summary>
+        public void ShowBookOptions()
+        {
+            int optionNumSelect = 1;
+            BusinessCategories BusinessCategories = new BusinessCategories();
+
+            Console.Clear();
+            Console.WriteLine("Choose an option:");
+
+            Console.WriteLine($"{optionNumSelect++}.Search by category");
+            Console.WriteLine($"{optionNumSelect++}.Search for a book");
+            Console.WriteLine($"{optionNumSelect++}.Write the publisher's name");
+            Console.WriteLine($"{optionNumSelect++}.Write the author's name");
+            Console.WriteLine($"{optionNumSelect++}.Go Back");
+            Console.WriteLine($"{optionNumSelect}.Exit");
+            Console.WriteLine(new string('-', 80));
+
+            InputBookOptions(optionNumSelect);
+        }
+
+        ///<summary>
+        /// Gets the input from the user and chooses whether to:
+        /// show you all the book categories,
+        /// let you search for a book,
+        /// let you search by a publisher's name,
+        /// let you search by an author's name,
+        /// show you the Exit menu.
+        /// </summary>
+        /// <param name="optionNumSelect">The total amount of options on the Movie menu</param>
+        public void InputBookOptions(int optionNumSelect)
+        {
+            YourChoice();
+
+            try
+            {
+                int selection = int.Parse(Console.ReadLine());
+                switch (selection)
+                {
+                    case int n when (n == optionNumSelect - 5):
+                        ShowBookCategories();
+                        break;
+                    case int n when (n == optionNumSelect - 4):
+                        OriginalBookSearch();
+                        break;
+                    case int n when (n == optionNumSelect - 3):
+                        InputPublisherName();
+                        break;
+                    case int n when (n == optionNumSelect - 2):
+                        InputAuthorName();
+                        break;
+                    case int n when (n == optionNumSelect - 1):
+                        cDisplay.ShowMenuMovieBook();
+                        break;
+                    case int n when (n == optionNumSelect):
+                        cDisplay.ExitMenu();
+                        break;
+                    default:
+                        ShowBookOptions();
+                        break;
+                }
+            }
+            catch
+            {
+                ShowBookOptions();
+            }
+
+        }
+
+        /// <summary>
+        /// Shows all the movie categories.
+        /// There are options to go back/exit.
         /// </summary>
         public void ShowBookCategories()
         {
-            int categoryNumSelect = 1;
+            int optionNumSelect = 1;
             BusinessCategories BusinessCategories = new BusinessCategories();
 
             Console.Clear();
@@ -24,58 +96,37 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 string currCategoryName = category.Name.ToLower();
                 currCategoryName = currCategoryName.First().ToString().ToUpper() + "" + currCategoryName.Substring(1);
 
-                Console.WriteLine($"{categoryNumSelect}.{currCategoryName}");
-                categoryNumSelect++;
+                Console.WriteLine($"{optionNumSelect++}.{currCategoryName}");
             }
 
-            Console.WriteLine($"{categoryNumSelect}.Search for a book");
-            categoryNumSelect++;
-            Console.WriteLine($"{categoryNumSelect}.Write the publisher's name");
-            categoryNumSelect++;
-            Console.WriteLine($"{categoryNumSelect}.Write the author's name");
-            categoryNumSelect++;
-            Console.WriteLine($"{categoryNumSelect}.Go Back");
-            categoryNumSelect++;
-            Console.WriteLine($"{categoryNumSelect}.Exit");
+            Console.WriteLine($"{optionNumSelect++}.Go Back");
+            Console.WriteLine($"{optionNumSelect}.Exit");
             Console.WriteLine(new string('-', 80));
 
-            InputBookCategories(categoryNumSelect);
+            InputBookCategories(optionNumSelect);
         }
 
         /// <summary>
-        /// Gets the input from the user and chooses whether to:
-        /// show you the Book titles, based on the selected category,
-        /// let you search for a book,
-        /// let you search by a publisher's name,
-        /// let you search by an author's name,
-        /// show you the Exit menu.
+        /// Takes the user's input to decide which option to do.
         /// </summary>
-        /// <param name="categoryNumSelect">The total amount of options on the Book menu</param>
-        private void InputBookCategories(int categoryNumSelect)
+        /// <param name="optionNumSelect">The total amount of categories and options
+        /// from <see cref="ShowBookCategories"/> method.</param>
+        public void InputBookCategories(int optionNumSelect)
         {
             YourChoice();
+
             try
             {
                 int selection = int.Parse(Console.ReadLine());
-
                 switch (selection)
                 {
-                    case int n when (n >= 1 && n <= categoryNumSelect - 5):
+                    case int n when (n >= 1 && n <= optionNumSelect - 2):
                         ShowBookTitles(selection);
                         break;
-                    case int n when (n == categoryNumSelect - 4):
-                        OriginalBookSearch();
+                    case int n when (n == optionNumSelect - 1):
+                        ShowBookOptions();
                         break;
-                    case int n when (n == categoryNumSelect - 3):
-                        InputPublisherName();
-                        break;
-                    case int n when (n == categoryNumSelect - 2):
-                        InputAuthorName();
-                        break;
-                    case int n when (n == categoryNumSelect - 1):
-                        cDisplay.ShowMenuMovieBook();
-                        break;
-                    case int n when (n == categoryNumSelect):
+                    case int n when (n == optionNumSelect):
                         cDisplay.ExitMenu();
                         break;
                     default:
@@ -83,12 +134,10 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                         break;
                 }
             }
-            catch (Exception)
+            catch
             {
-
                 ShowBookCategories();
             }
-            
         }
 
         /// <summary>
@@ -111,7 +160,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 {
                     if (int.Parse(bookTitle) == 1)
                     {
-                        ShowBookCategories();
+                        ShowBookOptions();
                     }
                     else if (int.Parse(bookTitle) == 2)
                     {
@@ -171,7 +220,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             {
                 Console.WriteLine(book.Title);
             }
-            Console.WriteLine("1.Go back to categories");
+            Console.WriteLine("1.Go back to options");
             Console.WriteLine("2.Go back to movie/book menu");
             Console.WriteLine("3.Exit");
             BookSearch();
@@ -197,7 +246,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 {
                     if (int.Parse(bookTitle) == 1)
                     {
-                        ShowBookCategories();
+                        ShowBookOptions();
                     }
                     else if (int.Parse(bookTitle) == 2)
                     {
@@ -357,7 +406,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 {
                     Console.WriteLine(publisherBook.Title);
                 }
-                Console.WriteLine("1.Go back to categories");
+                Console.WriteLine("1.Go back to options");
                 Console.WriteLine("2.Go back to movie/book menu");
                 Console.WriteLine("3.Exit");
 
@@ -407,7 +456,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                         Console.WriteLine(author.FirstName + " " + author.LastName);
                     }
                 }
-                Console.WriteLine("1.Go back to categories");
+                Console.WriteLine("1.Go back to options");
                 Console.WriteLine("2.Go back to movie/book menu");
                 Console.WriteLine("3.Exit\n");
 
@@ -445,7 +494,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
             {
                 if (int.Parse(numCheckAuthor) == 1)
                 {
-                    ShowBookCategories();
+                    ShowBookOptions();
                 }
                 else if (int.Parse(numCheckAuthor) == 2)
                 {
@@ -499,7 +548,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 Console.WriteLine(book.Title);
             }
 
-            Console.WriteLine("1.Go back to categories");
+            Console.WriteLine("1.Go back to options");
             Console.WriteLine("2.Go back to movie/book menu");
             Console.WriteLine("3.Exit");
             BookSearch();
@@ -518,7 +567,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         /// </summary>
         private void GoBackBookMenu()
         {
-            Console.WriteLine("1.Go back to categories");
+            Console.WriteLine("1.Go back to options");
             Console.WriteLine("2.Go back to movie/book selection");
             Console.WriteLine("3.Exit");
             Console.WriteLine(new string('-', 80));
@@ -531,7 +580,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 switch (choice)
                 {
                     case 1:
-                        ShowBookCategories();
+                        ShowBookOptions();
                         break;
                     case 2:
                         cDisplay.ShowMenuMovieBook();
@@ -558,7 +607,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
         {
             Console.Clear();
             Console.WriteLine("You must choose a number between [1-3]");
-            Console.WriteLine("1.Go back to categories");
+            Console.WriteLine("1.Go back to options");
             Console.WriteLine("2.Go back to movie/book selection");
             Console.WriteLine("3.Exit");
             Console.WriteLine(new string('-', 80));
@@ -571,7 +620,7 @@ namespace CatalogApp.ConsolePresentation.ModelPresentation
                 switch (choice)
                 {
                     case 1:
-                        ShowBookCategories();
+                        ShowBookOptions();
                         break;
                     case 2:
                         cDisplay.ShowMenuMovieBook();
