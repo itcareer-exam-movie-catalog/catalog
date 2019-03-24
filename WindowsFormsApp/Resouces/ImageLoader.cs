@@ -7,36 +7,39 @@ namespace WindowsFormsApp.Resouces
 {
     public class ImageLoader
     {
-        private string ImageDir = @"\Resources\";
+        static private string ImageDir = @"C:\Users\HP_15\Documents\GitHub\catalog\WindowsFormsApp\Resouces\";
 
         private BusinessBooks businessBooks;
-        private Image[] bookImages;
+        private Dictionary<int, Image> bookImages;
 
         public ImageLoader()
         {
             businessBooks = new BusinessBooks();
-            bookImages = new Image[businessBooks.GetAllBooks().Count];
+            bookImages = new Dictionary<int, Image>();
         }
 
         public void LoadImages()
         {
             BusinessBooks businessBooks = new BusinessBooks();
-            for (int a = 0; a < businessBooks.GetAllBooks().Count; a++)
+            foreach (Book book in businessBooks.GetAllBooks())
             {
                 Image image = null;
                 try
                 {
-                    image = Image.FromFile(ImageDir + @"books\" + a + ".jpg");
+                    image = Image.FromFile(ImageDir + @"books\" + book.Id + ".jpg");
                 }
-                catch
-                {
-                    image = Image.FromFile(ImageDir + "null.jpg");
-                }
+                catch { }
 
-                bookImages[a] = image;
+                bookImages.Add(book.Id, image);
             }
         }
 
-        public Image GetBookImage(int id) => bookImages[id - 1];
+        public Image GetBookImage(int id)
+        {
+            Image image;
+            bookImages.TryGetValue(id, out image);
+
+            return image;
+        }
     }
 }

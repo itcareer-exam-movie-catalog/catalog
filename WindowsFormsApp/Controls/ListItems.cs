@@ -22,6 +22,7 @@ namespace WindowsFormsApp.Controls
             this.AutoScroll = true;
 
             imageLoader = new ImageLoader();
+            imageLoader.LoadImages();
         }
 
         /// <summary>
