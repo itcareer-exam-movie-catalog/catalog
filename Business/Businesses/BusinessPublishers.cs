@@ -43,6 +43,7 @@ namespace Business.Businesses
             {
                 database.Publishers.Add(publisher);
                 database.SaveChanges();
+                return;
             }
 
             throw new ArgumentNullException("Publisher mustn't be empty/null.");

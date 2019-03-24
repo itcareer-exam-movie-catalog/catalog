@@ -10,6 +10,7 @@ namespace WindowsFormsApp.Controls.Display
     {
         private Color defaultBackColor;
         private Color mouseOverBackColor;
+        protected Image image;
 
         public DisplayItem()
         {
@@ -22,6 +23,8 @@ namespace WindowsFormsApp.Controls.Display
         public virtual string GetTitle() => throw new System.NotImplementedException();
         public virtual float GetPrice() => throw new System.NotImplementedException();
         public virtual int GetPublicationYear() => throw new System.NotImplementedException();
+
+        public void SetImage(Image image) => this.image = image;
 
         /// <summary>
         /// Refresh display information for current book or movie

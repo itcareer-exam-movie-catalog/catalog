@@ -1,4 +1,5 @@
 ﻿using Data.Model;
+using System.Drawing;
 using WindowsFormsApp.Controls.Display;
 
 namespace WindowsFormsApp.Controls
@@ -21,8 +22,6 @@ namespace WindowsFormsApp.Controls
             this.author = author;
             this.publisher = publisher;
             this.categories = categories;
-
-            RefreshDisplayInfo();
         }
 
         /// <summary>
@@ -31,6 +30,7 @@ namespace WindowsFormsApp.Controls
         public override void RefreshDisplayInfo()
         {
             this.label1.Text = book.Title;
+            this.pictureBox1.BackgroundImage = this.image;
         }
 
         public override string GetTitle() => book.Title;

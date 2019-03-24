@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using Data.Model;
+using WindowsFormsApp.Resouces;
 
 namespace WindowsFormsApp.Controls
 {
@@ -10,6 +11,7 @@ namespace WindowsFormsApp.Controls
     public partial class ListItems : UserControl
     {
         private int itemHeight;
+        private ImageLoader imageLoader;
 
         public ListItems()
         {
@@ -18,6 +20,8 @@ namespace WindowsFormsApp.Controls
             this.BackColor = Color.DarkGray;
             this.itemHeight = 60;
             this.AutoScroll = true;
+
+            imageLoader = new ImageLoader();
         }
 
         /// <summary>
@@ -31,7 +35,10 @@ namespace WindowsFormsApp.Controls
         {
             DisplayItemBook displayItem = new DisplayItemBook(book, author, publisher, categories);
             displayItem.Location = new Point(0, (itemHeight + 2) * Controls.Count);
+            displayItem.SetImage(imageLoader.GetBookImage(book.Id));
             UpdateControlWidth(displayItem);
+
+            displayItem.RefreshDisplayInfo();
 
             Controls.Add(displayItem);
         }
@@ -48,6 +55,8 @@ namespace WindowsFormsApp.Controls
             DisplayItemMovie displayItem = new DisplayItemMovie(movie, director, actors, categories);
             displayItem.Location = new Point(0, (itemHeight + 5) * Controls.Count + 5);
             UpdateControlWidth(displayItem);
+
+            displayItem.RefreshDisplayInfo();
 
             Controls.Add(displayItem);
         }

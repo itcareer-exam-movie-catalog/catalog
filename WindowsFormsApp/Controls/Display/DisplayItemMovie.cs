@@ -21,8 +21,6 @@ namespace WindowsFormsApp.Controls
             this.director = director;
             this.actors = actors;
             this.categories = categories;
-
-            RefreshDisplayInfo();
         }
 
         /// <summary>
