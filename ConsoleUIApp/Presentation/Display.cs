@@ -1,7 +1,7 @@
 ﻿using System;
-using CatalogApp.ConsolePresentation.ModelPresentation;
+using ConsolePresentation.ModelPresentation;
 
-namespace CatalogApp.ConsolePresentation
+namespace ConsolePresentation
 {
     public class Display
     {
