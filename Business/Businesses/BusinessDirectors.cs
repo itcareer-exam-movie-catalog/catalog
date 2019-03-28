@@ -1,4 +1,4 @@
-﻿using Data;
+using Data;
 using Data.Model;
 using System;
 using System.Collections.Generic;
@@ -12,34 +12,41 @@ namespace Business.Businesses
 
         public BusinessDirectors()
         {
+            database = new CatalogDbContext();
         }
-        
+
         /// <summary>
         /// Constructor that reupdates the database context.
         /// </summary>
         public BusinessDirectors(CatalogDbContext cDbContext)
         {
-         database = cDbContext;   
+            database = cDbContext;
         }
-        
+
         /// <summary>
         /// Returns the database context.
         /// </summary>
         public CatalogDbContext GetCatalogDbContext()
         {
-         return database;   
+            return database;
         }
-        
+
         /// <summary>
         /// Adds a new director to the database.
         /// </summary>
         /// <param name="director">The director</param>
         public void Add(Director director)
         {
-            using (database = new CatalogDbContext())
+            using (database)
             {
-                database.Directors.Add(director);
-                database.SaveChanges();
+                if (director != null)
+                {
+                    database.Directors.Add(director);
+                    database.SaveChanges();
+                    return;
+                }
+
+                throw new ArgumentNullException("Category mustn't be empty/null.");
             }
         }
 
@@ -49,7 +56,7 @@ namespace Business.Businesses
         /// <param name="id">The director's id</param>
         public Director GetDirector(int id)
         {
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 foreach (Director director in database.Directors)
                 {
@@ -60,16 +67,16 @@ namespace Business.Businesses
                 }
             }
 
-            throw new Exception("Director with this id does not exist!");
+            throw new IndexOutOfRangeException("Director with this id does not exist!");
         }
 
         /// <summary>
         /// Deletes the director from the database by his id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The director's id</param>
         public void DeleteDirector(int id)
         {
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 foreach (Director director in database.Directors)
                 {
@@ -82,7 +89,7 @@ namespace Business.Businesses
                 }
             }
 
-            throw new Exception("Director with this id does not exist!");
+            throw new IndexOutOfRangeException("Director with this id does not exist!");
         }
 
         /// <summary>
@@ -90,7 +97,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Director> GetAllDirectors()
         {
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 return database.Directors.ToList();
             }
