@@ -1,4 +1,4 @@
-﻿using Data;
+using Data;
 using Data.Model;
 using System;
 using System.Collections.Generic;
@@ -12,35 +12,40 @@ namespace Business.Businesses
 
         public BusinessCategories()
         {
+            database = new CatalogDbContext();
         }
-        
+
         /// <summary>
         /// Constructor that reupdates the database context.
         /// </summary>
         public BusinessCategories(CatalogDbContext cDbContext)
         {
-         database = cDbContext;   
+            database = cDbContext;
         }
-        
+
         /// <summary>
         /// Returns the database context.
         /// </summary>
         public CatalogDbContext GetCatalogDbContext()
         {
-         return database;   
+            return database;
         }
-        
+
         /// <summary>
-        /// Adds a new categoty to the database.
+        /// Adds a new category to the database.
         /// </summary>
         /// <param name="category">The category</param>
         public void AddCategoty(Category category)
         {
-            using (database = new CatalogDbContext())
+            if (category != null)
             {
                 database.Categories.Add(category);
                 database.SaveChanges();
+                return;
             }
+
+            throw new ArgumentNullException("Book mustn't be empty/null.");
+
         }
 
         /// <summary>
@@ -49,18 +54,15 @@ namespace Business.Businesses
         /// <param name="id">The category's id</param>
         public Category GetCategory(int id)
         {
-            using (database = new CatalogDbContext())
+            foreach (Category category in database.Categories)
             {
-                foreach (Category category in database.Categories)
+                if (id == category.Id)
                 {
-                    if (id == category.Id)
-                    {
-                        return category;
-                    }
+                    return category;
                 }
             }
 
-            throw new Exception("Category with this id does not exist!");
+            throw new IndexOutOfRangeException("Category with this id does not exist!");
         }
 
         /// <summary>
@@ -69,20 +71,17 @@ namespace Business.Businesses
         /// <param name="id">The category's id</param>
         public void DeleteCateory(int id)
         {
-            using (database = new CatalogDbContext())
+            foreach (Category category in database.Categories)
             {
-                foreach (Category category in database.Categories)
+                if (id == category.Id)
                 {
-                    if (id == category.Id)
-                    {
-                        database.Categories.Remove(category);
-                        database.SaveChanges();
-                        return;
-                    }
+                    database.Categories.Remove(category);
+                    database.SaveChanges();
+                    return;
                 }
             }
 
-            throw new Exception("Category with this id does not exist!");
+            throw new IndexOutOfRangeException("Category with this id does not exist!");
         }
 
         /// <summary>
@@ -90,10 +89,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Category> GetAllCategories()
         {
-            using (database = new CatalogDbContext())
-            {
-                return database.Categories.ToList();
-            }
+            return database.Categories.ToList();
         }
     }
 }
