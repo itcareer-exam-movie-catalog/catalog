@@ -1,4 +1,4 @@
-﻿using Data;
+using Data;
 using Data.Model;
 using System;
 using System.Collections.Generic;
@@ -12,35 +12,39 @@ namespace Business.Businesses
 
         public BusinessBooks()
         {
+            database = new CatalogDbContext();
         }
-        
+
         /// <summary>
         /// Constructor that reupdates the database context.
         /// </summary>
         public BusinessBooks(CatalogDbContext cDbContext)
         {
-         database = cDbContext;   
+            database = cDbContext;
         }
-        
+
         /// <summary>
         /// Returns the database context.
         /// </summary>
         public CatalogDbContext GetCatalogDbContext()
         {
-         return database;   
+            return database;
         }
-        
+
         /// <summary>
         /// Adds a new book to the database.
         /// </summary>
         /// <param name="book">The book</param>
         public void AddBook(Book book)
         {
-            using (database = new CatalogDbContext())
+            if (book != null)
             {
                 database.Books.Add(book);
                 database.SaveChanges();
+                return;
             }
+
+            throw new ArgumentNullException("Book mustn't be empty/null.");
         }
 
         /// <summary>
@@ -49,18 +53,15 @@ namespace Business.Businesses
         /// <param name="id">The book's id</param>
         public Book GetBook(int id)
         {
-            using (database = new CatalogDbContext())
+            foreach (Book book in database.Books)
             {
-                foreach (Book book in database.Books)
+                if (id == book.Id)
                 {
-                    if (id == book.Id)
-                    {
-                        return book;
-                    }
+                    return book;
                 }
             }
 
-            throw new Exception("Book with this id does not exist!");
+            throw new IndexOutOfRangeException("Book with this id does not exist!");
         }
 
         /// <summary>
@@ -69,20 +70,17 @@ namespace Business.Businesses
         /// <param name="id">The book's id</param>
         public void DeleteBook(int id)
         {
-            using (database = new CatalogDbContext())
+            foreach (Book book in database.Books)
             {
-                foreach (Book book in database.Books)
+                if (id == book.Id)
                 {
-                    if (id == book.Id)
-                    {
-                        database.Books.Remove(book);
-                        database.SaveChanges();
-                        return;
-                    }
+                    database.Books.Remove(book);
+                    database.SaveChanges();
+                    return;
                 }
             }
 
-            throw new Exception("Book with this id does not exist!");
+            throw new IndexOutOfRangeException("Book with this id does not exist!");
         }
 
         /// <summary>
@@ -90,10 +88,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Book> GetAllBooks()
         {
-            using (database = new CatalogDbContext())
-            {
-                return database.Books.ToList();
-            }
+            return database.Books.ToList();
         }
 
         /// <summary>
@@ -103,15 +98,13 @@ namespace Business.Businesses
         public List<Book> GetBooksByCategory(int categoryId)
         {
             List<Book> books = new List<Book>();
-            using (database = new CatalogDbContext())
+
+            foreach (Book book in database.Books)
             {
-                foreach (Book book in database.Books)
+                List<int> booksCategory = book.CategoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+                if (booksCategory.Contains(categoryId))
                 {
-                    List<int> booksCategory = book.CategoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
-                    if (booksCategory.Contains(categoryId))
-                    {
-                        books.Add(book);
-                    }
+                    books.Add(book);
                 }
             }
 
@@ -125,26 +118,18 @@ namespace Business.Businesses
         public List<Book> GetBooksByTitle(string bookTitle)
         {
             List<Book> booksWithSameName = new List<Book>();
-            using (database = new CatalogDbContext())
-            {
-                foreach (Book book in database.Books)
-                {
-                    if (book.Title.ToLower().Contains(bookTitle.ToLower()))
-                    {
-                        booksWithSameName.Add(book);
-                    }
-                }
 
-                if (booksWithSameName.Count != 0)
+            foreach (Book book in database.Books)
+            {
+                if (book.Title.ToLower().Contains(bookTitle.ToLower()))
                 {
-                    return booksWithSameName;
-                }
-                else
-                {
-                    return null;
+                    booksWithSameName.Add(book);
                 }
             }
+
+            return booksWithSameName;
         }
+
 
         /// <summary>
         /// Gets all the books that have been published by the entered publisher.
@@ -155,14 +140,11 @@ namespace Business.Businesses
             List<Book> publisherBooks = new List<Book>();
             int publisherId = FindPublisherId(publisherName);
 
-            using (database = new CatalogDbContext())
+            foreach (Book book in database.Books)
             {
-                foreach (Book book in database.Books)
+                if (book.PublisherId == publisherId)
                 {
-                    if (book.PublisherId == publisherId)
-                    {
-                        publisherBooks.Add(book);
-                    }
+                    publisherBooks.Add(book);
                 }
             }
 
@@ -175,14 +157,11 @@ namespace Business.Businesses
         /// <param name="publisherName">The publisher's name</param>
         private int FindPublisherId(string publisherName)
         {
-            using (database = new CatalogDbContext())
+            foreach (Publisher publisher in database.Publishers)
             {
-                foreach (Publisher publisher in database.Publishers)
+                if (publisher.Name.ToLower() == publisherName.ToLower())
                 {
-                    if (publisher.Name.ToLower() == publisherName.ToLower())
-                    {
-                        return publisher.Id;
-                    }
+                    return publisher.Id;
                 }
             }
 
@@ -202,14 +181,11 @@ namespace Business.Businesses
 
             List<Book> books = new List<Book>();
 
-            using (database = new CatalogDbContext())
+            foreach (Book book in database.Books)
             {
-                foreach (Book book in database.Books)
+                if (book.AuthorId == authorId)
                 {
-                    if (book.AuthorId == authorId)
-                    {
-                        books.Add(book);
-                    }
+                    books.Add(book);
                 }
             }
 
