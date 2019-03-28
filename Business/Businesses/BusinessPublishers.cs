@@ -1,4 +1,4 @@
-﻿using Data;
+using Data;
 using Data.Model;
 using System;
 using System.Collections.Generic;
@@ -39,14 +39,17 @@ namespace Business.Businesses
         /// <param name="publisher">The publisher</param>
         public void AddPublisher(Publisher publisher)
         {
-            if (publisher != null)
+            using (database)
             {
-                database.Publishers.Add(publisher);
-                database.SaveChanges();
-                return;
-            }
+                if (publisher != null)
+                {
+                    database.Publishers.Add(publisher);
+                    database.SaveChanges();
+                    return;
+                }
 
-            throw new ArgumentNullException("Publisher mustn't be empty/null.");
+                throw new ArgumentNullException("Publisher mustn't be empty/null.");
+            }               
         }
 
         /// <summary>
@@ -55,15 +58,18 @@ namespace Business.Businesses
         /// <param name="id">The publisher's id</param>
         public Publisher GetPublisher(int id)
         {
-            foreach (Publisher publisher in database.Publishers)
+            using (database)
             {
-                if (id == publisher.Id)
+                foreach (Publisher publisher in database.Publishers)
                 {
-                    return publisher;
+                    if (id == publisher.Id)
+                    {
+                        return publisher;
+                    }
                 }
-            }
 
-            throw new IndexOutOfRangeException("Publisher with this id does not exist!");
+                throw new IndexOutOfRangeException("Publisher with this id does not exist!");
+            }
         }
 
         /// <summary>
@@ -72,17 +78,21 @@ namespace Business.Businesses
         /// <param name="id">The publisher's id</param>
         public void DeletePublisher(int id)
         {
-            foreach (Publisher publisher in database.Publishers)
+            using (database)
             {
-                if (id == publisher.Id)
+                foreach (Publisher publisher in database.Publishers)
                 {
-                    database.Publishers.Remove(publisher);
-                    database.SaveChanges();
-                    return;
+                    if (id == publisher.Id)
+                    {
+                        database.Publishers.Remove(publisher);
+                        database.SaveChanges();
+                        return;
+                    }
                 }
-            }
 
-            throw new IndexOutOfRangeException("Publisher with this id does not exist!");
+                throw new IndexOutOfRangeException("Publisher with this id does not exist!");
+
+            }
         }
 
         /// <summary>
@@ -90,7 +100,10 @@ namespace Business.Businesses
         /// </summary>
         public List<Publisher> GetAllPublishers()
         {
-            return database.Publishers.ToList();
+            using (database)
+            {
+                return database.Publishers.ToList();
+            }
         }
     }
 }
