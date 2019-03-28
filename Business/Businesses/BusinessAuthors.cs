@@ -1,4 +1,4 @@
-﻿using Data;
+using Data;
 using Data.Model;
 using System;
 using System.Collections.Generic;
@@ -66,8 +66,8 @@ namespace Business.Businesses
         /// <summary>
         /// Deletes the author from the database by his id.
         /// </summary>
-        /// <param name="id"></param>
-        public void DeleteActor(int id)
+        /// <param name="id">The author's id</param>
+        public void DeleteAuthor(int id)
         {
             using (database = new CatalogDbContext())
             {
