@@ -41,7 +41,7 @@ namespace ConsolePresentation.ModelPresentation
         /// show you the Exit menu.
         /// </summary>
         /// <param name="optionNumSelect">The total amount of options on the Movie menu</param>
-        public void InputBookOptions(int optionNumSelect)
+        private void InputBookOptions(int optionNumSelect)
         {
             YourChoice();
 
@@ -84,7 +84,7 @@ namespace ConsolePresentation.ModelPresentation
         /// Shows all the movie categories.
         /// There are options to go back/exit.
         /// </summary>
-        public void ShowBookCategories()
+        private void ShowBookCategories()
         {
             int optionNumSelect = 1;
             BusinessCategories BusinessCategories = new BusinessCategories();
@@ -111,7 +111,7 @@ namespace ConsolePresentation.ModelPresentation
         /// </summary>
         /// <param name="optionNumSelect">The total amount of categories and options
         /// from <see cref="ShowBookCategories"/> method.</param>
-        public void InputBookCategories(int optionNumSelect)
+        private void InputBookCategories(int optionNumSelect)
         {
             YourChoice();
 
@@ -480,9 +480,13 @@ namespace ConsolePresentation.ModelPresentation
         /// </summary>
         private void InputAuthorWithSimilarNames()
         {
+            Console.Clear();
             Console.WriteLine("If you want to select any of the other options, select a number from [1-3]");
             Console.WriteLine("Otherwise - Enter the author's name, ");
             Console.WriteLine("so you can see all the books that he wrote: ");
+            Console.WriteLine("1.Go back to options");
+            Console.WriteLine("2.Go back to movie/book menu");
+            Console.WriteLine("3.Exit");
             Console.WriteLine(new string('-', 80));
             YourChoice();
 
