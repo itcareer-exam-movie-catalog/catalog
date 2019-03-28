@@ -11,10 +11,23 @@ namespace ConsolePresentation.ModelPresentation
         private Display cDisplay = new Display();
 
         /// <summary>
+        /// Initializes the window.
+        /// </summary>
+        private static void InitializeWindow()
+        {
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Clear();
+
+            Console.Title = "CatalogApp";
+        }
+
+        /// <summary>
         /// Shows you the Movie menu and its options.
         /// </summary>
         public void ShowMovieOptions()
         {
+            InitializeWindow();
             int optionNumSelect = 1;
             BusinessCategories BusinessCategories = new BusinessCategories();
 
