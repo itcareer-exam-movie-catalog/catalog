@@ -41,7 +41,7 @@ namespace ConsolePresentation.ModelPresentation
         /// show you the Exit menu.
         /// </summary>
         /// <param name="optionNumSelect">The total amount of options on the Movie menu</param>
-        public void InputMovieOptions(int optionNumSelect)
+        private void InputMovieOptions(int optionNumSelect)
         {
             YourChoice();
 
@@ -84,7 +84,7 @@ namespace ConsolePresentation.ModelPresentation
         /// Shows all the movie categories.
         /// There are options to go back/exit.
         /// </summary>
-        public void ShowMovieCategories()
+        private void ShowMovieCategories()
         {
             int optionNumSelect = 1;
             BusinessCategories BusinessCategories = new BusinessCategories();
@@ -111,7 +111,7 @@ namespace ConsolePresentation.ModelPresentation
         /// </summary>
         /// <param name="optionNumSelect">The total amount of categories and options
         /// from <see cref="ShowMovieCategories"/> method.</param>
-        public void InputMovieCategories(int optionNumSelect)
+        private void InputMovieCategories(int optionNumSelect)
         {
             YourChoice();
 
@@ -145,7 +145,7 @@ namespace ConsolePresentation.ModelPresentation
         /// If there are more than 1 movie, then the program shows every movie, that contains the chosen name.
         /// If the input is an integer, between 1-3, the program gets back to a chosen previous menu.
         /// </summary>
-        public void OriginalMovieSearch()
+        private void OriginalMovieSearch()
         {
             Console.Clear();
             Console.Write("Enter the title of the movie you want to search: ");
@@ -212,7 +212,7 @@ namespace ConsolePresentation.ModelPresentation
         /// User has the option to go back to a selected previous menu.
         /// </summary>
         /// <param name="selection">The chosen category's number/id</param>
-        public void ShowMovieTitles(int selection)
+        private void ShowMovieTitles(int selection)
         {
             Console.Clear();
             Console.WriteLine(new string('-', 80));
@@ -239,7 +239,7 @@ namespace ConsolePresentation.ModelPresentation
         /// Searches for a movie.
         /// Works exactly like the <see cref="OriginalMovieSearch"/> method, but prints out extra text.
         /// </summary>
-        public void MovieSearch()
+        private void MovieSearch()
         {
             Console.WriteLine(new string('-', 80));
             Console.WriteLine("If you want to select any of the other options, select a number from [1-3]");
@@ -305,7 +305,7 @@ namespace ConsolePresentation.ModelPresentation
         /// Shows information about the chosen movie.
         /// </summary>
         /// <param name="movie">The selected movie</param>
-        public void ShowMovieInformation(Movie movie)
+        private void ShowMovieInformation(Movie movie)
         {
             Console.Clear();
             BusinessCategories BusinessCategories = new BusinessCategories();
@@ -346,7 +346,7 @@ namespace ConsolePresentation.ModelPresentation
         /// Shows every movie that contains the same key name.
         /// </summary>
         /// <param name="moviesWithSimilarName">All of the movies with the same key name</param>
-        public void ShowMoviesWithSimilarNames(List<Movie> moviesWithSimilarName)
+        private void ShowMoviesWithSimilarNames(List<Movie> moviesWithSimilarName)
         {
             Console.Clear();
             Console.WriteLine("Here are some of the movies, that have similar names.");
@@ -393,7 +393,7 @@ namespace ConsolePresentation.ModelPresentation
         /// <summary>
         /// Inputs the director's name.
         /// </summary>
-        public void InputDirectorName()
+        private void InputDirectorName()
         {
             Console.Clear();
             Console.WriteLine("Enter the director's name");
@@ -440,7 +440,7 @@ namespace ConsolePresentation.ModelPresentation
         /// <summary>
         /// Inputs the actor's name
         /// </summary>
-        public void InputActorName()
+        private void InputActorName()
         {
             Console.Clear();
             Console.WriteLine("Enter the actor's name");
@@ -460,7 +460,7 @@ namespace ConsolePresentation.ModelPresentation
         /// or to show the chosen actor's movies, if you entered his first and last name.
         /// </summary>
         /// <param name="actorName">The selected actor's name</param>
-        public void ShowActorNames(string actorName)
+        private void ShowActorNames(string actorName)
         {
             Console.Clear();
 
@@ -500,11 +500,15 @@ namespace ConsolePresentation.ModelPresentation
         /// Inputs the chosen actor's first and last name from a list with every actor,
         /// that has the same key name.
         /// </summary>
-        public void InputActorWithSimilarNames()
+        private void InputActorWithSimilarNames()
         {
+            Console.Clear();
             Console.WriteLine("If you want to select any of the other options, select a number from [1-3]");
             Console.WriteLine("Otherwise - Enter the actor's name, ");
             Console.WriteLine("so you can see all the movies that he acted in: ");
+            Console.WriteLine("1.Go back to options");
+            Console.WriteLine("2.Go back to movie/book menu");
+            Console.WriteLine("3.Exit");
             Console.WriteLine(new string('-', 80));
             YourChoice();
 
@@ -558,7 +562,7 @@ namespace ConsolePresentation.ModelPresentation
         /// the movie's name through the <see cref="MovieSearch"/> method.
         /// </summary>
         /// <param name="actorId">The chosen actor's id</param>
-        public void ShowActorMovies(int actorId)
+        private void ShowActorMovies(int actorId)
         {
             Console.Clear();
             Console.WriteLine("Here are some of the movies, where the selected actor has played");
@@ -579,7 +583,7 @@ namespace ConsolePresentation.ModelPresentation
         /// <summary>
         /// Gives you the option to go back to a selected movie menu.
         /// </summary>
-        public void GoBackMovieMenu()
+        private void GoBackMovieMenu()
         {
             Console.WriteLine("1.Go back to options");
             Console.WriteLine("2.Go back to movie/book selection");
@@ -619,7 +623,7 @@ namespace ConsolePresentation.ModelPresentation
         /// In case that the user has entered an invalid value during the <see cref="GoBackMovieMenu"/> method
         /// it prints out an extra line of text.
         /// </summary>
-        public void GoBackErrorMovieMenu()
+        private void GoBackErrorMovieMenu()
         {
             Console.Clear();
             Console.WriteLine("You must choose a number between [1-3]");
