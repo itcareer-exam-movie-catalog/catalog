@@ -37,8 +37,17 @@ namespace Business.Businesses
         /// <param name="actor"></param>
         public void AddActor(Actor actor)
         {
-            database.Actors.Add(actor);
-            database.SaveChanges();
+            using (database)
+            {
+                if (actor != null)
+                {
+                    database.Actors.Add(actor);
+                    database.SaveChanges();
+                    return;
+                }
+
+                throw new ArgumentNullException("Actor mustn't be empty/null.");
+            }
         }
 
         /// <summary>
@@ -47,15 +56,18 @@ namespace Business.Businesses
         /// <param name="id">The actor's id</param>
         public Actor GetActor(int id)
         {
-            foreach (Actor actor in database.Actors)
+            using (database)
             {
-                if (id == actor.Id)
+                foreach (Actor actor in database.Actors)
                 {
-                    return actor;
+                    if (id == actor.Id)
+                    {
+                        return actor;
+                    }
                 }
-            }
 
-            throw new Exception("Actor with this id does not exist!");
+                throw new IndexOutOfRangeException("Actor with this id does not exist!");
+            }      
         }
 
         /// <summary>
@@ -64,17 +76,20 @@ namespace Business.Businesses
         /// <param name="id">The actor's id</param>
         public void DeleteActor(int id)
         {
-            foreach (Actor actor in database.Actors)
+            using (database)
             {
-                if (id == actor.Id)
+                foreach (Actor actor in database.Actors)
                 {
-                    database.Actors.Remove(actor);
-                    database.SaveChanges();
-                    return;
+                    if (id == actor.Id)
+                    {
+                        database.Actors.Remove(actor);
+                        database.SaveChanges();
+                        return;
+                    }
                 }
-            }
 
-            throw new Exception("Actor with this id does not exist!");
+                throw new IndexOutOfRangeException("Actor with this id does not exist!");
+            }         
         }
 
         /// <summary>
@@ -82,7 +97,10 @@ namespace Business.Businesses
         /// </summary>
         public List<Actor> GetAllActors()
         {
-            return database.Actors.ToList();
+            using (database)
+            {
+                return database.Actors.ToList();
+            }
         }
 
         /// <summary>
@@ -92,15 +110,18 @@ namespace Business.Businesses
         /// <param name="actorLastName">The actor's last name</param>
         public int FindActorId(string actorFirstName, string actorLastName)
         {
-            foreach (Actor actor in database.Actors)
+            using (database)
             {
-                if (actor.FirstName.ToLower().Equals(actorFirstName.ToLower()) && actor.LastName.ToLower().Equals(actorLastName.ToLower()))
+                foreach (Actor actor in database.Actors)
                 {
-                    return actor.Id;
+                    if (actor.FirstName.ToLower().Equals(actorFirstName.ToLower()) && actor.LastName.ToLower().Equals(actorLastName.ToLower()))
+                    {
+                        return actor.Id;
+                    }
                 }
-            }
 
-            throw new Exception("Actor with this names does not exist!");
+                throw new InvalidOperationException("Actor with this names does not exist!");
+            }
         }
     }
 }
