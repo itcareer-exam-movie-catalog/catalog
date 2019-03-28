@@ -1,4 +1,4 @@
-﻿using Data;
+using Data;
 using Data.Model;
 using System;
 using System.Collections.Generic;
@@ -10,35 +10,35 @@ namespace Business.Businesses
     {
         private CatalogDbContext database;
 
-        public BusinessActors(){}
-        
+        public BusinessActors()
+        {
+            database = new CatalogDbContext();
+        }
+
         /// <summary>
         /// Constructor that reupdates the database context.
         /// </summary>
         public BusinessActors(CatalogDbContext cDbContext)
         {
-            database = cDbContext; 
+            database = cDbContext;
         }
-        
+
         /// <summary>
         /// Returns the database context.
         /// </summary>
         public CatalogDbContext GetCatalogDbContext()
         {
-            return database;   
+            return database;
         }
 
         /// <summary>
         /// Adds a new actor to the database.
         /// </summary>
-        /// <param name="actor">The actor.</param>
+        /// <param name="actor"></param>
         public void AddActor(Actor actor)
         {
-            using (database = new CatalogDbContext())
-            {
-                database.Actors.Add(actor);
-                database.SaveChanges();
-            }
+            database.Actors.Add(actor);
+            database.SaveChanges();
         }
 
         /// <summary>
@@ -47,14 +47,11 @@ namespace Business.Businesses
         /// <param name="id">The actor's id</param>
         public Actor GetActor(int id)
         {
-            using (database = new CatalogDbContext())
+            foreach (Actor actor in database.Actors)
             {
-                foreach (Actor actor in database.Actors)
+                if (id == actor.Id)
                 {
-                    if(id == actor.Id)
-                    {
-                        return actor;
-                    }
+                    return actor;
                 }
             }
 
@@ -67,16 +64,13 @@ namespace Business.Businesses
         /// <param name="id">The actor's id</param>
         public void DeleteActor(int id)
         {
-            using (database = new CatalogDbContext())
+            foreach (Actor actor in database.Actors)
             {
-                foreach (Actor actor in database.Actors)
+                if (id == actor.Id)
                 {
-                    if (id == actor.Id)
-                    {
-                        database.Actors.Remove(actor);
-                        database.SaveChanges();
-                        return;
-                    }
+                    database.Actors.Remove(actor);
+                    database.SaveChanges();
+                    return;
                 }
             }
 
@@ -88,10 +82,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Actor> GetAllActors()
         {
-            using (database = new CatalogDbContext())
-            {
-                return database.Actors.ToList();
-            }
+            return database.Actors.ToList();
         }
 
         /// <summary>
@@ -101,14 +92,11 @@ namespace Business.Businesses
         /// <param name="actorLastName">The actor's last name</param>
         public int FindActorId(string actorFirstName, string actorLastName)
         {
-            using (database = new CatalogDbContext())
+            foreach (Actor actor in database.Actors)
             {
-                foreach (Actor actor in database.Actors)
+                if (actor.FirstName.ToLower().Equals(actorFirstName.ToLower()) && actor.LastName.ToLower().Equals(actorLastName.ToLower()))
                 {
-                    if (actor.FirstName.ToLower().Equals(actorFirstName.ToLower()) && actor.LastName.ToLower().Equals(actorLastName.ToLower()))
-                    {
-                        return actor.Id;
-                    }
+                    return actor.Id;
                 }
             }
 
