@@ -11,10 +11,23 @@ namespace ConsolePresentation.ModelPresentation
         Display cDisplay = new Display();
 
         /// <summary>
+        /// Initializes the window.
+        /// </summary>
+        private static void InitializeWindow()
+        {
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Clear();
+
+            Console.Title = "CatalogApp";
+        }
+
+        /// <summary>
         /// Shows you the Book menu and its options.
         /// </summary>
         public void ShowBookOptions()
         {
+            InitializeWindow();
             int optionNumSelect = 1;
             BusinessCategories BusinessCategories = new BusinessCategories();
 
