@@ -37,6 +37,7 @@ namespace ConsolePresentation
         /// </summary>
         public void ShowMenuMovieBook()
         {
+            InitializeWindow();
             Console.Clear();
             Console.WriteLine("What're you looking for?");
             Console.WriteLine("1.Movie");
@@ -50,7 +51,7 @@ namespace ConsolePresentation
         /// <summary>
         /// Chooses whether to show you the Movie or the Book menu.
         /// </summary>
-        public void InputMenuMovieBook()
+        private void InputMenuMovieBook()
         {
             YourChoice();
             string selectionFromMenuMovieBook = Console.ReadLine();
