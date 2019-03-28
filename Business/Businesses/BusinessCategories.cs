@@ -44,7 +44,7 @@ namespace Business.Businesses
                 return;
             }
 
-            throw new ArgumentNullException("Book mustn't be empty/null.");
+            throw new ArgumentNullException("Category mustn't be empty/null.");
 
         }
 
