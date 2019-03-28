@@ -1,4 +1,4 @@
-﻿using Data;
+using Data;
 using Data.Model;
 using System;
 using System.Collections.Generic;
@@ -12,34 +12,41 @@ namespace Business.Businesses
 
         public BusinessMovies()
         {
+            database = new CatalogDbContext();
         }
-        
+
         /// <summary>
         /// Constructor that reupdates the database context.
         /// </summary>
         public BusinessMovies(CatalogDbContext cDbContext)
         {
-            database = cDbContext;   
+            database = cDbContext;
         }
-        
+
         /// <summary>
         /// Returns the database context.
         /// </summary>
         public CatalogDbContext GetCatalogDbContext()
         {
-            return database;   
+            return database;
         }
-        
+
         /// <summary>
         /// Adds a new movie to the database.
         /// </summary>
         /// <param name="movie">The movie</param>
         public void AddMovie(Movie movie)
         {
-            using (database = new CatalogDbContext())
+            using (database)
             {
-                database.Movies.Add(movie);
-                database.SaveChanges();
+                if (movie != null)
+                {
+                    database.Movies.Add(movie);
+                    database.SaveChanges();
+                    return;
+                }
+
+                throw new ArgumentNullException("Movie mustn't be empty/null.");
             }
         }
 
@@ -49,7 +56,7 @@ namespace Business.Businesses
         /// <param name="id">The movie's id</param>
         public Movie GetMovie(int id)
         {
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 foreach (Movie movie in database.Movies)
                 {
@@ -60,7 +67,7 @@ namespace Business.Businesses
                 }
             }
 
-            throw new Exception("Movie with this id does not exist!");
+            throw new IndexOutOfRangeException("Movie with this id does not exist!");
         }
 
         /// <summary>
@@ -69,7 +76,7 @@ namespace Business.Businesses
         /// <param name="id">The movie's id</param>
         public void DeleteMovie(int id)
         {
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 foreach (Movie movie in database.Movies)
                 {
@@ -82,7 +89,7 @@ namespace Business.Businesses
                 }
             }
 
-            throw new Exception("Movie with this id does not exist!");
+            throw new IndexOutOfRangeException("Movie with this id does not exist!");
         }
 
         /// <summary>
@@ -90,7 +97,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Movie> GetAllMovies()
         {
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 return database.Movies.ToList();
             }
@@ -103,7 +110,7 @@ namespace Business.Businesses
         public List<Movie> GetMoviesByCategory(int categoryId)
         {
             List<Movie> movies = new List<Movie>();
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 foreach (Movie movie in database.Movies)
                 {
@@ -125,7 +132,7 @@ namespace Business.Businesses
         public List<Movie> GetMoviesByTitle(string movieTitle)
         {
             List<Movie> moviesWithSameName = new List<Movie>();
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 foreach (Movie movie in database.Movies)
                 {
@@ -157,7 +164,7 @@ namespace Business.Businesses
 
             List<int> directorIds = FindDirectorId(directorName);
 
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 if (directorIds.Count == 1)
                 {
@@ -206,7 +213,7 @@ namespace Business.Businesses
             string[] directorFullName = directorName.Split().ToArray();
             List<int> directorIds = new List<int>();
 
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 if (directorFullName.Length > 1)
                 {
@@ -256,7 +263,7 @@ namespace Business.Businesses
 
             List<Movie> movies = new List<Movie>();
 
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 foreach (Movie movie in database.Movies)
                 {
