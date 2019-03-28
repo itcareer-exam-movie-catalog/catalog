@@ -31,7 +31,7 @@ namespace Business.Businesses
         /// <summary>
         /// Adds a new actor to the database.
         /// </summary>
-        /// <param name="actor"></param>
+        /// <param name="actor">The actor.</param>
         public void AddActor(Actor actor)
         {
             using (database = new CatalogDbContext())
