@@ -105,5 +105,25 @@ namespace Business.Businesses
                 return database.Publishers.ToList();
             }
         }
+
+        /// <summary>
+        /// Finds the publisher's id based on his name.
+        /// </summary>
+        /// <param name="publisherName">The publisher's name</param>
+        public int FindPublisherId(string publisherName)
+        {
+            using (database)
+            {
+                foreach (Publisher publisher in database.Publishers)
+                {
+                    if (publisher.Name.ToLower() == publisherName.ToLower())
+                    {
+                        return publisher.Id;
+                    }
+                }
+            }
+
+            return -1;
+        }
     }
 }
