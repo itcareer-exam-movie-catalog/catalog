@@ -97,7 +97,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Book> GetAllBooks()
         {
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 return database.Books.ToList();
             }
