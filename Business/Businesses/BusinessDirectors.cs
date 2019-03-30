@@ -35,7 +35,7 @@ namespace Business.Businesses
         /// Adds a new director to the database.
         /// </summary>
         /// <param name="director">The director</param>
-        public void Add(Director director)
+        public void AddDirector(Director director)
         {
             using (database)
             {
