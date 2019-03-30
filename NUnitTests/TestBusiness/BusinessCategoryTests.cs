@@ -15,7 +15,7 @@ using System.Configuration;
 namespace NUnitTests.BusinessTests
 {
     [TestFixture]
-    class BusinessPublisherTests
+    class BusinessCategoryTests
     {
         private Mock<DbSet<Actor>> mockActors;
         private Mock<DbSet<Author>> mockAuthors;
@@ -121,91 +121,91 @@ namespace NUnitTests.BusinessTests
             mockDbContext.Setup(x => x.Publishers).Returns(mockPublishers.Object);
         }
 
-        [Test, Description("Ensures that when added the publisher stays in the database")]
-        public void Add_New_Publisher_To_Database()
+        [Test, Description("Ensures that when added the category stays in the database")]
+        public void Add_New_Category_To_Database()
         {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
+            BusinessCategories mockBusinessCategory = new BusinessCategories(mockDbContext.Object);
 
-            Publisher mockPublisher = new Publisher()
+            Category mockCategory = new Category()
             {
                 Id = 3,
-                Name = "name3",
+                Name = "Romance",
             };
 
-            mockBusinessPublisher.AddPublisher(mockPublisher);
+            mockBusinessCategory.AddCategory(mockCategory);
 
-            CatalogDbContext cDbContext = mockBusinessPublisher.GetCatalogDbContext();
+            CatalogDbContext cDbContext = mockBusinessCategory.GetCatalogDbContext();
 
-            Assert.Contains(mockPublisher, cDbContext.Publishers.ToList(), "Publisher isn't added.");
+            Assert.Contains(mockCategory, cDbContext.Categories.ToList(), "Category isn't added.");
         }
 
-        [Test, Description("Ensures that when added a publisher with value null an error is thrown.")]
-        public void Add_Null_Publisher_To_Database()
+        [Test, Description("Ensures that when added a category with value null an error is thrown.")]
+        public void Add_Null_Category_To_Database()
         {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
+            BusinessCategories mockBusinessCategory = new BusinessCategories(mockDbContext.Object);
 
-            Publisher mockPublisher = null;
+            Category mockCategory = null;
 
-            Assert.Throws<ArgumentNullException>(() => mockBusinessPublisher.AddPublisher(mockPublisher), "Publisher with value null was added to the database.");
+            Assert.Throws<ArgumentNullException>(() => mockBusinessCategory.AddCategory(mockCategory), "Category with value null was added to the database.");
         }
 
-        [Test, Description("Ensures that a publisher with the following id and name exists in the database")]
-        public void Get_Publisher_By_Id_From_Database()
+        [Test, Description("Ensures that a category with the following id and name exists in the database")]
+        public void Get_Category_By_Id_From_Database()
         {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
+            BusinessCategories mockBusinessCategory = new BusinessCategories(mockDbContext.Object);
 
-            int publisherId = 1;
+            int categoryId = 1;
 
-            Publisher mockPublisher = mockBusinessPublisher.GetPublisher(publisherId);
+            Category mockCategory = mockBusinessCategory.GetCategory(categoryId);
 
-            Assert.AreEqual(publisherId, mockPublisher.Id, "Wrong publisher found.");
-        }
-
-        [Test, Description("Ensures that an exception is thrown when an id, that doesn't exist in the database, is entered.")]
-        public void Get_Publisher_By_Id_That_Is_Not_In_Database()
-        {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
-
-            int publisherId = 100;
-
-            Assert.Throws<IndexOutOfRangeException>(() => mockBusinessPublisher.GetPublisher(publisherId));
-        }
-
-        [Test, Description("Ensures that a publisher with the following id will be deleted.")]
-        public void Delete_Publisher_By_Id_From_Database()
-        {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
-
-            int publisherId = 1;
-
-            int oldPublisherCount = mockBusinessPublisher.GetCatalogDbContext().Publishers.Count();
-
-            mockBusinessPublisher.DeletePublisher(publisherId);
-
-            int currentPublisherCount = mockBusinessPublisher.GetCatalogDbContext().Publishers.Count();
-
-            Assert.Less(currentPublisherCount, oldPublisherCount, "Publisher was not deleted.");
+            Assert.AreEqual(categoryId, mockCategory.Id, "Wrong category found.");
         }
 
         [Test, Description("Ensures that an exception is thrown when an id, that doesn't exist in the database, is entered.")]
-        public void Delete_Publisher_By_Id_That_Is_Not_In_Database()
+        public void Get_Category_By_Id_That_Is_Not_In_Database()
         {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
+            BusinessCategories mockBusinessCategory = new BusinessCategories(mockDbContext.Object);
 
-            int publisherId = 100;
+            int categoryId = 100;
 
-            Assert.Throws<IndexOutOfRangeException>(() => mockBusinessPublisher.DeletePublisher(publisherId));
+            Assert.Throws<IndexOutOfRangeException>(() => mockBusinessCategory.GetCategory(categoryId));
         }
 
-        [Test, Description("Ensures that all publishers will be gotten/fetched")]
-        public void Get_All_Publishers_From_Database()
+        [Test, Description("Ensures that a category with the following id will be deleted.")]
+        public void Delete_Category_By_Id_From_Database()
         {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
+            BusinessCategories mockBusinessCategory = new BusinessCategories(mockDbContext.Object);
 
-            int businessPublisherCount = mockBusinessPublisher.GetAllPublishers().Count();
-            int dbPublisherCount = mockBusinessPublisher.GetCatalogDbContext().Publishers.Count();
+            int categoryId = 1;
 
-            Assert.AreEqual(businessPublisherCount, dbPublisherCount, "Not all publishers were gotten/fetched.");
+            int oldCategoryCount = mockBusinessCategory.GetCatalogDbContext().Categories.Count();
+
+            mockBusinessCategory.DeleteCategory(categoryId);
+
+            int currentCategoryCount = mockBusinessCategory.GetCatalogDbContext().Categories.Count();
+
+            Assert.Less(currentCategoryCount, oldCategoryCount, "Category was not deleted.");
+        }
+
+        [Test, Description("Ensures that an exception is thrown when an id, that doesn't exist in the database, is entered.")]
+        public void Delete_Category_By_Id_That_Is_Not_In_Database()
+        {
+            BusinessCategories mockBusinessCategory = new BusinessCategories(mockDbContext.Object);
+
+            int categoryId = 100;
+
+            Assert.Throws<IndexOutOfRangeException>(() => mockBusinessCategory.DeleteCategory(categoryId));
+        }
+
+        [Test, Description("Ensures that all categories will be gotten/fetched")]
+        public void Get_All_Categories_From_Database()
+        {
+            BusinessCategories mockBusinessCategory = new BusinessCategories(mockDbContext.Object);
+
+            int businessCategoryCount = mockBusinessCategory.GetAllCategories().Count();
+            int dbCategoryCount = mockBusinessCategory.GetCatalogDbContext().Categories.Count();
+
+            Assert.AreEqual(businessCategoryCount, dbCategoryCount, "Not all categories were gotten/fetched.");
         }
     }
 }

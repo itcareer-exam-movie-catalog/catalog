@@ -15,7 +15,7 @@ using System.Configuration;
 namespace NUnitTests.BusinessTests
 {
     [TestFixture]
-    class BusinessPublisherTests
+    class BusinessActorTests
     {
         private Mock<DbSet<Actor>> mockActors;
         private Mock<DbSet<Author>> mockAuthors;
@@ -121,91 +121,127 @@ namespace NUnitTests.BusinessTests
             mockDbContext.Setup(x => x.Publishers).Returns(mockPublishers.Object);
         }
 
-        [Test, Description("Ensures that when added the publisher stays in the database")]
-        public void Add_New_Publisher_To_Database()
+        [Test, Description("Ensures that when added the actor stays in the database")]
+        public void Add_New_Actor_To_Database()
         {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
+            BusinessActors mockBusinessActor = new BusinessActors(mockDbContext.Object);
 
-            Publisher mockPublisher = new Publisher()
+            Actor mockActor = new Actor()
             {
                 Id = 3,
-                Name = "name3",
+                FirstName = "firstName",
+                LastName = "lastName"
             };
 
-            mockBusinessPublisher.AddPublisher(mockPublisher);
+            mockBusinessActor.AddActor(mockActor);
 
-            CatalogDbContext cDbContext = mockBusinessPublisher.GetCatalogDbContext();
+            CatalogDbContext cDbContext = mockBusinessActor.GetCatalogDbContext();
 
-            Assert.Contains(mockPublisher, cDbContext.Publishers.ToList(), "Publisher isn't added.");
+            Assert.Contains(mockActor, cDbContext.Actors.ToList(), "Actor isn't added.");
         }
 
-        [Test, Description("Ensures that when added a publisher with value null an error is thrown.")]
-        public void Add_Null_Publisher_To_Database()
+        [Test, Description("Ensures that when added an actor with value null an exception is thrown.")]
+        public void Add_Null_Actor_To_Database()
         {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
+            BusinessActors mockBusinessActor = new BusinessActors(mockDbContext.Object);
 
-            Publisher mockPublisher = null;
+            Actor mockActor = null;
 
-            Assert.Throws<ArgumentNullException>(() => mockBusinessPublisher.AddPublisher(mockPublisher), "Publisher with value null was added to the database.");
+            Assert.Throws<ArgumentNullException>(() => mockBusinessActor.AddActor(mockActor), "Actor with value null was added to the database.");
         }
 
-        [Test, Description("Ensures that a publisher with the following id and name exists in the database")]
-        public void Get_Publisher_By_Id_From_Database()
+        [Test, Description("Ensures that an actor with the following id and name exists in the database")]
+        public void Get_Actor_By_Id_From_Database()
         {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
+            BusinessActors mockBusinessActor = new BusinessActors(mockDbContext.Object);
 
-            int publisherId = 1;
+            int actorId = 1;
 
-            Publisher mockPublisher = mockBusinessPublisher.GetPublisher(publisherId);
+            Actor mockActor = mockBusinessActor.GetActor(actorId);
 
-            Assert.AreEqual(publisherId, mockPublisher.Id, "Wrong publisher found.");
-        }
-
-        [Test, Description("Ensures that an exception is thrown when an id, that doesn't exist in the database, is entered.")]
-        public void Get_Publisher_By_Id_That_Is_Not_In_Database()
-        {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
-
-            int publisherId = 100;
-
-            Assert.Throws<IndexOutOfRangeException>(() => mockBusinessPublisher.GetPublisher(publisherId));
-        }
-
-        [Test, Description("Ensures that a publisher with the following id will be deleted.")]
-        public void Delete_Publisher_By_Id_From_Database()
-        {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
-
-            int publisherId = 1;
-
-            int oldPublisherCount = mockBusinessPublisher.GetCatalogDbContext().Publishers.Count();
-
-            mockBusinessPublisher.DeletePublisher(publisherId);
-
-            int currentPublisherCount = mockBusinessPublisher.GetCatalogDbContext().Publishers.Count();
-
-            Assert.Less(currentPublisherCount, oldPublisherCount, "Publisher was not deleted.");
+            Assert.AreEqual(actorId, mockActor.Id, "Wrong actor found.");
         }
 
         [Test, Description("Ensures that an exception is thrown when an id, that doesn't exist in the database, is entered.")]
-        public void Delete_Publisher_By_Id_That_Is_Not_In_Database()
+        public void Get_Actor_By_Id_That_Is_Not_In_Database()
         {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
+            BusinessActors mockBusinessActor = new BusinessActors(mockDbContext.Object);
 
-            int publisherId = 100;
+            int actorId = 100;
 
-            Assert.Throws<IndexOutOfRangeException>(() => mockBusinessPublisher.DeletePublisher(publisherId));
+            Assert.Throws<IndexOutOfRangeException>(() => mockBusinessActor.GetActor(actorId));
         }
 
-        [Test, Description("Ensures that all publishers will be gotten/fetched")]
-        public void Get_All_Publishers_From_Database()
+        [Test, Description("Ensures that an actor with the following id will be deleted.")]
+        public void Delete_Actor_By_Id_From_Database()
         {
-            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
+            BusinessActors mockBusinessActor = new BusinessActors(mockDbContext.Object);
 
-            int businessPublisherCount = mockBusinessPublisher.GetAllPublishers().Count();
-            int dbPublisherCount = mockBusinessPublisher.GetCatalogDbContext().Publishers.Count();
+            int actorId = 1;
 
-            Assert.AreEqual(businessPublisherCount, dbPublisherCount, "Not all publishers were gotten/fetched.");
+            int oldActorCount = mockBusinessActor.GetCatalogDbContext().Actors.Count();
+
+            mockBusinessActor.DeleteActor(actorId);
+
+            int currentActorCount = mockBusinessActor.GetCatalogDbContext().Actors.Count();
+
+            Assert.Less(currentActorCount, oldActorCount, "Actor was not deleted.");
+        }
+
+        [Test, Description("Ensures that an exception is thrown when an id, that doesn't exist in the database, is entered.")]
+        public void Delete_Actor_By_Id_That_Is_Not_In_Database()
+        {
+            BusinessActors mockBusinessActor = new BusinessActors(mockDbContext.Object);
+
+            int actorId = 100;
+
+            Assert.Throws<IndexOutOfRangeException>(() => mockBusinessActor.DeleteActor(actorId));
+        }
+
+        [Test, Description("Ensures that all actors will be gotten/fetched")]
+        public void Get_All_Actors_From_Database()
+        {
+            BusinessActors mockBusinessActor = new BusinessActors(mockDbContext.Object);
+
+            int businessActorCount = mockBusinessActor.GetAllActors().Count();
+            int dbActorCount = mockBusinessActor.GetCatalogDbContext().Actors.Count();
+
+            Assert.AreEqual(businessActorCount, dbActorCount, "Not all actors were gotten/fetched.");
+        }
+
+        [Test, Description("Ensures that when entered both names the actor's id will be fetched.")]
+        public void Get_Actor_Id_By_First_And_Last_Name()
+        {
+            BusinessActors mockBusinessActor = new BusinessActors(mockDbContext.Object);
+
+            string actorFirstName = "firstName";
+            string actorLastName = "lastName";
+
+            int actorId = mockBusinessActor.FindActorId(actorFirstName, actorLastName);
+
+            CatalogDbContext cDbContext = mockBusinessActor.GetCatalogDbContext();
+
+            List<Actor> allActors = cDbContext.Actors.ToList();
+            List<int> actorIds = new List<int>();
+
+            foreach (Actor actor in allActors)
+            {
+                actorIds.Add(actor.Id);
+            }
+
+
+            Assert.Contains(actorId, actorIds, "The actor doesn't exist.");
+        }
+
+        [Test, Description("Ensures that when entered invalid names an exception will be thrown.")]
+        public void Get_Actor_Id_By_Names_That_Do_Not_Exist_In_The_Database()
+        {
+            BusinessActors mockBusinessActor = new BusinessActors(mockDbContext.Object);
+
+            string actorFirstName = "lastName";
+            string actorLastName = "firstName";
+
+            Assert.Catch<InvalidOperationException>(() => mockBusinessActor.FindActorId(actorFirstName, actorLastName));
         }
     }
 }
