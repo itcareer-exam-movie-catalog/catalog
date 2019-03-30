@@ -345,7 +345,7 @@ namespace NUnitTests.BusinessTests
             int categoryId = 10;
             List<Book> mockBooksWithAuthor = mockBusinessBook.GetBooksByAuthorId(categoryId).ToList();
 
-            Assert.IsEmpty(mockBooksWithAuthor);
+            Assert.IsEmpty(mockBooksWithAuthor, "There does exist an author with that id.");
         }
     }
 }
