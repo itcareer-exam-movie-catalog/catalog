@@ -35,7 +35,7 @@ namespace Business.Businesses
         /// Adds a new category to the database.
         /// </summary>
         /// <param name="category">The category</param>
-        public void AddCategoty(Category category)
+        public void AddCategory(Category category)
         {
             using (database)
             {
