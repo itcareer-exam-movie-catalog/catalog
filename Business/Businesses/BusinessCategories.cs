@@ -74,7 +74,7 @@ namespace Business.Businesses
         /// Deletes a category from the database by its id.
         /// </summary>
         /// <param name="id">The category's id</param>
-        public void DeleteCateory(int id)
+        public void DeleteCategory(int id)
         {
             using (database)
             {
