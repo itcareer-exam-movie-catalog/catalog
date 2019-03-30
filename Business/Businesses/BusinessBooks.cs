@@ -110,7 +110,7 @@ namespace Business.Businesses
         public List<Book> GetBooksByCategory(int categoryId)
         {
             List<Book> books = new List<Book>();
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 foreach (Book book in database.Books)
                 {
@@ -132,7 +132,7 @@ namespace Business.Businesses
         public List<Book> GetBooksByTitle(string bookTitle)
         {
             List<Book> booksWithSameName = new List<Book>();
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 foreach (Book book in database.Books)
                 {
@@ -157,7 +157,7 @@ namespace Business.Businesses
             List<Book> publisherBooks = new List<Book>();
             int publisherId = FindPublisherId(publisherName);
 
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 foreach (Book book in database.Books)
                 {
@@ -177,7 +177,7 @@ namespace Business.Businesses
         /// <param name="publisherName">The publisher's name</param>
         private int FindPublisherId(string publisherName)
         {
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 foreach (Publisher publisher in database.Publishers)
                 {
@@ -204,7 +204,7 @@ namespace Business.Businesses
 
             List<Book> books = new List<Book>();
 
-            using (database = new CatalogDbContext())
+            using (database)
             {
                 foreach (Book book in database.Books)
                 {
