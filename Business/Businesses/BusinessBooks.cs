@@ -142,9 +142,7 @@ namespace Business.Businesses
                     }
                 }
 
-
                 return booksWithSameName;
-
             }
         }
 
@@ -155,7 +153,9 @@ namespace Business.Businesses
         public List<Book> GetBooksByPublisher(string publisherName)
         {
             List<Book> publisherBooks = new List<Book>();
-            int publisherId = FindPublisherId(publisherName);
+
+            BusinessPublishers businessPublisher = new BusinessPublishers();
+            int publisherId = businessPublisher.FindPublisherId(publisherName);
 
             using (database)
             {
@@ -170,26 +170,7 @@ namespace Business.Businesses
 
             return publisherBooks;
         }
-
-        /// <summary>
-        /// Finds the publisher's id based on his name.
-        /// </summary>
-        /// <param name="publisherName">The publisher's name</param>
-        private int FindPublisherId(string publisherName)
-        {
-            using (database)
-            {
-                foreach (Publisher publisher in database.Publishers)
-                {
-                    if (publisher.Name.ToLower() == publisherName.ToLower())
-                    {
-                        return publisher.Id;
-                    }
-                }
-            }
-
-            return -1;
-        }
+  
 
         /// <summary>
         /// Gets all the books based on their author's id
