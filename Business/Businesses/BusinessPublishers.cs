@@ -39,17 +39,14 @@ namespace Business.Businesses
         /// <param name="publisher">The publisher</param>
         public void AddPublisher(Publisher publisher)
         {
-            using (database)
+            if (publisher != null)
             {
-                if (publisher != null)
-                {
-                    database.Publishers.Add(publisher);
-                    database.SaveChanges();
-                    return;
-                }
+                database.Publishers.Add(publisher);
+                database.SaveChanges();
+                return;
+            }
 
-                throw new ArgumentNullException("Publisher mustn't be empty/null.");
-            }               
+            throw new ArgumentNullException("Publisher mustn't be empty/null.");            
         }
 
         /// <summary>
@@ -58,18 +55,15 @@ namespace Business.Businesses
         /// <param name="id">The publisher's id</param>
         public Publisher GetPublisher(int id)
         {
-            using (database)
+            foreach (Publisher publisher in database.Publishers)
             {
-                foreach (Publisher publisher in database.Publishers)
+                if (id == publisher.Id)
                 {
-                    if (id == publisher.Id)
-                    {
-                        return publisher;
-                    }
+                    return publisher;
                 }
-
-                throw new IndexOutOfRangeException("Publisher with this id does not exist!");
             }
+
+            throw new IndexOutOfRangeException("Publisher with this id does not exist!");
         }
 
         /// <summary>
@@ -78,21 +72,17 @@ namespace Business.Businesses
         /// <param name="id">The publisher's id</param>
         public void DeletePublisher(int id)
         {
-            using (database)
+            foreach (Publisher publisher in database.Publishers)
             {
-                foreach (Publisher publisher in database.Publishers)
+                if (id == publisher.Id)
                 {
-                    if (id == publisher.Id)
-                    {
-                        database.Publishers.Remove(publisher);
-                        database.SaveChanges();
-                        return;
-                    }
+                    database.Publishers.Remove(publisher);
+                    database.SaveChanges();
+                    return;
                 }
-
-                throw new IndexOutOfRangeException("Publisher with this id does not exist!");
-
             }
+
+            throw new IndexOutOfRangeException("Publisher with this id does not exist!");
         }
 
         /// <summary>
@@ -100,10 +90,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Publisher> GetAllPublishers()
         {
-            using (database)
-            {
-                return database.Publishers.ToList();
-            }
+            return database.Publishers.ToList();
         }
 
         /// <summary>
@@ -112,14 +99,11 @@ namespace Business.Businesses
         /// <param name="publisherName">The publisher's name</param>
         public int FindPublisherId(string publisherName)
         {
-            using (database)
+            foreach (Publisher publisher in database.Publishers)
             {
-                foreach (Publisher publisher in database.Publishers)
+                if (publisher.Name.ToLower() == publisherName.ToLower())
                 {
-                    if (publisher.Name.ToLower() == publisherName.ToLower())
-                    {
-                        return publisher.Id;
-                    }
+                    return publisher.Id;
                 }
             }
 

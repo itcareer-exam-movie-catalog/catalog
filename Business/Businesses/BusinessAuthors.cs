@@ -37,17 +37,14 @@ namespace Business.Businesses
         /// <param name="author">The author</param>
         public void AddAuthor(Author author)
         {
-            using (database)
+            if (author != null)
             {
-                if (author != null)
-                {
-                    database.Authors.Add(author);
-                    database.SaveChanges();
-                    return;
-                }
-
-                throw new ArgumentNullException("Author mustn't be empty/null.");
+                database.Authors.Add(author);
+                database.SaveChanges();
+                return;
             }
+
+            throw new ArgumentNullException("Author mustn't be empty/null.");
         }
 
         /// <summary>
@@ -56,14 +53,11 @@ namespace Business.Businesses
         /// <param name="id">The author's id</param>
         public Author GetAuthor(int id)
         {
-            using (database)
+            foreach (Author author in database.Authors)
             {
-                foreach (Author author in database.Authors)
+                if (author.Id == id)
                 {
-                    if (author.Id == id)
-                    {
-                        return author;
-                    }
+                    return author;
                 }
             }
 
@@ -76,16 +70,13 @@ namespace Business.Businesses
         /// <param name="id"></param>
         public void DeleteAuthor(int id)
         {
-            using (database)
+            foreach (Author author in database.Authors)
             {
-                foreach (Author author in database.Authors)
+                if(id == author.Id)
                 {
-                    if(id == author.Id)
-                    {
-                        database.Authors.Remove(author);
-                        database.SaveChanges();
-                        return;
-                    }
+                    database.Authors.Remove(author);
+                    database.SaveChanges();
+                    return;
                 }
             }
 
@@ -97,10 +88,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Author> GetAllAuthors()
         {
-            using (database)
-            {
-                return database.Authors.ToList();
-            }
+            return database.Authors.ToList();
         }
 
         /// <summary>
@@ -110,14 +98,11 @@ namespace Business.Businesses
         /// <param name="authorLastName">The author's last name</param>
         public int FindAuthorId(string authorFirstName, string authorLastName)
         {
-            using (database)
+            foreach (Author author in database.Authors)
             {
-                foreach (Author author in database.Authors)
+                if (author.FirstName.ToLower().Equals(authorFirstName.ToLower()) && author.LastName.ToLower().Equals(authorLastName.ToLower()))
                 {
-                    if (author.FirstName.ToLower().Equals(authorFirstName.ToLower()) && author.LastName.ToLower().Equals(authorLastName.ToLower()))
-                    {
-                        return author.Id;
-                    }
+                    return author.Id;
                 }
             }
 

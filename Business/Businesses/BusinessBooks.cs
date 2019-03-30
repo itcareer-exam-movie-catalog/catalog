@@ -37,17 +37,14 @@ namespace Business.Businesses
         /// <param name="book">The book</param>
         public void AddBook(Book book)
         {
-            using (database)
+            if (book != null)
             {
-                if (book != null)
-                {
-                    database.Books.Add(book);
-                    database.SaveChanges();
-                    return;
-                }
-
-                throw new ArgumentNullException("Book mustn't be empty/null.");
+                database.Books.Add(book);
+                database.SaveChanges();
+                return;
             }
+
+            throw new ArgumentNullException("Book mustn't be empty/null.");
         }
 
         /// <summary>
@@ -56,14 +53,11 @@ namespace Business.Businesses
         /// <param name="id">The book's id</param>
         public Book GetBook(int id)
         {
-            using (database)
+            foreach (Book book in database.Books)
             {
-                foreach (Book book in database.Books)
+                if (id == book.Id)
                 {
-                    if (id == book.Id)
-                    {
-                        return book;
-                    }
+                    return book;
                 }
             }
 
@@ -76,16 +70,13 @@ namespace Business.Businesses
         /// <param name="id">The book's id</param>
         public void DeleteBook(int id)
         {
-            using (database)
+            foreach (Book book in database.Books)
             {
-                foreach (Book book in database.Books)
+                if (id == book.Id)
                 {
-                    if (id == book.Id)
-                    {
-                        database.Books.Remove(book);
-                        database.SaveChanges();
-                        return;
-                    }
+                    database.Books.Remove(book);
+                    database.SaveChanges();
+                    return;
                 }
             }
 
@@ -97,10 +88,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Book> GetAllBooks()
         {
-            using (database)
-            {
-                return database.Books.ToList();
-            }
+            return database.Books.ToList();
         }
 
         /// <summary>
@@ -110,15 +98,12 @@ namespace Business.Businesses
         public List<Book> GetBooksByCategory(int categoryId)
         {
             List<Book> books = new List<Book>();
-            using (database)
+            foreach (Book book in database.Books)
             {
-                foreach (Book book in database.Books)
+                List<int> booksCategory = book.CategoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+                if (booksCategory.Contains(categoryId))
                 {
-                    List<int> booksCategory = book.CategoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
-                    if (booksCategory.Contains(categoryId))
-                    {
-                        books.Add(book);
-                    }
+                    books.Add(book);
                 }
             }
 
@@ -132,18 +117,16 @@ namespace Business.Businesses
         public List<Book> GetBooksByTitle(string bookTitle)
         {
             List<Book> booksWithSameName = new List<Book>();
-            using (database)
+            foreach (Book book in database.Books)
             {
-                foreach (Book book in database.Books)
+                if (book.Title.ToLower().Contains(bookTitle.ToLower()))
                 {
-                    if (book.Title.ToLower().Contains(bookTitle.ToLower()))
-                    {
-                        booksWithSameName.Add(book);
-                    }
+                    booksWithSameName.Add(book);
                 }
-
-                return booksWithSameName;
             }
+
+
+            return booksWithSameName;
         }
 
         /// <summary>
@@ -153,24 +136,34 @@ namespace Business.Businesses
         public List<Book> GetBooksByPublisher(string publisherName)
         {
             List<Book> publisherBooks = new List<Book>();
-
-            BusinessPublishers businessPublisher = new BusinessPublishers();
-            int publisherId = businessPublisher.FindPublisherId(publisherName);
-
-            using (database)
+            int publisherId = FindPublisherId(publisherName);
+            foreach (Book book in database.Books)
             {
-                foreach (Book book in database.Books)
+                if (book.PublisherId == publisherId)
                 {
-                    if (book.PublisherId == publisherId)
-                    {
-                        publisherBooks.Add(book);
-                    }
+                    publisherBooks.Add(book);
                 }
             }
 
             return publisherBooks;
         }
-  
+
+        /// <summary>
+        /// Finds the publisher's id based on his name.
+        /// </summary>
+        /// <param name="publisherName">The publisher's name</param>
+        private int FindPublisherId(string publisherName)
+        {
+            foreach (Publisher publisher in database.Publishers)
+            {
+                if (publisher.Name.ToLower() == publisherName.ToLower())
+                {
+                    return publisher.Id;
+                }
+            }
+
+            return -1;
+        }
 
         /// <summary>
         /// Gets all the books based on their author's id
@@ -184,15 +177,11 @@ namespace Business.Businesses
             }
 
             List<Book> books = new List<Book>();
-
-            using (database)
+            foreach (Book book in database.Books)
             {
-                foreach (Book book in database.Books)
+                if (book.AuthorId == authorId)
                 {
-                    if (book.AuthorId == authorId)
-                    {
-                        books.Add(book);
-                    }
+                    books.Add(book);
                 }
             }
 

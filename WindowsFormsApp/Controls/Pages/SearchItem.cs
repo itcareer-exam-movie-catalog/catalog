@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Business.Businesses;
 using Data.Model;
-using WindowsFormsApp.Controls.Display;
 
 namespace WindowsFormsApp.Controls.Pages
 {
@@ -25,6 +24,16 @@ namespace WindowsFormsApp.Controls.Pages
         public SearchItem()
         {
             InitializeComponent();
+
+            this.businessActors = new BusinessActors();
+            this.businessAuthors = new BusinessAuthors();
+            this.businessBooks = new BusinessBooks();
+            this.businessCategories = new BusinessCategories();
+            this.businessDirectors = new BusinessDirectors();
+            this.businessMovies = new BusinessMovies();
+            this.businessPublishers = new BusinessPublishers();
+
+            this.Init();
         }
         
         private bool CheckFilters(float price, int[] categories, string[] texts)
@@ -289,17 +298,6 @@ namespace WindowsFormsApp.Controls.Pages
             applyFilters.Top = displayItems.Height - applyFilters.Height;
             clearFilters.Top = displayItems.Height - clearFilters.Height;
             filters.Height = applyFilters.Top - filters.Location.Y * 2;
-        }
-
-        public void SetBusinesses(BusinessActors actors, BusinessAuthors authors, BusinessBooks books, BusinessCategories categories, BusinessDirectors directors, BusinessMovies movies, BusinessPublishers publishers)
-        {
-            this.businessActors = actors;
-            this.businessAuthors = authors;
-            this.businessBooks = books;
-            this.businessCategories = categories;
-            this.businessDirectors = directors;
-            this.businessMovies = movies;
-            this.businessPublishers = publishers;
         }
 
         public void Init()

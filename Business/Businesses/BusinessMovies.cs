@@ -37,17 +37,14 @@ namespace Business.Businesses
         /// <param name="movie">The movie</param>
         public void AddMovie(Movie movie)
         {
-            using (database)
+            if (movie != null)
             {
-                if (movie != null)
-                {
-                    database.Movies.Add(movie);
-                    database.SaveChanges();
-                    return;
-                }
-
-                throw new ArgumentNullException("Movie mustn't be empty/null.");
+                database.Movies.Add(movie);
+                database.SaveChanges();
+                return;
             }
+
+            throw new ArgumentNullException("Movie mustn't be empty/null.");
         }
 
         /// <summary>
@@ -56,14 +53,11 @@ namespace Business.Businesses
         /// <param name="id">The movie's id</param>
         public Movie GetMovie(int id)
         {
-            using (database)
+            foreach (Movie movie in database.Movies)
             {
-                foreach (Movie movie in database.Movies)
+                if (movie.Id == id)
                 {
-                    if (movie.Id == id)
-                    {
-                        return movie;
-                    }
+                    return movie;
                 }
             }
 
@@ -76,16 +70,13 @@ namespace Business.Businesses
         /// <param name="id">The movie's id</param>
         public void DeleteMovie(int id)
         {
-            using (database)
+            foreach (Movie movie in database.Movies)
             {
-                foreach (Movie movie in database.Movies)
+                if (movie.Id == id)
                 {
-                    if (movie.Id == id)
-                    {
-                        database.Movies.Remove(movie);
-                        database.SaveChanges();
-                        return; 
-                    }
+                    database.Movies.Remove(movie);
+                    database.SaveChanges();
+                    return; 
                 }
             }
 
@@ -97,10 +88,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Movie> GetAllMovies()
         {
-            using (database)
-            {
-                return database.Movies.ToList();
-            }
+            return database.Movies.ToList();
         }
 
         /// <summary>
@@ -110,15 +98,12 @@ namespace Business.Businesses
         public List<Movie> GetMoviesByCategory(int categoryId)
         {
             List<Movie> movies = new List<Movie>();
-            using (database)
+            foreach (Movie movie in database.Movies)
             {
-                foreach (Movie movie in database.Movies)
+                List<int> moviesCategory = movie.CategoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+                if (moviesCategory.Contains(categoryId))
                 {
-                    List<int> moviesCategory = movie.CategoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
-                    if (moviesCategory.Contains(categoryId))
-                    {
-                        movies.Add(movie);
-                    }
+                    movies.Add(movie);
                 }
             }
 
@@ -132,24 +117,21 @@ namespace Business.Businesses
         public List<Movie> GetMoviesByTitle(string movieTitle)
         {
             List<Movie> moviesWithSameName = new List<Movie>();
-            using (database)
+            foreach (Movie movie in database.Movies)
             {
-                foreach (Movie movie in database.Movies)
+                if (movie.Title.ToLower().Contains(movieTitle.ToLower()))
                 {
-                    if (movie.Title.ToLower().Contains(movieTitle.ToLower()))
-                    {
-                        moviesWithSameName.Add(movie);
-                    }
+                    moviesWithSameName.Add(movie);
                 }
+            }
 
-                if (moviesWithSameName.Count != 0)
-                {
-                    return moviesWithSameName;
-                }
-                else
-                {
-                    return null;
-                }
+            if (moviesWithSameName.Count != 0)
+            {
+                return moviesWithSameName;
+            }
+            else
+            {
+                return null;
             }
         }
 
@@ -163,12 +145,23 @@ namespace Business.Businesses
             List<Movie> directorMovies = new List<Movie>();
 
             List<int> directorIds = FindDirectorId(directorName);
-
-            using (database)
+            if (directorIds.Count == 1)
             {
-                if (directorIds.Count == 1)
+                int directorId = directorIds[0];
+
+                foreach (Movie movie in database.Movies)
                 {
-                    int directorId = directorIds[0];
+                    if (movie.DirectorId == directorId)
+                    {
+                        directorMovies.Add(movie);
+                    }
+                }
+            }
+            else if (directorIds.Count > 1)
+            {
+                for (int i = 0; i < directorIds.Count; i++)
+                {
+                    int directorId = directorIds[i];
 
                     foreach (Movie movie in database.Movies)
                     {
@@ -178,25 +171,10 @@ namespace Business.Businesses
                         }
                     }
                 }
-                else if (directorIds.Count > 1)
-                {
-                    for (int i = 0; i < directorIds.Count; i++)
-                    {
-                        int directorId = directorIds[i];
-
-                        foreach (Movie movie in database.Movies)
-                        {
-                            if (movie.DirectorId == directorId)
-                            {
-                                directorMovies.Add(movie);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    return new List<Movie>();
-                }
+            }
+            else
+            {
+                return new List<Movie>();
             }
 
             return directorMovies;
@@ -212,39 +190,36 @@ namespace Business.Businesses
             BusinessDirectors businessDirector = new BusinessDirectors();
             string[] directorFullName = directorName.Split().ToArray();
             List<int> directorIds = new List<int>();
-
-            using (database)
+            
+            if (directorFullName.Length > 1)
             {
-                if (directorFullName.Length > 1)
-                {
-                    string directorFirstName = directorFullName[0];
-                    string directorLastName = directorFullName[1];
+                string directorFirstName = directorFullName[0];
+                string directorLastName = directorFullName[1];
 
-                    foreach (Director director in database.Directors)
+                foreach (Director director in database.Directors)
+                {
+                    if (director.FirstName.ToLower().Equals(directorFirstName.ToLower()) && director.LastName.ToLower().Equals(directorLastName.ToLower()))
                     {
-                        if (director.FirstName.ToLower().Equals(directorFirstName.ToLower()) && director.LastName.ToLower().Equals(directorLastName.ToLower()))
-                        {
-                            directorIds.Add(director.Id);
-                        }
+                        directorIds.Add(director.Id);
                     }
                 }
-                else if (directorFullName.Length == 1)
+            }
+            else if (directorFullName.Length == 1)
+            {
+                string directorKnownName = directorFullName[0];
+
+
+                foreach (Director director in database.Directors)
                 {
-                    string directorKnownName = directorFullName[0];
-
-
-                    foreach (Director director in database.Directors)
+                    if (director.FirstName.ToLower().Equals(directorKnownName.ToLower()) || director.LastName.ToLower().Equals(directorKnownName.ToLower()))
                     {
-                        if (director.FirstName.ToLower().Equals(directorKnownName.ToLower()) || director.LastName.ToLower().Equals(directorKnownName.ToLower()))
-                        {
-                            directorIds.Add(director.Id);
-                        }
+                        directorIds.Add(director.Id);
                     }
                 }
-                else
-                {
-                    return new List<int>();
-                }
+            }
+            else
+            {
+                return new List<int>();
             }
 
             return directorIds;
@@ -263,18 +238,15 @@ namespace Business.Businesses
 
             List<Movie> movies = new List<Movie>();
 
-            using (database)
+            foreach (Movie movie in database.Movies)
             {
-                foreach (Movie movie in database.Movies)
-                {
-                    List<int> actorIds = movie.ActorIds
-                        .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                        .Select(int.Parse).ToList();
+                List<int> actorIds = movie.ActorIds
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse).ToList();
 
-                    if (actorIds.Contains(actorId))
-                    {
-                        movies.Add(movie);
-                    }
+                if (actorIds.Contains(actorId))
+                {
+                    movies.Add(movie);
                 }
             }
 

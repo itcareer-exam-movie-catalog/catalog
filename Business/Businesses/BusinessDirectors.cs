@@ -37,17 +37,14 @@ namespace Business.Businesses
         /// <param name="director">The director</param>
         public void AddDirector(Director director)
         {
-            using (database)
+            if (director != null)
             {
-                if (director != null)
-                {
-                    database.Directors.Add(director);
-                    database.SaveChanges();
-                    return;
-                }
-
-                throw new ArgumentNullException("Director mustn't be empty/null.");
+                database.Directors.Add(director);
+                database.SaveChanges();
+                return;
             }
+
+            throw new ArgumentNullException("Director mustn't be empty/null.");
         }
 
         /// <summary>
@@ -56,14 +53,11 @@ namespace Business.Businesses
         /// <param name="id">The director's id</param>
         public Director GetDirector(int id)
         {
-            using (database)
+            foreach (Director director in database.Directors)
             {
-                foreach (Director director in database.Directors)
+                if (director.Id == id)
                 {
-                    if (director.Id == id)
-                    {
-                        return director;
-                    }
+                    return director;
                 }
             }
 
@@ -76,16 +70,13 @@ namespace Business.Businesses
         /// <param name="id">The director's id</param>
         public void DeleteDirector(int id)
         {
-            using (database)
+            foreach (Director director in database.Directors)
             {
-                foreach (Director director in database.Directors)
+                if (director.Id == id)
                 {
-                    if (director.Id == id)
-                    {
-                        database.Directors.Remove(director);
-                        database.SaveChanges();
-                        return; ;
-                    }
+                    database.Directors.Remove(director);
+                    database.SaveChanges();
+                    return;
                 }
             }
 
@@ -97,10 +88,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Director> GetAllDirectors()
         {
-            using (database)
-            {
-                return database.Directors.ToList();
-            }
+            return database.Directors.ToList();
         }
     }
 }

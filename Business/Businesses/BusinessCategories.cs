@@ -37,17 +37,14 @@ namespace Business.Businesses
         /// <param name="category">The category</param>
         public void AddCategory(Category category)
         {
-            using (database)
+            if (category != null)
             {
-                if (category != null)
-                {
-                    database.Categories.Add(category);
-                    database.SaveChanges();
-                    return;
-                }
-
-                throw new ArgumentNullException("Category mustn't be empty/null.");
+                database.Categories.Add(category);
+                database.SaveChanges();
+                return;
             }
+
+            throw new ArgumentNullException("Category mustn't be empty/null.");
         }
 
         /// <summary>
@@ -56,14 +53,11 @@ namespace Business.Businesses
         /// <param name="id">The category's id</param>
         public Category GetCategory(int id)
         {
-            using (database)
+            foreach (Category category in database.Categories)
             {
-                foreach (Category category in database.Categories)
+                if (id == category.Id)
                 {
-                    if (id == category.Id)
-                    {
-                        return category;
-                    }
+                    return category;
                 }
             }
 
@@ -76,16 +70,13 @@ namespace Business.Businesses
         /// <param name="id">The category's id</param>
         public void DeleteCategory(int id)
         {
-            using (database)
+            foreach (Category category in database.Categories)
             {
-                foreach (Category category in database.Categories)
+                if (id == category.Id)
                 {
-                    if (id == category.Id)
-                    {
-                        database.Categories.Remove(category);
-                        database.SaveChanges();
-                        return;
-                    }
+                    database.Categories.Remove(category);
+                    database.SaveChanges();
+                    return;
                 }
             }
 
@@ -97,10 +88,7 @@ namespace Business.Businesses
         /// </summary>
         public List<Category> GetAllCategories()
         {
-            using (database)
-            {
-                return database.Categories.ToList();
-            }
+            return database.Categories.ToList();
         }
     }
 }
