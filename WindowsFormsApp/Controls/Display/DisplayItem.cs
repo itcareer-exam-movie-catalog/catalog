@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using WindowsFormsApp.Controls.Pages;
 
 namespace WindowsFormsApp.Controls.Display
 {
@@ -11,6 +12,8 @@ namespace WindowsFormsApp.Controls.Display
         private Color defaultBackColor;
         private Color mouseOverBackColor;
         protected Image image;
+
+        private ReviewItem reviewItem;
 
         public DisplayItem()
         {
@@ -25,6 +28,7 @@ namespace WindowsFormsApp.Controls.Display
         public virtual int GetPublicationYear() => throw new System.NotImplementedException();
 
         public void SetImage(Image image) => this.image = image;
+        public void SetCallback(ReviewItem reviewItem) => this.reviewItem = reviewItem;
 
         /// <summary>
         /// Refresh display information for current book or movie
@@ -50,6 +54,6 @@ namespace WindowsFormsApp.Controls.Display
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DisplayItem_MouseDoubleClick(object sender, MouseEventArgs e) {}
+        private void DisplayItem_MouseDoubleClick(object sender, MouseEventArgs e) => reviewItem.SetDisplayItem(this);
     }
 }

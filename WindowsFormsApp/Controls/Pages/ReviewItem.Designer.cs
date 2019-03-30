@@ -28,7 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.back = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // back
+            // 
+            this.back.Location = new System.Drawing.Point(4, 4);
+            this.back.Name = "back";
+            this.back.Size = new System.Drawing.Size(30, 30);
+            this.back.TabIndex = 0;
+            this.back.Text = "<";
+            this.back.UseVisualStyleBackColor = true;
+            this.back.Click += new System.EventHandler(this.back_Click);
             // 
             // ReviewItem
             // 
@@ -36,6 +47,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.back);
             this.Name = "ReviewItem";
             this.Size = new System.Drawing.Size(857, 532);
             this.ResumeLayout(false);
@@ -43,5 +55,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Button back;
     }
 }

@@ -30,9 +30,5 @@ namespace WindowsFormsApp.Controls
         {
             this.label1.Text = movie.Title;
         }
-
-        public override string GetTitle() => movie.Title;
-        public override float GetPrice() => (float)movie.Price;
-        public override int GetPublicationYear() => movie.PublicationYear;
     }
 }

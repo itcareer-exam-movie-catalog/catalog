@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Business.Businesses;
 using Data.Model;
+using WindowsFormsApp.Controls.Display;
 
 namespace WindowsFormsApp.Controls.Pages
 {
@@ -318,5 +319,9 @@ namespace WindowsFormsApp.Controls.Pages
         }
 
         public int DisplayItemsX { get => displayItems.Location.X; }
+        public void SetReviewItem(ReviewItem reviewItem)
+        {
+            displayItems.SetReviewItem(reviewItem);
+        }
     }
 }

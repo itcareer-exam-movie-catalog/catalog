@@ -1,5 +1,4 @@
-﻿using Business.Businesses;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -12,6 +11,9 @@ namespace WindowsFormsApp
         public Form1()
         {
             InitializeComponent();
+
+            searchItem1.SetReviewItem(reviewItem1);
+            reviewItem1.SetForm(this);
         }
         
         private void OnResize()
@@ -29,8 +31,6 @@ namespace WindowsFormsApp
 
                 reviewItemSize.Width = freeSpace / 2 - controlsPadding;
                 controlsPoint.X = searchItemSize.Width + controlsPadding * 2;
-
-                System.Diagnostics.Debug.WriteLine(reviewItem1.Size);
             }
 
             searchItem1.Size = searchItemSize;
@@ -40,7 +40,7 @@ namespace WindowsFormsApp
             ShowLogic();
         }
 
-        private void ShowLogic()
+        public void ShowLogic()
         {
             if (this.WindowState == FormWindowState.Maximized)
             {

@@ -1,6 +1,8 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using Data.Model;
+using WindowsFormsApp.Controls.Display;
+using WindowsFormsApp.Controls.Pages;
 using WindowsFormsApp.Resouces;
 
 namespace WindowsFormsApp.Controls
@@ -77,6 +79,14 @@ namespace WindowsFormsApp.Controls
             foreach(Control control in this.Controls)
             {
                 UpdateControlWidth(control);
+            }
+        }
+
+        public void SetReviewItem(ReviewItem reviewItem)
+        {
+            foreach (DisplayItem control in this.Controls)
+            {
+                control.SetCallback(reviewItem);
             }
         }
     }

@@ -114,12 +114,6 @@
     <Compile Include="Controls\Pages\ReviewItem.Designer.cs">
       <DependentUpon>ReviewItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Show\ShowItem.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\Show\ShowItem.Designer.cs">
-      <DependentUpon>ShowItem.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
