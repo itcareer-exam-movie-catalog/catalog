@@ -46,7 +46,7 @@ namespace Business.Businesses
                     return;
                 }
 
-                throw new ArgumentNullException("Category mustn't be empty/null.");
+                throw new ArgumentNullException("Director mustn't be empty/null.");
             }
         }
 
