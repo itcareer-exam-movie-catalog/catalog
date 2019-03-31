@@ -304,7 +304,7 @@ namespace NUnitTests.BusinessTests
             Assert.AreEqual(booksWithPublisher, mockBooksWithPublisher, "Not all books with the same publisher were fetched.");
         }
 
-        [Test, Description("Ensures that when a missing title is entered an empty list will be returned.")]
+        [Test, Description("Ensures that when a missing publisher is entered an empty list will be returned.")]
         public void Get_Books_By_Missing_Publisher()
         {
             BusinessBooks mockBusinessBook = new BusinessBooks(mockDbContext.Object);
