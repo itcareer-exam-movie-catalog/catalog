@@ -131,7 +131,7 @@ namespace Business.Businesses
             }
             else
             {
-                return null;
+                return new List<Movie>();
             }
         }
 
