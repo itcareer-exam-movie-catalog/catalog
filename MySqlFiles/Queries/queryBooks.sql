@@ -61,7 +61,6 @@ INSERT INTO books (title, authorId, publisherId, pages, publicationYear, categor
 ("Bloody January", 56, 22, 328, 2017, "3", 12.99),
 ("A Damned Serious Business", 57, 7, 480, 2018, "3", 17.99),
 ("Norwegian by Night", 58, 23, 304, 2013, "3", 7.99),
-("Norwegian by Night", 58, 23, 304, 2013, "3", 7.99),
 ("The Girl Who Played with Fire", 59, 12, 576, 2015, "3", 8.89),
 ("The Girl with the Dragon Tattoo", 59, 12, 544, 2015, "3", 8.99),
 ("Borkmann's Point", 42, 1, 256, 2007, "3", 8.99),

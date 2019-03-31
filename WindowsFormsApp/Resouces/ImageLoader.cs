@@ -7,7 +7,7 @@ namespace WindowsFormsApp.Resouces
 {
     public class ImageLoader
     {
-        static private string ImageDir = @"C:\Users\HP_15\Documents\GitHub\catalog\WindowsFormsApp\Resouces\";
+        static private string ImageDir = @"D:\Projects\github\catalog\WindowsFormsApp\Resouces\";
 
         private BusinessBooks businessBooks;
         private Dictionary<int, Image> bookImages;
