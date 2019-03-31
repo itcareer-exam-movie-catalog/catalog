@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
@@ -207,6 +207,70 @@ namespace NUnitTests.BusinessTests
             int dbDirectorCount = mockBusinessDirector.GetCatalogDbContext().Directors.Count();
 
             Assert.AreEqual(businessDirectorCount, dbDirectorCount, "Not all Directors were gotten/fetched.");
+        }
+
+        [Test, Description("Ensures that when the director's name is entered its id will be fetched.")]
+        public void Get_Director_Id_By_Both_Names()
+        {
+            BusinessDirectors mockBusinessDirector = new BusinessDirectors(mockDbContext.Object);
+
+            string directorBothNames = "firstName" + " " + "lastName";
+
+            string[] directorBothNamesArray = directorBothNames.Split().ToArray();
+            string directorFirstName = directorBothNamesArray[0];
+            string directorLastName = directorBothNamesArray[1];
+
+            List<int> mockDirectorIds = mockBusinessDirector.FindDirectorId(directorBothNames);
+
+            CatalogDbContext cDbContext = mockBusinessDirector.GetCatalogDbContext();
+            List<Director> allDirectors = cDbContext.Directors.ToList();
+
+            List<int> directorIds = new List<int>();
+            foreach (Director director in allDirectors)
+            {
+                if(directorFirstName == director.FirstName && directorLastName == director.LastName)
+                {
+                    directorIds.Add(director.Id);
+                }
+                
+            }
+
+            Assert.AreEqual(mockDirectorIds, directorIds, "There are missing directors.");
+        }
+
+        [Test, Description("Ensures that when the director's name is entered its id will be fetched.")]
+        public void Get_Director_Ids_By_One_Name()
+        {
+            BusinessDirectors mockBusinessDirector = new BusinessDirectors(mockDbContext.Object);
+
+            string directorName = "firstName";  
+
+            List<int> mockDirectorIds = mockBusinessDirector.FindDirectorId(directorName);
+
+            CatalogDbContext cDbContext = mockBusinessDirector.GetCatalogDbContext();
+            List<Director> allDirectors = cDbContext.Directors.ToList();
+
+            List<int> directorIds = new List<int>();
+            foreach (Director director in allDirectors)
+            {
+                if (directorName == director.FirstName || directorName == director.LastName)
+                {
+                    directorIds.Add(director.Id);
+                }
+
+            }
+
+            Assert.AreEqual(mockDirectorIds, directorIds, "There are missing directors.");
+        }
+
+        [Test, Description("Ensures that when a missing director's name is entered an invalid id will be returned.")]
+        public void Get_Invalid_Publisher_Id_By_Missing_Name()
+        {
+            BusinessDirectors mockBusinessDirector = new BusinessDirectors(mockDbContext.Object);
+
+            string directorName = "yeet420";
+
+            Assert.IsEmpty(mockBusinessDirector.FindDirectorId(directorName), "The director does exist.");
         }
     }
 }
