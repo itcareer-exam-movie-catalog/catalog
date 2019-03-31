@@ -97,7 +97,6 @@ namespace Business.Businesses
         /// <param name="directorName">The director's name</param>
         public List<int> FindDirectorId(string directorName)
         {
-            BusinessDirectors businessDirector = new BusinessDirectors();
             string[] directorFullName = directorName.Split().ToArray();
             List<int> directorIds = new List<int>();
 
