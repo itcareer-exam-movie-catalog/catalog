@@ -90,5 +90,49 @@ namespace Business.Businesses
         {
             return database.Directors.ToList();
         }
+        
+        /// <summary>
+        /// Finds the director's id based on his name.
+        /// </summary>
+        /// <param name="directorName">The director's name</param>
+        public List<int> FindDirectorId(string directorName)
+        {
+            BusinessDirectors businessDirector = new BusinessDirectors();
+            string[] directorFullName = directorName.Split().ToArray();
+            List<int> directorIds = new List<int>();
+
+            if (directorFullName.Length > 1)
+            {
+                string directorFirstName = directorFullName[0];
+                string directorLastName = directorFullName[1];
+
+                foreach (Director director in database.Directors)
+                {
+                    if (director.FirstName.ToLower().Equals(directorFirstName.ToLower()) && director.LastName.ToLower().Equals(directorLastName.ToLower()))
+                    {
+                        directorIds.Add(director.Id);
+                    }
+                }
+            }
+            else if (directorFullName.Length == 1)
+            {
+                string directorKnownName = directorFullName[0];
+
+
+                foreach (Director director in database.Directors)
+                {
+                    if (director.FirstName.ToLower().Equals(directorKnownName.ToLower()) || director.LastName.ToLower().Equals(directorKnownName.ToLower()))
+                    {
+                        directorIds.Add(director.Id);
+                    }
+                }
+            }
+            else
+            {
+                return new List<int>();
+            }
+
+            return directorIds;
+        }
     }
 }
