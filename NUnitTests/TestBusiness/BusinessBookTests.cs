@@ -342,8 +342,8 @@ namespace NUnitTests.BusinessTests
         {
             BusinessBooks mockBusinessBook = new BusinessBooks(mockDbContext.Object);
 
-            int categoryId = 10;
-            List<Book> mockBooksWithAuthor = mockBusinessBook.GetBooksByAuthorId(categoryId).ToList();
+            int authorId = 10;
+            List<Book> mockBooksWithAuthor = mockBusinessBook.GetBooksByAuthorId(authorId).ToList();
 
             Assert.IsEmpty(mockBooksWithAuthor, "There does exist an author with that id.");
         }
