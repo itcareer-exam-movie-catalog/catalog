@@ -62,7 +62,6 @@ CREATE TABLE IF NOT EXISTS `movies`
     `actorIds` varchar(128) NOT NULL,
     `publicationYear` INT NOT NULL,
     `categoryIds` varchar(128) NOT NULL,
-    `price` decimal(6, 2) UNSIGNED NOT NULL,
     FOREIGN KEY (`directorId`) REFERENCES `directors`(`id`),
     PRIMARY KEY (`id`)
 );

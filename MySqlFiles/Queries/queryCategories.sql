@@ -2,4 +2,18 @@ USE catalog;
 INSERT INTO categories (name) VALUES
 ("Action and adventure"),
 ("Comedy"),
-("Crime");
+("Crime"),
+("Adventure"),
+("Drama"),
+("Fantasy"),
+("Action"),
+("Thriller"),
+("Sci-Fi"),
+("Animation"),
+("Biography"),
+("Romance"),
+("Mystery"),
+("Horror"),
+("History"),
+("Adventure, Family, Fantasy"),
+("Family");
