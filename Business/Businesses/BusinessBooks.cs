@@ -100,7 +100,9 @@ namespace Business.Businesses
             List<Book> books = new List<Book>();
             foreach (Book book in database.Books)
             {
+                //turns the category ids from a string array to integers
                 List<int> booksCategory = book.CategoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+                
                 if (booksCategory.Contains(categoryId))
                 {
                     books.Add(book);
