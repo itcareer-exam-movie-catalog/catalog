@@ -15,5 +15,4 @@ INSERT INTO categories (name) VALUES
 ("Mystery"),
 ("Horror"),
 ("History"),
-("Adventure, Family, Fantasy"),
 ("Family");
