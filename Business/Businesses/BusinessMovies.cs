@@ -100,7 +100,9 @@ namespace Business.Businesses
             List<Movie> movies = new List<Movie>();
             foreach (Movie movie in database.Movies)
             {
+                //turns the category ids from a string array to integers
                 List<int> moviesCategory = movie.CategoryIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+                
                 if (moviesCategory.Contains(categoryId))
                 {
                     movies.Add(movie);
