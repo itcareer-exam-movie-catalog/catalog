@@ -1,6 +1,6 @@
-﻿namespace WindowsFormsApp.Controls.Display
+﻿namespace WindowsFormsApp.Controls.Review
 {
-    partial class DisplayItem
+    partial class ReviewItemBase
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,16 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // DisplayItem
+            // ReviewItemBase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightGray;
-            this.Name = "DisplayItem";
-            this.Size = new System.Drawing.Size(662, 60);
-            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DisplayItem_MouseDoubleClick);
-            this.MouseEnter += new System.EventHandler(this.DisplayItem_MouseEnter);
-            this.MouseLeave += new System.EventHandler(this.DisplayItem_MouseLeave);
+            this.BackColor = System.Drawing.Color.Silver;
+            this.Name = "ReviewItemBase";
+            this.Size = new System.Drawing.Size(813, 525);
             this.ResumeLayout(false);
 
         }

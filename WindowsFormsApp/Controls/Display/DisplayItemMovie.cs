@@ -4,9 +4,9 @@ using WindowsFormsApp.Controls.Display;
 namespace WindowsFormsApp.Controls
 {
     /// <summary>
-    /// Class for store all data for movie
+    /// Class for storing all the data for movie
     /// </summary>
-    public partial class DisplayItemMovie : DisplayItem
+    public partial class DisplayItemMovie : DisplayItemBase
     {
         private Movie movie;
         private Director director;
@@ -22,13 +22,20 @@ namespace WindowsFormsApp.Controls
             this.actors = actors;
             this.categories = categories;
         }
-
+        
         /// <summary>
-        /// Refresh display information for current book
+        /// Refreshing display information for current book
         /// </summary>
         public override void RefreshDisplayInfo()
         {
-            this.label1.Text = movie.Title;
+            this.displayTitle.Text = movie.Title;
+            this.displayDirector.Text = director.FirstName + " " + director.LastName;
+            this.pictureBox1.BackgroundImage = this.Image;
         }
+
+        public Movie Movie { get => movie; set => movie = value; }
+        public Director Director { get => director; set => director = value; }
+        public Actor[] Actors { get => actors; set => actors = value; }
+        public Category[] Categories { get => categories; set => categories = value; }
     }
 }

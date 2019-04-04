@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp
@@ -12,61 +11,37 @@ namespace WindowsFormsApp
         {
             InitializeComponent();
 
-            searchItem1.SetReviewItem(reviewItem1);
-            reviewItem1.SetForm(this);
-        }
-        
-        private void OnResize()
-        {
-            Point controlsPoint = new Point(controlsPadding, controlsPadding);
-            Size searchItemSize = new Size(mainPanel.Width - controlsPadding * 2, mainPanel.Height - controlsPadding * 2);
-            Size reviewItemSize = searchItemSize;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
 
-            searchItem1.Location = controlsPoint;
-            
-            if(this.WindowState == FormWindowState.Maximized)
-            {
-                int freeSpace = mainPanel.Width - searchItem1.DisplayItemsX - controlsPadding * 2;
-                searchItemSize.Width = freeSpace / 2 + searchItem1.DisplayItemsX;
-
-                reviewItemSize.Width = freeSpace / 2 - controlsPadding;
-                controlsPoint.X = searchItemSize.Width + controlsPadding * 2;
-            }
-
-            searchItem1.Size = searchItemSize;
-            reviewItem1.Size = reviewItemSize;
-            reviewItem1.Location = controlsPoint;
-
-            ShowLogic();
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
         }
 
-        public void ShowLogic()
+        public void UpdateView()
         {
-            if (this.WindowState == FormWindowState.Maximized)
+            if (reviewItem1.HasItem)
             {
-                searchItem1.Show();
+                searchItem1.Hide();
+
                 reviewItem1.Show();
+                reviewItem1.BringToFront();
             }
             else
             {
-                if (reviewItem1.HasItem)
-                {
-                    searchItem1.Hide();
+                reviewItem1.Hide();
 
-                    reviewItem1.Show();
-                    reviewItem1.BringToFront();
-                }
-                else
-                {
-                    reviewItem1.Hide();
-
-                    searchItem1.Show();
-                    searchItem1.BringToFront();
-                }
+                searchItem1.Show();
+                searchItem1.BringToFront();
             }
         }
 
-        private void mainPanel_Resize(object sender, EventArgs e) => OnResize();
-        private void Form1_Load(object sender, EventArgs e) => ShowLogic();
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            reviewItem1.SetForm(this);
+            searchItem1.SetReviewItem(reviewItem1);
+            
+            UpdateView();   
+        }
     }
 }

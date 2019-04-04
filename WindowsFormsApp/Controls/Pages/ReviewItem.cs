@@ -5,29 +5,63 @@ namespace WindowsFormsApp.Controls.Pages
 {
     public partial class ReviewItem : UserControl
     {
-        private DisplayItem displayItem;
         private Form1 form;
+        private bool hasItem;
 
-        public ReviewItem()
+        public ReviewItem() : base()
         {
             InitializeComponent();
 
-            displayItem = null;
+            this.hasItem = false;
+            this.reviewItemBook.Hide();
+            this.reviewItemMovie.Hide();
         }
 
-        public void SetDisplayItem(DisplayItem displayItem)
+        /// <summary>
+        /// Sets the current element
+        /// </summary>
+        /// <param name="displayItem"></param>
+        public void SetDisplayItem(DisplayItemBase displayItem)
         {
-            this.displayItem = displayItem;
-            form.ShowLogic();
+            this.hasItem = true;
+            if(displayItem is DisplayItemBook)
+            {
+                reviewItemBook.UpdateDisplayInformation(displayItem);
+                reviewItemMovie.Hide();
+                reviewItemBook.Show();
+                reviewItemBook.BringToFront();
+            }
+            else
+            {
+                reviewItemMovie.UpdateDisplayInformation(displayItem);
+                reviewItemBook.Hide();
+                reviewItemMovie.Show();
+                reviewItemMovie.BringToFront();
+            }
+            
+            form.UpdateView();
         }
 
+        /// <summary>
+        /// Sets the current form
+        /// </summary>
+        /// <param name="form"></param>
         public void SetForm(Form1 form) => this.form = form;
-        public bool HasItem { get => displayItem != null; }
 
+        /// <summary>
+        /// Returns whether there is an item
+        /// </summary>
+        public bool HasItem { get => hasItem; }
+
+        /// <summary>
+        /// Clears the item and returns to search item page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void back_Click(object sender, System.EventArgs e)
         {
-            this.displayItem = null;
-            form.ShowLogic();
+            this.hasItem = false;
+            form.UpdateView();
         }
     }
 }

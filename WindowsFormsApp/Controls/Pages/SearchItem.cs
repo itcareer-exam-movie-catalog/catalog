@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Business.Businesses;
 using Data.Model;
-using WindowsFormsApp.Controls.Display;
 
 namespace WindowsFormsApp.Controls.Pages
 {
@@ -25,32 +24,33 @@ namespace WindowsFormsApp.Controls.Pages
         public SearchItem()
         {
             InitializeComponent();
-
-            this.businessActors = new BusinessActors();
-            this.businessAuthors = new BusinessAuthors();
-            this.businessBooks = new BusinessBooks();
-            this.businessCategories = new BusinessCategories();
-            this.businessDirectors = new BusinessDirectors();
-            this.businessMovies = new BusinessMovies();
-            this.businessPublishers = new BusinessPublishers();
-
-            this.Init();
         }
-        
+
+        /// <summary>
+        /// Checks elements values by filters
+        /// </summary>
+        /// <param name="price">The price of item or -1.0 if it doesn't have</param>
+        /// <param name="categories">The categories` ids</param>
+        /// <param name="texts">The item`s keywords</param>
+        /// <returns></returns>
         private bool CheckFilters(float price, int[] categories, string[] texts)
         {
             if (useOtherFillters.Checked)
             {
-                //Check for price
-                if (price < minPrice || price > maxPrice)
+                //Checks if item has price
+                if (price > 0.0)
                 {
-                    return false;
+                    //Checks if item`s value is outside of the range
+                    if (price < minPrice || price > maxPrice)
+                    {
+                        return false;
+                    }
                 }
-
-                //Check for categories
+                
                 bool contain = false;
                 foreach (object checkedId in selectCategories.CheckedIndices)
                 {
+                    //Checks if some of item`s categories contains in the selected categories
                     if (categories.Contains(int.Parse(checkedId.ToString()) + 1))
                     {
                         contain = true;
@@ -63,12 +63,13 @@ namespace WindowsFormsApp.Controls.Pages
                 }
             }
 
-            //Check for title and texts
+            //Checkes whether there are keywords
             if (texts != null)
             {
                 bool containText = false;
                 foreach (string text in texts)
                 {
+                    //Checks if some of item`s keywords contains in keywords from the search fueld
                     if (text.ToLower().Contains(searchBox.Text.ToLower()))
                     {
                         containText = true;
@@ -84,6 +85,9 @@ namespace WindowsFormsApp.Controls.Pages
             return true;
         }
 
+        /// <summary>
+        /// Adds all items by filters
+        /// </summary>
         private void UpdateItems()
         {
             displayItems.Clear();
@@ -154,14 +158,19 @@ namespace WindowsFormsApp.Controls.Pages
                     }
                     texts.Add(movie.Title);
 
-                    if (CheckFilters((float)movie.Price, categories.Select(i => i.Id).ToArray(), texts.ToArray()))
+                    if (CheckFilters(-1.0f, categories.Select(i => i.Id).ToArray(), texts.ToArray()))
                     {
                         displayItems.AddItem(movie, director, actors, categories);
                     }
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Makes validation of the text from fueld of minimum price
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void enterMinPrice_TextChanged(object sender, EventArgs e)
         {
             if ((!float.TryParse(enterMinPrice.Text, out minPrice) || minPrice < GetMinPrice()) && enterMinPrice.Text.Length > 0)
@@ -170,6 +179,11 @@ namespace WindowsFormsApp.Controls.Pages
             }
         } //Need update
 
+        /// <summary>
+        /// Makes validation of the text from fueld of maximum price
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void enterMaxPrice_TextChanged(object sender, EventArgs e)
         {
             if ((!float.TryParse(enterMaxPrice.Text, out maxPrice) || maxPrice > GetMaxPrice()) && enterMaxPrice.Text.Length > 0)
@@ -178,6 +192,10 @@ namespace WindowsFormsApp.Controls.Pages
             }
         } //Need update
 
+        /// <summary>
+        /// Gets the largest price
+        /// </summary>
+        /// <returns></returns>
         private float GetMaxPrice()
         {
             float price = 0.0f;
@@ -187,13 +205,13 @@ namespace WindowsFormsApp.Controls.Pages
                 price = Math.Max(price, (float)book.Price);
             }
 
-            foreach (Movie movie in businessMovies.GetAllMovies())
-            {
-                price = Math.Max(price, (float)movie.Price);
-            }
-
             return price;
         }
+
+        /// <summary>
+        /// Gets the smallest price
+        /// </summary>
+        /// <returns></returns>
         private float GetMinPrice()
         {
             float price = GetMaxPrice();
@@ -203,14 +221,12 @@ namespace WindowsFormsApp.Controls.Pages
                 price = Math.Min(price, (float)book.Price);
             }
 
-            foreach (Movie movie in businessMovies.GetAllMovies())
-            {
-                price = Math.Min(price, (float)movie.Price);
-            }
-
             return price;
         }
 
+        /// <summary>
+        /// Updates keywords for search field autocomplete
+        /// </summary>
         private void SearchAutoComplete()
         {
             searchBox.AutoCompleteCustomSource.Clear();
@@ -248,15 +264,40 @@ namespace WindowsFormsApp.Controls.Pages
                 }
             }
         }
-        
-        private void clearFilters_Click(object sender, EventArgs e) => resetFilters();
+
+        /// <summary>
+        /// Resets all filters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void clearFilters_Click(object sender, EventArgs e) => ResetFilters();
+
+        /// <summary>
+        /// Applies filters to all items
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void applyFilters_Click(object sender, EventArgs e) => UpdateItems();
 
+        /// <summary>
+        /// Adds all keywords in search field autocomplete
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchInEverything_CheckedChanged(object sender, EventArgs e) => SearchAutoComplete();
+
+        /// <summary>
+        /// Adds all keywords in search field autocomplete
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchInTitles_CheckedChanged(object sender, EventArgs e) => SearchAutoComplete();
-
-        private void SearchItem_Resize(object sender, EventArgs e) => OnResize();
-
+        
+        /// <summary>
+        /// Selects or unselects all categories
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void selectAllCategories_CheckedChanged(object sender, EventArgs e)
         {
             for (int a = 0; a < selectCategories.Items.Count; a++)
@@ -265,6 +306,11 @@ namespace WindowsFormsApp.Controls.Pages
             }
         }
 
+        /// <summary>
+        /// Activation or deactivation of other fields except the field for search
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void useOtherFillters_CheckedChanged(object sender, EventArgs e)
         {
             priceGroup.Enabled = useOtherFillters.Checked;
@@ -272,7 +318,10 @@ namespace WindowsFormsApp.Controls.Pages
             categoryGroup.Enabled = useOtherFillters.Checked;
         }
 
-        private void resetFilters()
+        /// <summary>
+        /// Changes all filters`s values to default
+        /// </summary>
+        private void ResetFilters()
         {
             clearFilters.Enabled = false;
 
@@ -290,19 +339,31 @@ namespace WindowsFormsApp.Controls.Pages
 
             clearFilters.Enabled = true;
         }
-        
-        private void OnResize()
-        {
-            displayItems.Height = this.Height - displayItems.Location.Y * 2;
-            displayItems.Width = this.Width - displayItems.Location.X;
 
-            applyFilters.Top = displayItems.Height - applyFilters.Height;
-            clearFilters.Top = displayItems.Height - clearFilters.Height;
-            filters.Height = applyFilters.Top - filters.Location.Y * 2;
+        /// <summary>
+        /// Returns the x position of display items
+        /// </summary>
+        public int DisplayItemsX { get => displayItems.Location.X; }
+
+        /// <summary>
+        /// Sets callback for showing the item
+        /// </summary>
+        /// <param name="reviewItem"></param>
+        public void SetReviewItem(ReviewItem reviewItem)
+        {
+            displayItems.SetReviewItem(reviewItem);
         }
 
-        public void Init()
+        private void displayItems_Load(object sender, EventArgs e)
         {
+            this.businessActors = new BusinessActors();
+            this.businessAuthors = new BusinessAuthors();
+            this.businessBooks = new BusinessBooks();
+            this.businessCategories = new BusinessCategories();
+            this.businessDirectors = new BusinessDirectors();
+            this.businessMovies = new BusinessMovies();
+            this.businessPublishers = new BusinessPublishers();
+
             foreach (string name in businessCategories.GetAllCategories().Select(i => i.Name).ToArray())
             {
                 selectCategories.Items.Add(name);
@@ -313,15 +374,8 @@ namespace WindowsFormsApp.Controls.Pages
                 selectCategories.SetItemChecked(a, true);
             }
 
-            resetFilters();
+            ResetFilters();
             UpdateItems();
-            OnResize();
-        }
-
-        public int DisplayItemsX { get => displayItems.Location.X; }
-        public void SetReviewItem(ReviewItem reviewItem)
-        {
-            displayItems.SetReviewItem(reviewItem);
         }
     }
 }

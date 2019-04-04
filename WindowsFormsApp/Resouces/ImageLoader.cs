@@ -9,15 +9,18 @@ namespace WindowsFormsApp.Resouces
     {
         static private string ImageDir = @"D:\Projects\github\catalog\WindowsFormsApp\Resouces\";
 
-        private BusinessBooks businessBooks;
         private Dictionary<int, Image> bookImages;
+        private Dictionary<int, Image> movieImages;
 
         public ImageLoader()
         {
-            businessBooks = new BusinessBooks();
             bookImages = new Dictionary<int, Image>();
+            movieImages = new Dictionary<int, Image>();
         }
 
+        /// <summary>
+        /// Load all the images 
+        /// </summary>
         public void LoadImages()
         {
             BusinessBooks businessBooks = new BusinessBooks();
@@ -32,12 +35,43 @@ namespace WindowsFormsApp.Resouces
 
                 bookImages.Add(book.Id, image);
             }
+
+            BusinessMovies businessMovies = new BusinessMovies();
+            foreach (Movie movie in businessMovies.GetAllMovies())
+            {
+                Image image = null;
+                try
+                {
+                    image = Image.FromFile(ImageDir + @"movies\" + movie.Id + ".jpg");
+                }
+                catch { }
+
+                movieImages.Add(movie.Id, image);
+            }
         }
 
+        /// <summary>
+        /// Returning the image of book
+        /// </summary>
+        /// <param name="id">Book`s id</param>
+        /// <returns></returns>
         public Image GetBookImage(int id)
         {
             Image image;
             bookImages.TryGetValue(id, out image);
+
+            return image;
+        }
+
+        /// <summary>
+        /// Returning the image of movie
+        /// </summary>
+        /// <param name="id">Movie`s id</param>
+        /// <returns></returns>
+        public Image GetMovieImage(int id)
+        {
+            Image image;
+            movieImages.TryGetValue(id, out image);
 
             return image;
         }

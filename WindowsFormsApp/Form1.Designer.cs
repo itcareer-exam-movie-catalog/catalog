@@ -43,7 +43,6 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(884, 559);
             this.mainPanel.TabIndex = 2;
-            this.mainPanel.Resize += new System.EventHandler(this.mainPanel_Resize);
             // 
             // searchItem1
             // 

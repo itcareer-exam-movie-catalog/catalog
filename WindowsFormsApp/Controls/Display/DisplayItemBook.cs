@@ -4,9 +4,9 @@ using WindowsFormsApp.Controls.Display;
 namespace WindowsFormsApp.Controls
 {
     /// <summary>
-    /// Class for store all data for book
+    /// Class for storing all the data for book
     /// </summary>
-    public partial class DisplayItemBook : DisplayItem
+    public partial class DisplayItemBook : DisplayItemBase
     {
         private Book book;
         private Author author;
@@ -24,12 +24,18 @@ namespace WindowsFormsApp.Controls
         }
 
         /// <summary>
-        /// Refresh display information for current book
+        /// Refreshing display information for current book
         /// </summary>
         public override void RefreshDisplayInfo()
         {
-            this.label1.Text = book.Title;
-            this.pictureBox1.BackgroundImage = this.image;
+            this.displayTitle.Text = book.Title;
+            this.displayAuthor.Text = author.FirstName + " " + author.LastName;
+            this.pictureBox1.BackgroundImage = this.Image;
         }
+
+        public Book Book { get => book; }
+        public Author Author { get => author; }
+        public Publisher Publisher { get => publisher; }
+        public Category[] Categories { get => categories; }
     }
 }

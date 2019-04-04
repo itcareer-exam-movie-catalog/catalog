@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.filters = new System.Windows.Forms.Panel();
+            this.orderByGroup = new System.Windows.Forms.GroupBox();
+            this.orderByDesc = new System.Windows.Forms.RadioButton();
+            this.orderByAsc = new System.Windows.Forms.RadioButton();
             this.searchGroup = new System.Windows.Forms.GroupBox();
             this.useOtherFillters = new System.Windows.Forms.CheckBox();
             this.searchInEverything = new System.Windows.Forms.RadioButton();
@@ -49,15 +52,12 @@
             this.applyFilters = new System.Windows.Forms.Button();
             this.clearFilters = new System.Windows.Forms.Button();
             this.displayItems = new WindowsFormsApp.Controls.ListItems();
-            this.orderByGroup = new System.Windows.Forms.GroupBox();
-            this.orderByAsc = new System.Windows.Forms.RadioButton();
-            this.orderByDesc = new System.Windows.Forms.RadioButton();
             this.filters.SuspendLayout();
+            this.orderByGroup.SuspendLayout();
             this.searchGroup.SuspendLayout();
             this.typeGroup.SuspendLayout();
             this.categoryGroup.SuspendLayout();
             this.priceGroup.SuspendLayout();
-            this.orderByGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // filters
@@ -73,6 +73,39 @@
             this.filters.Name = "filters";
             this.filters.Size = new System.Drawing.Size(184, 494);
             this.filters.TabIndex = 3;
+            // 
+            // orderByGroup
+            // 
+            this.orderByGroup.Controls.Add(this.orderByDesc);
+            this.orderByGroup.Controls.Add(this.orderByAsc);
+            this.orderByGroup.Location = new System.Drawing.Point(13, 389);
+            this.orderByGroup.Name = "orderByGroup";
+            this.orderByGroup.Size = new System.Drawing.Size(165, 97);
+            this.orderByGroup.TabIndex = 9;
+            this.orderByGroup.TabStop = false;
+            this.orderByGroup.Text = "Order By";
+            // 
+            // orderByDesc
+            // 
+            this.orderByDesc.AutoSize = true;
+            this.orderByDesc.Location = new System.Drawing.Point(60, 20);
+            this.orderByDesc.Name = "orderByDesc";
+            this.orderByDesc.Size = new System.Drawing.Size(54, 17);
+            this.orderByDesc.TabIndex = 1;
+            this.orderByDesc.Text = "DESC";
+            this.orderByDesc.UseVisualStyleBackColor = true;
+            // 
+            // orderByAsc
+            // 
+            this.orderByAsc.AutoSize = true;
+            this.orderByAsc.Checked = true;
+            this.orderByAsc.Location = new System.Drawing.Point(7, 20);
+            this.orderByAsc.Name = "orderByAsc";
+            this.orderByAsc.Size = new System.Drawing.Size(46, 17);
+            this.orderByAsc.TabIndex = 0;
+            this.orderByAsc.TabStop = true;
+            this.orderByAsc.Text = "ASC";
+            this.orderByAsc.UseVisualStyleBackColor = true;
             // 
             // searchGroup
             // 
@@ -287,39 +320,7 @@
             this.displayItems.Name = "displayItems";
             this.displayItems.Size = new System.Drawing.Size(659, 526);
             this.displayItems.TabIndex = 15;
-            // 
-            // orderByGroup
-            // 
-            this.orderByGroup.Controls.Add(this.orderByDesc);
-            this.orderByGroup.Controls.Add(this.orderByAsc);
-            this.orderByGroup.Location = new System.Drawing.Point(13, 389);
-            this.orderByGroup.Name = "orderByGroup";
-            this.orderByGroup.Size = new System.Drawing.Size(165, 97);
-            this.orderByGroup.TabIndex = 9;
-            this.orderByGroup.TabStop = false;
-            this.orderByGroup.Text = "Order By";
-            // 
-            // orderByAsc
-            // 
-            this.orderByAsc.AutoSize = true;
-            this.orderByAsc.Checked = true;
-            this.orderByAsc.Location = new System.Drawing.Point(7, 20);
-            this.orderByAsc.Name = "orderByAsc";
-            this.orderByAsc.Size = new System.Drawing.Size(46, 17);
-            this.orderByAsc.TabIndex = 0;
-            this.orderByAsc.TabStop = true;
-            this.orderByAsc.Text = "ASC";
-            this.orderByAsc.UseVisualStyleBackColor = true;
-            // 
-            // orderByDesc
-            // 
-            this.orderByDesc.AutoSize = true;
-            this.orderByDesc.Location = new System.Drawing.Point(60, 20);
-            this.orderByDesc.Name = "orderByDesc";
-            this.orderByDesc.Size = new System.Drawing.Size(54, 17);
-            this.orderByDesc.TabIndex = 1;
-            this.orderByDesc.Text = "DESC";
-            this.orderByDesc.UseVisualStyleBackColor = true;
+            this.displayItems.Load += new System.EventHandler(this.displayItems_Load);
             // 
             // SearchItem
             // 
@@ -331,8 +332,9 @@
             this.Controls.Add(this.filters);
             this.Name = "SearchItem";
             this.Size = new System.Drawing.Size(859, 534);
-            this.Resize += new System.EventHandler(this.SearchItem_Resize);
             this.filters.ResumeLayout(false);
+            this.orderByGroup.ResumeLayout(false);
+            this.orderByGroup.PerformLayout();
             this.searchGroup.ResumeLayout(false);
             this.searchGroup.PerformLayout();
             this.typeGroup.ResumeLayout(false);
@@ -341,8 +343,6 @@
             this.categoryGroup.PerformLayout();
             this.priceGroup.ResumeLayout(false);
             this.priceGroup.PerformLayout();
-            this.orderByGroup.ResumeLayout(false);
-            this.orderByGroup.PerformLayout();
             this.ResumeLayout(false);
 
         }
