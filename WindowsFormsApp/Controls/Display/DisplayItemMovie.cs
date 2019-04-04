@@ -33,9 +33,24 @@ namespace WindowsFormsApp.Controls
             this.pictureBox1.BackgroundImage = this.Image;
         }
 
-        public Movie Movie { get => movie; set => movie = value; }
-        public Director Director { get => director; set => director = value; }
-        public Actor[] Actors { get => actors; set => actors = value; }
-        public Category[] Categories { get => categories; set => categories = value; }
+        /// <summary>
+        /// Returns current movie
+        /// </summary>
+        public Movie Movie { get => movie; }
+
+        /// <summary>
+        /// Returns current director
+        /// </summary>
+        public Director Director { get => director; }
+
+        /// <summary>
+        /// Returns current actors
+        /// </summary>
+        public Actor[] Actors { get => actors; }
+
+        /// <summary>
+        /// Returns current categories
+        /// </summary>
+        public Category[] Categories { get => categories; }
     }
 }

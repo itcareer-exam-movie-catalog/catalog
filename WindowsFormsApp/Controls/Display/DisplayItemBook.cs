@@ -24,7 +24,7 @@ namespace WindowsFormsApp.Controls
         }
 
         /// <summary>
-        /// Refreshing display information for current book
+        /// Refreshs display information for current book
         /// </summary>
         public override void RefreshDisplayInfo()
         {
@@ -33,9 +33,24 @@ namespace WindowsFormsApp.Controls
             this.pictureBox1.BackgroundImage = this.Image;
         }
 
+        /// <summary>
+        /// Returns current book
+        /// </summary>
         public Book Book { get => book; }
+
+        /// <summary>
+        /// Returns current authors
+        /// </summary>
         public Author Author { get => author; }
+
+        /// <summary>
+        /// Returns current publisher
+        /// </summary>
         public Publisher Publisher { get => publisher; }
+
+        /// <summary>
+        /// Returns current categories
+        /// </summary>
         public Category[] Categories { get => categories; }
     }
 }

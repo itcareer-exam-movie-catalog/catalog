@@ -31,7 +31,7 @@ namespace WindowsFormsApp.Controls.Pages
                 reviewItemBook.Show();
                 reviewItemBook.BringToFront();
             }
-            else
+            else if(displayItem is DisplayItemMovie)
             {
                 reviewItemMovie.UpdateDisplayInformation(displayItem);
                 reviewItemBook.Hide();

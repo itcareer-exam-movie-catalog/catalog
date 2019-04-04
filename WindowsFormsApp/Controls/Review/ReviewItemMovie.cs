@@ -10,6 +10,10 @@ namespace WindowsFormsApp.Controls.Review
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Updates movie`s information
+        /// </summary>
+        /// <param name="item"></param>
         public override void UpdateDisplayInformation(DisplayItemBase item)
         {
             DisplayItemMovie displayItem = (DisplayItemMovie)item;

@@ -10,7 +10,11 @@ namespace WindowsFormsApp.Controls.Review
         {
             InitializeComponent();
         }
-        
+
+        /// <summary>
+        /// Updates book`s information
+        /// </summary>
+        /// <param name="item"></param>
         public override void UpdateDisplayInformation(DisplayItemBase item)
         {
             DisplayItemBook displayItem = (DisplayItemBook)item;

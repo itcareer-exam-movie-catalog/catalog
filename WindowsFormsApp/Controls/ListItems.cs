@@ -81,12 +81,17 @@ namespace WindowsFormsApp.Controls
         /// <param name="reviewItem"></param>
         public void SetReviewItem(ReviewItem reviewItem)
         {
-            foreach (DisplayItemBase control in this.Controls)
+            foreach (Control control in Controls)
             {
-                control.ReviewItem = reviewItem;
+                ((DisplayItemBase)control).ReviewItem = reviewItem;
             }
         }
 
+        /// <summary>
+        /// Initializes the image loader
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ListItems_Load(object sender, System.EventArgs e)
         {
             imageLoader = new ImageLoader();

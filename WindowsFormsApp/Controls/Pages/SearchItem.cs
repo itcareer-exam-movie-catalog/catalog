@@ -21,6 +21,8 @@ namespace WindowsFormsApp.Controls.Pages
         private float minPrice;
         private float maxPrice;
 
+        private ReviewItem reviewItem;
+
         public SearchItem()
         {
             InitializeComponent();
@@ -164,6 +166,8 @@ namespace WindowsFormsApp.Controls.Pages
                     }
                 }
             }
+
+            displayItems.SetReviewItem(reviewItem);
         }
 
         /// <summary>
@@ -177,7 +181,7 @@ namespace WindowsFormsApp.Controls.Pages
             {
                 enterMinPrice.Text = GetMinPrice().ToString();
             }
-        } //Need update
+        }
 
         /// <summary>
         /// Makes validation of the text from fueld of maximum price
@@ -190,7 +194,7 @@ namespace WindowsFormsApp.Controls.Pages
             {
                 enterMaxPrice.Text = GetMaxPrice().ToString();
             }
-        } //Need update
+        }
 
         /// <summary>
         /// Gets the largest price
@@ -346,14 +350,20 @@ namespace WindowsFormsApp.Controls.Pages
         public int DisplayItemsX { get => displayItems.Location.X; }
 
         /// <summary>
-        /// Sets callback for showing the item
+        /// Sets ReviewItem instance of the control
         /// </summary>
         /// <param name="reviewItem"></param>
         public void SetReviewItem(ReviewItem reviewItem)
         {
+            this.reviewItem = reviewItem;
             displayItems.SetReviewItem(reviewItem);
         }
 
+        /// <summary>
+        /// Initializes the values.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void displayItems_Load(object sender, EventArgs e)
         {
             this.businessActors = new BusinessActors();

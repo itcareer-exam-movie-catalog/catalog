@@ -18,6 +18,9 @@ namespace WindowsFormsApp
             this.MinimumSize = this.Size;
         }
 
+        /// <summary>
+        /// Updates the shown information
+        /// </summary>
         public void UpdateView()
         {
             if (reviewItem1.HasItem)
@@ -36,12 +39,17 @@ namespace WindowsFormsApp
             }
         }
 
+        /// <summary>
+        /// Sets callback for controls
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            reviewItem1.SetForm(this);
             searchItem1.SetReviewItem(reviewItem1);
-            
-            UpdateView();   
+            reviewItem1.SetForm(this);
+
+            UpdateView();
         }
     }
 }
