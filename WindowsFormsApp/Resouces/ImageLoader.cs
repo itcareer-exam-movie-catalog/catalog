@@ -7,7 +7,8 @@ namespace WindowsFormsApp.Resouces
 {
     public class ImageLoader
     {
-        static private string ImageDir = @"D:\Projects\github\catalog\WindowsFormsApp\Resouces\";
+        //Place full path for the images
+        static private string ImageDir = @"...catalog\WindowsFormsApp\Resouces\";
 
         private Dictionary<int, Image> bookImages;
         private Dictionary<int, Image> movieImages;
