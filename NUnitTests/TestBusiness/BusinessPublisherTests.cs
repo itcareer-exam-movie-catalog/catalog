@@ -207,5 +207,35 @@ namespace NUnitTests.BusinessTests
 
             Assert.AreEqual(businessPublisherCount, dbPublisherCount, "Not all publishers were gotten/fetched.");
         }
+
+        [Test, Description("Ensures that when the publisher's name is entered its id will be fetched.")]
+        public void Get_Publisher_Id_By_Name()
+        {
+            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
+
+            string publisherName = "name1";
+            int mockPublisherId = mockBusinessPublisher.FindPublisherId(publisherName);
+
+            CatalogDbContext cDbContext = mockBusinessPublisher.GetCatalogDbContext();
+            List<Publisher> allPublishers = cDbContext.Publishers.ToList();
+
+            List<int> publisherIds = new List<int>();
+            foreach (Publisher publisher in allPublishers)
+            {
+                publisherIds.Add(publisher.Id);
+            }
+
+            Assert.Contains(mockPublisherId, publisherIds, "The publisher does not exist.");
+        }
+
+        [Test, Description("Ensures that when a missing publisher's name is entered an invalid id will be returned.")]
+        public void Get_Invalid_Publisher_Id_By_Missing_Name()
+        {
+            BusinessPublishers mockBusinessPublisher = new BusinessPublishers(mockDbContext.Object);
+
+            string publisherName = "yeet420";
+
+            Assert.AreEqual(-1, mockBusinessPublisher.FindPublisherId(publisherName), "The publisher does exist.");
+        }
     }
 }
