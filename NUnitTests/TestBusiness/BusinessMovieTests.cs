@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
@@ -65,8 +65,8 @@ namespace NUnitTests.BusinessTests
 
             List<Movie> movies = new List<Movie>()
             {
-                new Movie() {Id = 1, Title = "title", DirectorId = 1, ActorIds = "1", PublicationYear = 1234, CategoryIds = "1", Price = 10.00M},
-                new Movie() {Id = 2, Title = "title", DirectorId = 1, ActorIds = "1", PublicationYear = 1234, CategoryIds = "1", Price = 10.00M}
+                new Movie() {Id = 1, Title = "title", DirectorId = 1, ActorIds = "1", PublicationYear = 1234, CategoryIds = "1"},
+                new Movie() {Id = 2, Title = "title", DirectorId = 1, ActorIds = "1", PublicationYear = 1234, CategoryIds = "1"}
             };
 
             List<Publisher> publishers = new List<Publisher>()
@@ -133,8 +133,7 @@ namespace NUnitTests.BusinessTests
                 DirectorId = 1,
                 ActorIds = "1",
                 PublicationYear = 1234,
-                CategoryIds = "1",
-                Price = 10.00M
+                CategoryIds = "1"
             };
 
             mockBusinessMovie.AddMovie(mockMovie);
