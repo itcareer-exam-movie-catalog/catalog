@@ -281,7 +281,6 @@
             this.enterMaxPrice.Name = "enterMaxPrice";
             this.enterMaxPrice.Size = new System.Drawing.Size(63, 20);
             this.enterMaxPrice.TabIndex = 3;
-            this.enterMaxPrice.TextChanged += new System.EventHandler(this.enterMaxPrice_TextChanged);
             // 
             // enterMinPrice
             // 
@@ -289,7 +288,6 @@
             this.enterMinPrice.Name = "enterMinPrice";
             this.enterMinPrice.Size = new System.Drawing.Size(63, 20);
             this.enterMinPrice.TabIndex = 2;
-            this.enterMinPrice.TextChanged += new System.EventHandler(this.enterMinPrice_TextChanged);
             // 
             // applyFilters
             // 

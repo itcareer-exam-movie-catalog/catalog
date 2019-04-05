@@ -171,32 +171,6 @@ namespace WindowsFormsApp.Controls.Pages
         }
 
         /// <summary>
-        /// Makes validation of the text from fueld of minimum price
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void enterMinPrice_TextChanged(object sender, EventArgs e)
-        {
-            if ((!float.TryParse(enterMinPrice.Text, out minPrice) || minPrice < GetMinPrice()) && enterMinPrice.Text.Length > 0)
-            {
-                enterMinPrice.Text = GetMinPrice().ToString();
-            }
-        }
-
-        /// <summary>
-        /// Makes validation of the text from fueld of maximum price
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void enterMaxPrice_TextChanged(object sender, EventArgs e)
-        {
-            if ((!float.TryParse(enterMaxPrice.Text, out maxPrice) || maxPrice > GetMaxPrice()) && enterMaxPrice.Text.Length > 0)
-            {
-                enterMaxPrice.Text = GetMaxPrice().ToString();
-            }
-        }
-
-        /// <summary>
         /// Gets the largest price
         /// </summary>
         /// <returns></returns>
@@ -281,7 +255,22 @@ namespace WindowsFormsApp.Controls.Pages
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void applyFilters_Click(object sender, EventArgs e) => UpdateItems();
+        private void applyFilters_Click(object sender, EventArgs e)
+        {
+            //Makes validation of the text from fueld of minimum price
+            if ((!float.TryParse(enterMinPrice.Text, out minPrice) || minPrice < GetMinPrice()) && enterMinPrice.Text.Length > 0)
+            {
+                enterMinPrice.Text = GetMinPrice().ToString();
+            }
+
+            //Makes validation of the text from fueld of maximum price
+            if ((!float.TryParse(enterMaxPrice.Text, out maxPrice) || maxPrice > GetMaxPrice()) && enterMaxPrice.Text.Length > 0)
+            {
+                enterMaxPrice.Text = GetMaxPrice().ToString();
+            }
+
+            UpdateItems();
+        }
 
         /// <summary>
         /// Adds all keywords in search field autocomplete

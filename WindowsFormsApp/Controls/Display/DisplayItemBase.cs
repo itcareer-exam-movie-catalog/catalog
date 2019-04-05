@@ -12,7 +12,6 @@ namespace WindowsFormsApp.Controls.Display
         private Color defaultBackColor;
         private Color mouseOverBackColor;
         private Image image;
-
         private ReviewItem reviewItem;
 
         public DisplayItemBase()
@@ -26,15 +25,13 @@ namespace WindowsFormsApp.Controls.Display
         /// <summary>
         /// Sets or returns image of elements
         /// </summary>
-        /// <param name="image"></param>
         public Image Image { get => image; set => image = value; }
 
         /// <summary>
         /// Sets ReviewItem instance of the control
         /// </summary>
-        /// <param name="reviewItem"></param>
         public ReviewItem ReviewItem { set => this.reviewItem = value; }
-
+        
         /// <summary>
         /// Refreshs display information for current book or movie
         /// </summary>
