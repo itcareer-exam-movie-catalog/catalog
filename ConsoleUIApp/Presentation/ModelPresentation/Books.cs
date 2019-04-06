@@ -29,7 +29,7 @@ namespace ConsolePresentation.ModelPresentation
         {
             InitializeWindow();
             int optionNumSelect = 1;
-            BusinessCategories BusinessCategories = new BusinessCategories();
+            BusinessCategories businessCategories = new BusinessCategories();
 
             Console.Clear();
             Console.WriteLine("Choose an option:");
@@ -100,11 +100,11 @@ namespace ConsolePresentation.ModelPresentation
         private void ShowBookCategories()
         {
             int optionNumSelect = 1;
-            BusinessCategories BusinessCategories = new BusinessCategories();
+            BusinessCategories businessCategories = new BusinessCategories();
 
             Console.Clear();
             Console.WriteLine("Choose a category!");
-            foreach (Category category in BusinessCategories.GetAllCategories())
+            foreach (Category category in businessCategories.GetAllCategories())
             {
                 string currCategoryName = category.Name.ToLower();
                 currCategoryName = currCategoryName.First().ToString().ToUpper() + "" + currCategoryName.Substring(1);
@@ -161,6 +161,9 @@ namespace ConsolePresentation.ModelPresentation
         private void OriginalBookSearch()
         {
             Console.Clear();
+            Console.WriteLine("1.Go back to options");
+            Console.WriteLine("2.Go back to movie/book menu");
+            Console.WriteLine("3.Exit");
             Console.Write("Enter the title of the book you want to search: ");
             string bookTitle = Console.ReadLine();
             int numSelection = 0;
@@ -183,10 +186,16 @@ namespace ConsolePresentation.ModelPresentation
                     {
                         cDisplay.ExitMenu();
                     }
+                    else
+                    {
+                        Console.Clear();
+                        ShowBookOptions();
+                    }
                 }
                 //checks if the book title is empty
                 else if (bookTitle == null || bookTitle == "")
                 {
+                    Console.Clear();
                     Console.WriteLine("You must enter something in order to search for it.\n");
                     GoBackBookMenu();
                 }
@@ -200,12 +209,14 @@ namespace ConsolePresentation.ModelPresentation
                 }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("There doesn't exist such book in our catalog.\n");
                     GoBackBookMenu();
                 }
             }
             catch 
             {
+                Console.Clear();
                 Console.WriteLine("There doesn't exist such book in our catalog.\n");
                 GoBackBookMenu();
             }
@@ -221,8 +232,8 @@ namespace ConsolePresentation.ModelPresentation
             Console.Clear();
             Console.WriteLine(new string('-', 80));
 
-            BusinessCategories BusinessCategories = new BusinessCategories();
-            string category = BusinessCategories.GetCategory(selection).Name;
+            BusinessCategories businessCategories = new BusinessCategories();
+            string category = businessCategories.GetCategory(selection).Name;
 
             Console.WriteLine("Here are some of the names: ");
 
@@ -250,8 +261,8 @@ namespace ConsolePresentation.ModelPresentation
             Console.Write("Otherwise - Enter the title of the book you want to search: ");
             string bookTitle = Console.ReadLine();
             int numSelection = 0;
-            BusinessBooks BusinessBooks = new BusinessBooks();
-            List<Book> booksWithSimilarName = BusinessBooks.GetBooksByTitle(bookTitle);
+            BusinessBooks businessBooks = new BusinessBooks();
+            List<Book> booksWithSimilarName = businessBooks.GetBooksByTitle(bookTitle);
 
             try
             {
@@ -269,10 +280,16 @@ namespace ConsolePresentation.ModelPresentation
                     {
                         cDisplay.ExitMenu();
                     }
+                    else
+                    {
+                        Console.Clear();
+                        ShowBookOptions();
+                    }
                 }
                 //checks if the book title is empty
                 else if (bookTitle == null || bookTitle == "")
                 {
+                    Console.Clear();
                     Console.WriteLine("You must enter something in order to search for it.\n");
                     GoBackBookMenu();
                 }
@@ -286,12 +303,14 @@ namespace ConsolePresentation.ModelPresentation
                 }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("There doesn't exist such book in our catalog.\n");
                     GoBackBookMenu();
                 }
             }
             catch
             {
+                Console.Clear();
                 Console.WriteLine("There doesn't exist such book in our catalog.\n");
                 GoBackBookMenu();
             }
@@ -304,7 +323,7 @@ namespace ConsolePresentation.ModelPresentation
         private void ShowBookInformation(Book book)
         {
             Console.Clear();
-            BusinessCategories BusinessCategories = new BusinessCategories();
+            BusinessCategories businessCategories = new BusinessCategories();
 
             BusinessPublishers publisherBusiness = new BusinessPublishers();
             string publisher = publisherBusiness.GetPublisher(book.PublisherId).Name;
@@ -315,11 +334,11 @@ namespace ConsolePresentation.ModelPresentation
                 .Select(int.Parse).ToList();
             foreach (int categoryId in categoryIds)
             {
-                categories.Add(BusinessCategories.GetCategory(categoryId).Name);
+                categories.Add(businessCategories.GetCategory(categoryId).Name);
             }
 
-            BusinessAuthors BusinessAuthors = new BusinessAuthors();
-            Author author = BusinessAuthors.GetAuthor(book.AuthorId);
+            BusinessAuthors businessAuthors = new BusinessAuthors();
+            Author author = businessAuthors.GetAuthor(book.AuthorId);
             string authorName = author.FirstName + " " + author.LastName;
 
             Console.WriteLine("Here is some information about the movie of your choice:");
@@ -343,11 +362,9 @@ namespace ConsolePresentation.ModelPresentation
             int currentBookNumber = 1;
             foreach (Book book in booksWithSimilarName)
             {
-                Console.WriteLine($"{currentBookNumber}. {book.Title}");
-                currentBookNumber++;
+                Console.WriteLine($"{currentBookNumber++}. {book.Title}");
             }
-            Console.WriteLine($"{currentBookNumber}. Go Back");
-            currentBookNumber++;
+            Console.WriteLine($"{currentBookNumber++}. Go Back");
             Console.WriteLine($"{currentBookNumber}. Exit");
 
             Console.WriteLine("Enter the number for the book that you want to see more information about:");
@@ -364,7 +381,7 @@ namespace ConsolePresentation.ModelPresentation
                 }
                 else if (bookNumberChoice == currentBookNumber - 1)
                 {
-                    BookSearch();
+                    OriginalBookSearch();
                 }
                 else if (bookNumberChoice == currentBookNumber)
                 {
@@ -372,7 +389,9 @@ namespace ConsolePresentation.ModelPresentation
                 }
                 else
                 {
-                    ShowBookInformation(booksWithSimilarName[bookNumberChoice]);
+                    //We select the "bookNumberChoice - 1" book, because
+                    //arrays start from 0.
+                    ShowBookInformation(booksWithSimilarName[bookNumberChoice - 1]);
                 }
             }
             catch (Exception)
@@ -404,8 +423,8 @@ namespace ConsolePresentation.ModelPresentation
         {
             Console.Clear();
 
-            BusinessBooks BusinessBooks = new BusinessBooks();
-            List<Book> publisherBooks = BusinessBooks.GetBooksByPublisher(publisherName);
+            BusinessBooks businessBooks = new BusinessBooks();
+            List<Book> publisherBooks = businessBooks.GetBooksByPublisher(publisherName);
             if (publisherBooks.Count == 0)
             {
                 Console.WriteLine("The name that you entered is either invalid or the company hasn't published any books\n");
@@ -459,9 +478,9 @@ namespace ConsolePresentation.ModelPresentation
             if (authorFullName.Length == 1)
             {
                 List<Author> authorsWithSameName = new List<Author>();
-                BusinessAuthors BusinessAuthors = new BusinessAuthors();
+                BusinessAuthors businessAuthors = new BusinessAuthors();
 
-                foreach (Author author in BusinessAuthors.GetAllAuthors())
+                foreach (Author author in businessAuthors.GetAllAuthors())
                 {
                     if (author.FirstName.ToLower() == authorName.ToLower() || author.LastName.ToLower() == authorName.ToLower())
                     {
@@ -469,9 +488,6 @@ namespace ConsolePresentation.ModelPresentation
                         Console.WriteLine(author.FirstName + " " + author.LastName);
                     }
                 }
-                Console.WriteLine("1.Go back to options");
-                Console.WriteLine("2.Go back to movie/book menu");
-                Console.WriteLine("3.Exit\n");
 
                 InputAuthorWithSimilarNames();
             }
@@ -480,8 +496,8 @@ namespace ConsolePresentation.ModelPresentation
                 string authorFirstName = authorFullName[0];
                 string authorLastName = authorFullName[1];
 
-                BusinessAuthors BusinessAuthors = new BusinessAuthors();
-                int authorId = BusinessAuthors.FindAuthorId(authorFirstName, authorLastName);
+                BusinessAuthors businessAuthors = new BusinessAuthors();
+                int authorId = businessAuthors.FindAuthorId(authorFirstName, authorLastName);
 
                 ShowAuthorBooks(authorId);
             }
@@ -493,7 +509,6 @@ namespace ConsolePresentation.ModelPresentation
         /// </summary>
         private void InputAuthorWithSimilarNames()
         {
-            Console.Clear();
             Console.WriteLine("If you want to select any of the other options, select a number from [1-3]");
             Console.WriteLine("Otherwise - Enter the author's name, ");
             Console.WriteLine("so you can see all the books that he wrote: ");
@@ -536,8 +551,8 @@ namespace ConsolePresentation.ModelPresentation
                 string authorFirstName = authorName[0];
                 string authorLastName = authorName[1];
 
-                BusinessAuthors BusinessAuthors = new BusinessAuthors();
-                int authorId = BusinessAuthors.FindAuthorId(authorFirstName, authorLastName);
+                BusinessAuthors businessAuthors = new BusinessAuthors();
+                int authorId = businessAuthors.FindAuthorId(authorFirstName, authorLastName);
 
                 ShowAuthorBooks(authorId);
             }
@@ -558,9 +573,9 @@ namespace ConsolePresentation.ModelPresentation
             Console.Clear();
             Console.WriteLine("Here are some of the books, that are written by the selected author");
 
-            BusinessBooks BusinessBooks = new BusinessBooks();
+            BusinessBooks businessBooks = new BusinessBooks();
 
-            foreach (Book book in BusinessBooks.GetBooksByAuthorId(authorId))
+            foreach (Book book in businessBooks.GetBooksByAuthorId(authorId))
             {
                 Console.WriteLine(book.Title);
             }
