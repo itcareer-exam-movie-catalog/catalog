@@ -29,7 +29,7 @@ namespace ConsolePresentation.ModelPresentation
         {
             InitializeWindow();
             int optionNumSelect = 1;
-            BusinessCategories BusinessCategories = new BusinessCategories();
+            BusinessCategories businessCategories = new BusinessCategories();
 
             Console.Clear();
             Console.WriteLine("Choose an option:");
@@ -100,11 +100,11 @@ namespace ConsolePresentation.ModelPresentation
         private void ShowMovieCategories()
         {
             int optionNumSelect = 1;
-            BusinessCategories BusinessCategories = new BusinessCategories();
+            BusinessCategories businessCategories = new BusinessCategories();
 
             Console.Clear();
             Console.WriteLine("Choose a category!");
-            foreach (Category category in BusinessCategories.GetAllCategories())
+            foreach (Category category in businessCategories.GetAllCategories())
             {
                 string currCategoryName = category.Name.ToLower();
                 currCategoryName = currCategoryName.First().ToString().ToUpper() + "" + currCategoryName.Substring(1);
@@ -161,11 +161,14 @@ namespace ConsolePresentation.ModelPresentation
         private void OriginalMovieSearch()
         {
             Console.Clear();
+            Console.WriteLine("1.Go back to options");
+            Console.WriteLine("2.Go back to movie/book selection");
+            Console.WriteLine("3.Exit");
             Console.Write("Enter the title of the movie you want to search: ");
             string movieTitle = Console.ReadLine();
             int numSelection = 0;
-            BusinessMovies BusinessMovies = new BusinessMovies();
-            List<Movie> moviesWithSimilarName = BusinessMovies.GetMoviesByTitle(movieTitle);
+            BusinessMovies businessMovies = new BusinessMovies();
+            List<Movie> moviesWithSimilarName = businessMovies.GetMoviesByTitle(movieTitle);
 
             try
             {
@@ -187,12 +190,13 @@ namespace ConsolePresentation.ModelPresentation
                     else
                     {
                         Console.Clear();
-                        MovieSearch();
+                        ShowMovieOptions();
                     }
                 }
                 //checks if the movie title is empty
                 else if (movieTitle == null || movieTitle == "")
                 {
+                    Console.Clear();
                     Console.WriteLine("You must enter something in order to search for it.\n");
                     GoBackMovieMenu();
                 }
@@ -207,13 +211,14 @@ namespace ConsolePresentation.ModelPresentation
                 }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("There doesn't exist such movie in our catalog.\n");
                     GoBackMovieMenu();
                 }
             }
             catch 
             {
-
+                Console.Clear();
                 Console.WriteLine("There doesn't exist such movie in our catalog.\n");
                 GoBackMovieMenu();
             }
@@ -230,14 +235,14 @@ namespace ConsolePresentation.ModelPresentation
             Console.Clear();
             Console.WriteLine(new string('-', 80));
 
-            BusinessCategories BusinessCategories = new BusinessCategories();
-            string category = BusinessCategories.GetCategory(selection).Name;
+            BusinessCategories businessCategories = new BusinessCategories();
+            string category = businessCategories.GetCategory(selection).Name;
 
             Console.WriteLine("Here are some of the names: ");
 
-            BusinessMovies BusinessMoviess = new BusinessMovies();
+            BusinessMovies businessMoviess = new BusinessMovies();
 
-            List<Movie> movies = BusinessMoviess.GetMoviesByCategory(selection);
+            List<Movie> movies = businessMoviess.GetMoviesByCategory(selection);
             foreach (Movie movie in movies)
             {
                 Console.WriteLine(movie.Title);
@@ -259,8 +264,8 @@ namespace ConsolePresentation.ModelPresentation
             Console.Write("Otherwise - Enter the title of the movie you want to search: ");
             string movieTitle = Console.ReadLine();
             int numSelection = 0;
-            BusinessMovies BusinessMovies = new BusinessMovies();
-            List<Movie> moviesWithSimilarName = BusinessMovies.GetMoviesByTitle(movieTitle);
+            BusinessMovies businessMovies = new BusinessMovies();
+            List<Movie> moviesWithSimilarName = businessMovies.GetMoviesByTitle(movieTitle);
 
             try
             {
@@ -282,7 +287,7 @@ namespace ConsolePresentation.ModelPresentation
                     else
                     {
                         Console.Clear();
-                        MovieSearch();
+                        ShowMovieOptions();
                     }
                 }
                 //Checks if the movie title is empty
@@ -302,13 +307,14 @@ namespace ConsolePresentation.ModelPresentation
                 }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("There doesn't exist such movie in our catalog.\n");
                     GoBackMovieMenu();
                 }
             }
             catch
             {
-
+                Console.Clear();
                 Console.WriteLine("There doesn't exist such movie in our catalog.\n");
                 GoBackMovieMenu();
             }
@@ -321,7 +327,7 @@ namespace ConsolePresentation.ModelPresentation
         private void ShowMovieInformation(Movie movie)
         {
             Console.Clear();
-            BusinessCategories BusinessCategories = new BusinessCategories();
+            BusinessCategories businessCategories = new BusinessCategories();
 
             BusinessDirectors directorBusiness = new BusinessDirectors();
             string director = directorBusiness.GetDirector(movie.DirectorId).FirstName + " " + directorBusiness.GetDirector(movie.DirectorId).LastName;
@@ -332,17 +338,17 @@ namespace ConsolePresentation.ModelPresentation
                 .Select(int.Parse).ToList();
             foreach (int categoryId in categoryIds)
             {
-                categories.Add(BusinessCategories.GetCategory(categoryId).Name);
+                categories.Add(businessCategories.GetCategory(categoryId).Name);
             }
 
-            BusinessActors BusinessActors = new BusinessActors();
+            BusinessActors businessActors = new BusinessActors();
             List<string> actors = new List<string>();
             List<int> actorIds = movie.ActorIds
                 .Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse).ToList();
             foreach (int actorId in actorIds)
             {
-                actors.Add(BusinessActors.GetActor(actorId).FirstName + " " + BusinessActors.GetActor(actorId).LastName);
+                actors.Add(businessActors.GetActor(actorId).FirstName + " " + businessActors.GetActor(actorId).LastName);
             }
 
             Console.WriteLine("Here is some information about the movie of your choice:");
@@ -366,13 +372,10 @@ namespace ConsolePresentation.ModelPresentation
             int currentMovieNumber = 1;
             foreach (Movie movie in moviesWithSimilarName)
             {
-                Console.WriteLine($"{currentMovieNumber}. {movie.Title}");
-                currentMovieNumber++;
+                Console.WriteLine($"{currentMovieNumber++}. {movie.Title}");
             }
-            Console.WriteLine($"{currentMovieNumber}. Go Back");
-            currentMovieNumber++;
+            Console.WriteLine($"{currentMovieNumber++}. Go Back");
             Console.WriteLine($"{currentMovieNumber}. Exit");
-
             Console.WriteLine("Enter the number for the movie that you want to see more information about:");
             Console.Write("--> ");
 
@@ -386,7 +389,7 @@ namespace ConsolePresentation.ModelPresentation
                 }
                 else if (movieNumberChoice == currentMovieNumber - 1)
                 {
-                    MovieSearch();
+                    OriginalMovieSearch();
                 }
                 else if (movieNumberChoice == currentMovieNumber)
                 {
@@ -394,7 +397,9 @@ namespace ConsolePresentation.ModelPresentation
                 }
                 else
                 {
-                    ShowMovieInformation(moviesWithSimilarName[movieNumberChoice]);
+                    //We get the "movieNumberChoice - 1" movie, because in normal arrays
+                    //its parameters start from 0.
+                    ShowMovieInformation(moviesWithSimilarName[movieNumberChoice - 1]);
                 }
             }
             catch
@@ -427,8 +432,8 @@ namespace ConsolePresentation.ModelPresentation
         {
             Console.Clear();
 
-            BusinessMovies BusinessMovies = new BusinessMovies();
-            List<Movie> directorMovies = BusinessMovies.GetMoviesByDirector(directorName);
+            BusinessMovies businessMovies = new BusinessMovies();
+            List<Movie> directorMovies = businessMovies.GetMoviesByDirector(directorName);
             if (directorMovies.Count == 0)
             {
                 Console.WriteLine("The name that you entered is either invalid or the person hasn't produced any movies\n");
@@ -481,9 +486,9 @@ namespace ConsolePresentation.ModelPresentation
             if (actorFullName.Length == 1)
             {
                 List<Actor> actorsWithSameName = new List<Actor>();
-                BusinessActors BusinessActors = new BusinessActors();
+                BusinessActors businessActors = new BusinessActors();
 
-                foreach (Actor actor in BusinessActors.GetAllActors())
+                foreach (Actor actor in businessActors.GetAllActors())
                 {
                     if (actor.FirstName.ToLower() == actorName.ToLower() || actor.LastName.ToLower() == actorName.ToLower())
                     {
@@ -491,9 +496,6 @@ namespace ConsolePresentation.ModelPresentation
                         Console.WriteLine(actor.FirstName + " " + actor.LastName);
                     }
                 }
-                Console.WriteLine("1.Go back to options");
-                Console.WriteLine("2.Go back to movie/book menu");
-                Console.WriteLine("3.Exit\n");
 
                 InputActorWithSimilarNames();
             }
@@ -502,8 +504,8 @@ namespace ConsolePresentation.ModelPresentation
                 string actorFirstName = actorFullName[0];
                 string actorLastName = actorFullName[1];
 
-                BusinessActors BusinessActors = new BusinessActors();
-                int actorId = BusinessActors.FindActorId(actorFirstName, actorLastName);
+                BusinessActors businessActors = new BusinessActors();
+                int actorId = businessActors.FindActorId(actorFirstName, actorLastName);
 
                 ShowActorMovies(actorId);
             }
@@ -515,7 +517,6 @@ namespace ConsolePresentation.ModelPresentation
         /// </summary>
         private void InputActorWithSimilarNames()
         {
-            Console.Clear();
             Console.WriteLine("If you want to select any of the other options, select a number from [1-3]");
             Console.WriteLine("Otherwise - Enter the actor's name, ");
             Console.WriteLine("so you can see all the movies that he acted in: ");
@@ -558,8 +559,8 @@ namespace ConsolePresentation.ModelPresentation
                 string actorFirstName = actorName[0];
                 string actorLastName = actorName[1];
 
-                BusinessActors BusinessActors = new BusinessActors();
-                int actorId = BusinessActors.FindActorId(actorFirstName, actorLastName);
+                BusinessActors businessActors = new BusinessActors();
+                int actorId = businessActors.FindActorId(actorFirstName, actorLastName);
 
                 ShowActorMovies(actorId);
             }
@@ -580,9 +581,9 @@ namespace ConsolePresentation.ModelPresentation
             Console.Clear();
             Console.WriteLine("Here are some of the movies, where the selected actor has played");
 
-            BusinessMovies BusinessMovies = new BusinessMovies();
+            BusinessMovies businessMovies = new BusinessMovies();
 
-            foreach (Movie movie in BusinessMovies.GetMoviesByActorId(actorId))
+            foreach (Movie movie in businessMovies.GetMoviesByActorId(actorId))
             {
                 Console.WriteLine(movie.Title);
             }
